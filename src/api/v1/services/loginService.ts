@@ -1,4 +1,6 @@
 import { UserLogin, UserCreate, UserApiCallModel } from "../models/userModels";
+const admin = require("firebase-admin");
+import { serviceAccount } from "../../../config/firebaseConfig";
 
 export const userLogin = async (
     userEmail: string,
@@ -16,7 +18,7 @@ export const userLogin = async (
         const response = await fetch(url, {
             method: "POST",
             body: JSON.stringify(loginInfo)
-        })
+        });
 
         const userInfo = await response.json();
 
@@ -26,5 +28,28 @@ export const userLogin = async (
         } as UserLogin;
     } catch (error: unknown) {
         throw error;
-    }
+    };
+};
+
+export const userCreate = async (
+    userEmail: string,
+    userPassword: string,
+): Promise<UserCreate> => {
+    try {
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+        })
+        admin.auth.createUser({
+            email: userEmail,
+            password: userPassword
+        });
+
+        return {
+            email: userEmail,
+            password: userPassword
+        } as UserCreate;
+
+    } catch (error: unknown) {
+        throw error;
+    };
 };
