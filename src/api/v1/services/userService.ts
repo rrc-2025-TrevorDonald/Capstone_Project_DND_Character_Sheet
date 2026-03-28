@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 import { serviceAccount } from "../../../config/firebaseConfig";
 import { auth } from "../../../config/firebaseConfig";
 import type * as adminTypes from "firebase-admin";
+import { UserNotFoundError } from "../errors/errors";
 
 export const userLogin = async (
     userEmail: string,
@@ -21,6 +22,10 @@ export const userLogin = async (
             method: "POST",
             body: JSON.stringify(loginInfo)
         });
+
+        if (!response.ok) {
+            throw new UserNotFoundError("USER_NOT_FOUND");
+        };
 
         const userInfo: UserLogin = await response.json();
 
