@@ -18,4 +18,18 @@ export const newLogin = async (
     } catch (error) {
         next(error);
     };
-}
+};
+
+export const newUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { email, password } = req.body;
+        const sendUser: UserCreate = await userCreate(email, password);
+        res.status(HTTP_STATUS.OK).json(sendUser);
+    } catch (error) {
+        next(error);
+    };
+};
