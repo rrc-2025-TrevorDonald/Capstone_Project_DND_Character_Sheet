@@ -13,7 +13,8 @@ export const newLogin = async (
 ): Promise<void> => {
     try {
         const { email, password } = req.body;
-        const sendLogin: UserLogin = await userLogin(email, password, APIKEY);
+        const login = { email, password }
+        const sendLogin: UserLogin = await userLogin(login.email, login.password, APIKEY);
         res.status(OK).json(sendLogin);
     } catch (error) {
         next(error);

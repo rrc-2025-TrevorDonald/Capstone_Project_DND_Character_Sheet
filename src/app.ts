@@ -11,6 +11,8 @@ interface HealthCheckResponse {
     version: string;
 };
 
+app.use(express.json());
+
 /**
  * Health check endpoint that returns server status information
  * @returns JSON response with server health metrics
