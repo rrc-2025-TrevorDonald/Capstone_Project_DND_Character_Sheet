@@ -9,6 +9,9 @@ router.post(
     "/",
     validateRequest(signinSchemas.loginOrCreate),
     userController.newLogin);
-router.post("/new", userController.newUser);
+router.post(
+    "/new",
+    validateRequest(signinSchemas.loginOrCreate),
+    userController.newUser);
 
 export default router;

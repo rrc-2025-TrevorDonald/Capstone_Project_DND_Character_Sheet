@@ -20,7 +20,7 @@ describe("Validation Middleware", () => {
         mockNext = jest.fn();
     });
 
-    describe("Signin Validation", () => {
+    describe("Login/Create user Validation", () => {
         describe("create Schema", () => {
             it("should pass validation for valid signin event", () => {
                 // Arrange
@@ -28,7 +28,7 @@ describe("Validation Middleware", () => {
                     email: "Test@test.com",
                     password: "tests"
                 };
-                const middleware = validateRequest(signinSchemas.create);
+                const middleware = validateRequest(signinSchemas.loginOrCreate);
 
                 // Act
                 middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -43,7 +43,7 @@ describe("Validation Middleware", () => {
                 mockReq.body = {
                     password: "tests"
                 };
-                const middleware = validateRequest(signinSchemas.create);
+                const middleware = validateRequest(signinSchemas.loginOrCreate);
 
                 // Act
                 middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -62,7 +62,7 @@ describe("Validation Middleware", () => {
                     email: "invalid",
                     password: "tests"
                 };
-                const middleware = validateRequest(signinSchemas.create);
+                const middleware = validateRequest(signinSchemas.loginOrCreate);
 
                 // Act
                 middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -80,7 +80,7 @@ describe("Validation Middleware", () => {
                 mockReq.body = {
                     email: "test@test.com"
                 };
-                const middleware = validateRequest(signinSchemas.create);
+                const middleware = validateRequest(signinSchemas.loginOrCreate);
 
                 // Act
                 middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -99,7 +99,7 @@ describe("Validation Middleware", () => {
                     email: "test@test.com",
                     password: "test"
                 };
-                const middleware = validateRequest(signinSchemas.create);
+                const middleware = validateRequest(signinSchemas.loginOrCreate);
 
                 // Act
                 middleware(mockReq as Request, mockRes as Response, mockNext);
