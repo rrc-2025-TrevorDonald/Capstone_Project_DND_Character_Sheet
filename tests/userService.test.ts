@@ -1,6 +1,5 @@
 import { UserCreate, UserLogin } from "../src/api/v1/models/userModels";
 import * as userService from "../src/api/v1/services/userService";
-import { apiKey } from "../apiKey"
 import { UserNotFoundError } from "../src/api/v1/errors/errors";
 import admin from "firebase-admin";
 
@@ -33,7 +32,7 @@ describe("User Service", () => {
             // Arrange
             const mockEmail: string = "test@test.com";
             const mockPassword: string = "tests";
-            const mockApiKey: string = apiKey;
+            const mockApiKey: string = "testKey";
             const mockLoginResponse: UserLogin = {
                 email: "test@test.com",
                 idToken: "testToken"

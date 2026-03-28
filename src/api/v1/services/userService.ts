@@ -51,9 +51,9 @@ export const userCreate = async (
             password: userPassword
         });
 
-        const uid = String(createdUser.uid)
+        const uid: string = createdUser.uid;
 
-        const givePlayer = { "role": "player" };
+        const givePlayer = { "role": "player" } as const;
         await admin.auth().setCustomUserClaims(uid, givePlayer)
         return {
             email: userEmail,
