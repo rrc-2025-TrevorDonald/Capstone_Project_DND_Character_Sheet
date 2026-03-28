@@ -31,9 +31,9 @@ describe("User Service", () => {
     describe("userLogin", () => {
         it("should successfully login in user with valid credentials", async () => {
             // Arrange
-            const mockEmail = "test@test.com";
-            const mockPassword = "tests";
-            const mockApiKey = apiKey;
+            const mockEmail: string = "test@test.com";
+            const mockPassword: string = "tests";
+            const mockApiKey: string = apiKey;
             const mockLoginResponse: UserLogin = {
                 email: "test@test.com",
                 idToken: "testToken"
@@ -67,14 +67,14 @@ describe("User Service", () => {
 
         it("should a error with invalid user login credentials", async () => {
             // Arrange
-            const mockEmail = "invalid@test.com";
-            const mockPassword = "invalidPassword";
-            const mockApiKey = "invalidAPIKey";
+            const mockEmail: string = "invalid@test.com";
+            const mockPassword: string = "invalidPassword";
+            const mockApiKey: string = "invalidAPIKey";
             const firebaseError = {               
                     error: {
                         message: "USER_NOT_FOUND",
                     },
-            };
+            } as const;
 
             // Act
             (global.fetch as jest.Mock).mockResolvedValue({
