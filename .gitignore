@@ -3,6 +3,8 @@ dist/
 
 .vscode/
 
+coverage/
+
 src/logs/
 *.log
 
