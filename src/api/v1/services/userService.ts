@@ -2,6 +2,7 @@ import { UserLogin, UserCreate, UserApiCallModel } from "../models/userModels";
 const admin = require("firebase-admin");
 import { serviceAccount } from "../../../config/firebaseConfig";
 import { auth } from "../../../config/firebaseConfig";
+import type * as adminTypes from "firebase-admin";
 
 export const userLogin = async (
     userEmail: string,
@@ -10,18 +11,18 @@ export const userLogin = async (
 ): Promise<UserLogin> => {
     try {
         const url: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
-        const loginInfo: Partial<UserApiCallModel> = {
+        const loginInfo: UserApiCallModel = {
             email: userEmail,
             password:userPassword,
             returnSecureToken: true
         };
 
-        const response = await fetch(url, {
+        const response: Response  = await fetch(url, {
             method: "POST",
             body: JSON.stringify(loginInfo)
         });
 
-        const userInfo = await response.json();
+        const userInfo: UserLogin = await response.json();
 
         return {
             email: userInfo.email,
@@ -41,7 +42,7 @@ export const userCreate = async (
             credential: admin.credential.cert(serviceAccount)
         })
 
-        const createdUser = admin.auth.createUser({
+        const createdUser: adminTypes.auth.UserRecord = admin.auth.createUser({
             email: userEmail,
             password: userPassword
         });
