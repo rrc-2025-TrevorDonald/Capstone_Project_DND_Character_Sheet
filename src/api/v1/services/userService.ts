@@ -1,6 +1,7 @@
 import { UserLogin, UserCreate, UserApiCallModel } from "../models/userModels";
 const admin = require("firebase-admin");
 import { serviceAccount } from "../../../config/firebaseConfig";
+import { auth } from "../../../config/firebaseConfig";
 
 export const userLogin = async (
     userEmail: string,
@@ -39,11 +40,14 @@ export const userCreate = async (
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount)
         })
-        admin.auth.createUser({
+
+        const createdUser = admin.auth.createUser({
             email: userEmail,
             password: userPassword
         });
 
+        const givePlayer = { "role": "admin" };
+        await auth.setCustomUserClaims(createdUser.uid, givePlayer)
         return {
             email: userEmail,
             password: userPassword
