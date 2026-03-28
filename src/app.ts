@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import userRoutes from "./api/v1/routes/userRoutes";
+import adminRoutes from "./api/v1/routes/adminRoutes"
 
 const app: Express = express();
 
@@ -25,6 +26,7 @@ app.get("/api/v1/health", (req, res) => {
     res.json(healthData);
 });
 
+app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
 
 export default app;
