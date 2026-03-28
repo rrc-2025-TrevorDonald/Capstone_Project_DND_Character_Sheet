@@ -4,7 +4,7 @@ import { RequestSchemas } from "../middleware/validate";
 
 
 export const signinSchemas: Record<string, RequestSchemas> = {
-    create: {
+    loginOrCreate: {
         body: Joi.object({
             email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
                 "any.required": '"email" is required',
