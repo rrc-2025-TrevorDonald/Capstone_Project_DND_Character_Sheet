@@ -1,7 +1,6 @@
 import { UserLogin, UserCreate, UserApiCallModel } from "../models/userModels";
 const admin = require("firebase-admin");
 import { serviceAccount } from "../../../config/firebaseConfig";
-import { auth } from "../../../config/firebaseConfig";
 import type * as adminTypes from "firebase-admin";
 import { UserNotFoundError } from "../errors/errors";
 
@@ -47,13 +46,15 @@ export const userCreate = async (
             credential: admin.credential.cert(serviceAccount)
         })
 
-        const createdUser: adminTypes.auth.UserRecord = admin.auth.createUser({
+        const createdUser: adminTypes.auth.UserRecord = admin.auth().createUser({
             email: userEmail,
             password: userPassword
         });
 
-        const givePlayer = { "role": "admin" };
-        await auth.setCustomUserClaims(createdUser.uid, givePlayer)
+        const uid = String(createdUser.uid)
+
+        const givePlayer = { "role": "player" };
+        await admin.auth().setCustomUserClaims(uid, givePlayer)
         return {
             email: userEmail,
             password: userPassword
