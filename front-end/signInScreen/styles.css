@@ -1,0 +1,86 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    background-color: rgb(243, 243, 243);
+}
+
+header {
+    text-align: center;
+    background-color: rgb(209, 66, 66);
+    padding: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 825px;
+}
+
+/* Login box */
+#login {
+    text-align: center;
+    background-color: rgb(223, 223, 223);
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 550px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login label {
+    margin-top: 1rem;
+}
+
+#login input {
+    width: 320px;
+    border: 1px solid rgb(98, 98, 98);
+}
+
+#login button {
+    margin-top: 1rem;
+    width: 153px;
+}
+
+#login button:hover {
+    background-color: rgba(209, 66, 66, 0.902);
+    box-shadow: 2px 2px 9px black;
+}
+
+#createAccountBtn {
+    margin-left: 1rem;
+}
+
+/* Create box */
+#create {
+    text-align: center;
+    background-color: rgb(223, 223, 223);
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 550px;
+    height: 450px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#create label {
+    margin-top: 1rem;
+}
+
+#create input {
+    width: 320px;
+    border: 1px solid rgb(98, 98, 98);
+}
+
+#create button {
+    margin-top: 1rem;
+    width: 153px;
+}
