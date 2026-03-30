@@ -12,8 +12,17 @@ const create = document.getElementById("create");
 const createEmail = document.getElementById("createEmail");
 const createPassword = document.getElementById("createPassword");
 const createBtn = document.getElementById("createBtn");
+const completeMessage = document.getElementById("completeMessage");
 
 const userApi = "http://localhost:3000/api/v1/users"
+
+const completeCreate = async () => {
+    completeMessage.style.display = "block";
+    await delay(7500);
+    completeMessage.style.display = "none";
+    create.style.display = "none";
+    login.style.display = "flex";
+}
 
 const sendLogin = async () => {
     const reqOptions = {
@@ -50,3 +59,10 @@ const sendCreate = async () => {
 
     console.log(`User ${response.email} has been created`);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    createAccountBtn.addEventListener("click", () =>{
+        login.style.display = "none";
+        create.style.display = "flex";
+    });
+});
