@@ -7,6 +7,11 @@ import {
 
 const COLLECTION: string = "chars";
 
+interface FieldValuePair {
+    fieldName: string;
+    fieldValue: any;
+}
+
 export const createChar = async (charData: {
     charName: string,
     email: string
@@ -377,6 +382,33 @@ export const createChar = async (charData: {
 
         await createDocument<Char>(COLLECTION, newChar, charData.charName);
         return newChar  as Char;
+    } catch (error) {
+        throw error;
+    };
+};
+
+export const getChars = async (): Promise<Char[]> => {
+    try {
+        const snapshot = await getDocuments(COLLECTION);
+        const chars: Char[] = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return data.charName as Char;
+        });
+        return chars;
+    } catch (error) {
+        throw error;
+    };
+};
+
+export const getUserChars = async (userEmail: string): Promise<Char[]> => {
+    try {
+        const emailMatch: FieldValuePair[] = [{fieldName: "email", fieldValue: userEmail}];
+        const snapshot = await getDocumentsByFieldValues(COLLECTION, emailMatch);
+        const chars: Char[] = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return data.charName as Char;
+        });
+        return chars;
     } catch (error) {
         throw error;
     };

@@ -1,10 +1,15 @@
 import { db } from "../../../config/firebaseConfig";
 
+type FirestoreDataTypes =
+    | string
+    | number
+    | boolean
+    | null
+
 interface FieldValuePair {
     fieldName: string;
-    fieldValue: string
+    fieldValue: FirestoreDataTypes;
 }
-
 /**
  * Creates a new document in a specified Firestore collection.
  * @param {string} collectionName - The name of the collection.
