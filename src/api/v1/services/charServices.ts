@@ -1,4 +1,5 @@
 import { Char } from "../models/charModel";
+import { QuerySnapshot } from "firebase-admin/firestore";
 import {
     createDocument,
     getDocuments,
@@ -389,7 +390,7 @@ export const createChar = async (charData: {
 
 export const getChars = async (): Promise<Char[]> => {
     try {
-        const snapshot = await getDocuments(COLLECTION);
+        const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
             return data.charName as Char;
@@ -403,7 +404,7 @@ export const getChars = async (): Promise<Char[]> => {
 export const getUserChars = async (userEmail: string): Promise<Char[]> => {
     try {
         const emailMatch: FieldValuePair[] = [{fieldName: "email", fieldValue: userEmail}];
-        const snapshot = await getDocumentsByFieldValues(COLLECTION, emailMatch);
+        const snapshot: QuerySnapshot = await getDocumentsByFieldValues(COLLECTION, emailMatch);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
             return data.charName as Char;
