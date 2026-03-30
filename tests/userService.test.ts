@@ -88,28 +88,30 @@ describe("User Service", () => {
     });
 
     describe("userCreate", () => {
+        const mockAuth = admin.auth() as jest.Mocked<ReturnType<typeof admin.auth>>;
         it("shout successfully create a user with valid credentials", async () => {
             // Arrange
             const mockEmail: string = "test@test.com";
             const mockPassword: string = "Password1";
             const mockCreateResponse: UserCreate = {
                 email: "test@test.com",
-                password: "Password1",
-            };
-            const mockAuth = admin.auth() as any;
+                password: "Password1"
+            }
+            mockAuth.createUser.mockResolvedValue({
+                uid: "1234",
+                email: "test@example.com"
+            } as any);
 
-            // Act
-            mockAuth.createUser.mockResolvedValue({ uid: "12345" });
             mockAuth.setCustomUserClaims.mockResolvedValue(undefined);
+
             const actual = await userService.userCreate(mockEmail, mockPassword);
 
-            // Assert
-            expect(admin.initializeApp).toHaveBeenCalled();
-            expect(mockAuth.createUser).toHaveBeenCalledWith({
-                email: "test@test.com",
-                password: "Password1",
+            expect(mockAuth.createUser).toHaveBeenCalledWith(mockCreateResponse);
+
+            expect(mockAuth.setCustomUserClaims).toHaveBeenCalledWith("1234", {
+                role: "player"
             });
-            expect(mockAuth.setCustomUserClaims).toHaveBeenCalled();
+
             expect(actual).toEqual(mockCreateResponse);
         });
     });

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Dungeons & Dragons Character Sheet Manager</h1>
+    </header>
+    <main>
+        <form action="submit" id="loginForm"></form>
+            <section id="login">
+                <h2>Login or Sign up</h2>
+                <label for="loginEmail">Email</label>
+                <input type="text" id="loginEmail">
+                <label for="loginPassword">Password</label>
+                <input type="text" id="loginPassword">
+                <div>
+                    <button id="loginBtn">Login</button>
+                    <button id="createAccountBtn">Create account</button>
+                </div>
+                <h3 id="loginError" class="errorMessage"></h3>
+            </section>
+        </form>
+        <form action="submit" id="createForm">
+            <section id="create">
+                <h2 id="createH2">Sign up</h2>
+                <label for="createEmail" id="labelEmail">Email</label>
+                <input type="text" id="createEmail">
+                <label for="createPassword" id="labelPassword">Password</label>
+                <input type="text" id="createPassword">
+                <button id="createBtn">Create account</button>
+                <h3 id="createError" class="errorMessage"></h3>
+                <h3 id="completeMessage">Registration completed, please login with used credentials</h3>
+            </section>
+        </form>
+    </main>
+    <footer>
+        <p>
+            Created by: Trevor Donald, for Back-End Development Capstone Project
+        </p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
