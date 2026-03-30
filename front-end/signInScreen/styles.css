@@ -5,6 +5,10 @@ body {
     background-size: cover;
 }
 
+.errorMessage {
+    color: red;
+}
+
 header {
     text-align: center;
     background-color: rgb(209, 66, 66, 0.925);

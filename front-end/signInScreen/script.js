@@ -5,24 +5,42 @@ const loginEmail = document.getElementById("loginEmail");
 const loginPassword = document.getElementById("loginPassword");
 const loginBtn = document.getElementById("loginBtn");
 const createAccountBtn = document.getElementById("createAccountBtn");
+const loginError = document.getElementById("loginError");
 
 // Create variables
 const createForm = document.getElementById("createForm");
 const create = document.getElementById("create");
+const createH2 = document.getElementById("createH2");
+const labelEmail = document.getElementById("labelEmail");
 const createEmail = document.getElementById("createEmail");
+const labelPassword = document.getElementById("labelPassword");
 const createPassword = document.getElementById("createPassword");
 const createBtn = document.getElementById("createBtn");
+const createError = document.getElementById("createError");
 const completeMessage = document.getElementById("completeMessage");
 
 const userApi = "http://localhost:3000/api/v1/users"
 
 const completeCreate = async () => {
+    createH2.style.display = "none";
+    labelEmail.style.display = "none";
+    createEmail.style.display = "none";
+    labelPassword.style.display = "none";
+    createPassword.style.display = "none";
+    createBtn.style.display = "none"
     completeMessage.style.display = "block";
-    await delay(7500);
-    completeMessage.style.display = "none";
-    create.style.display = "none";
-    login.style.display = "flex";
-}
+    setTimeout(() => {
+        completeMessage.style.display = "none";
+        createH2.style.display = "block";
+        labelEmail.style.display = "block";
+        createEmail.style.display = "block";
+        labelPassword.style.display = "block";
+        createPassword.style.display = "block";
+        createBtn.style.display = "block"
+        create.style.display = "none";
+        login.style.display = "flex";
+    }, 3000);
+};
 
 const sendLogin = async () => {
     const reqOptions = {
@@ -30,17 +48,22 @@ const sendLogin = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({
             email: loginEmail.value,
             password: loginPassword.value
-        }
+        })
     };
 
     const response = await fetch(userApi, reqOptions);
     const signIn = await response.json();
 
-    sessionStorage.setItem("user", signIn.email);
-    sessionStorage.setItem("auth", signIn.idToken);
+    if (signIn.error) {
+        const strippedError = signIn.error.split("Body:").splice(1);
+        loginError.textContent = strippedError.shift(1);
+    } else {
+        sessionStorage.setItem("user", signIn.email);
+        sessionStorage.setItem("auth", signIn.idToken);
+    }
 };
 
 const sendCreate = async () => {
@@ -49,15 +72,22 @@ const sendCreate = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({
             email: createEmail.value,
             password: createPassword.value
-        }
+        })
     };
 
-    const response = await fetch(userApi + "/new", reqOptions);
 
-    console.log(`User ${response.email} has been created`);
+    const response = await fetch(userApi + "/new", reqOptions);
+    const createUser = await response.json();
+
+    if (createUser.error) {
+        const strippedError = createUser.error.split("Body:").splice(1);
+        createError.textContent = strippedError.shift(1);
+    } else {
+        completeCreate();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -65,4 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
         login.style.display = "none";
         create.style.display = "flex";
     });
+
+    loginBtn.addEventListener("click", () => {
+        sendLogin()
+    });
+    createBtn.addEventListener("click", () =>{
+        sendCreate()
+    })
+    document.addEventListener("submit", (event) => {
+        event.preventDefault()
+    })
 });
