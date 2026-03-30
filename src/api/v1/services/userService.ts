@@ -1,6 +1,7 @@
 import { UserLogin, UserCreate, UserApiCallModel } from "../models/userModels";
 import admin from "firebase-admin";
 import { UserNotFoundError } from "../errors/errors";
+import { Auth, UserRecord } from "node_modules/firebase-admin/lib/auth";
 
 export const userLogin = async (
     userEmail: string,
@@ -40,20 +41,15 @@ export const userCreate = async (
     userPassword: string,
 ): Promise<UserCreate> => {
     try {
-        if (!admin.apps.length) {
-            admin.initializeApp({
-            credential: admin.credential.applicationDefault(),
-        });
-        }
+        const auth: Auth = admin.auth();
 
-        const auth = admin.auth();
-
-        const createdUser = await auth.createUser({
+        const createdUser: UserRecord = await auth.createUser({
             email: userEmail,
             password: userPassword
-        });;
+        });
 
         await auth.setCustomUserClaims(createdUser.uid, { role: "player" })
+        
         return {
             email: userEmail,
             password: userPassword

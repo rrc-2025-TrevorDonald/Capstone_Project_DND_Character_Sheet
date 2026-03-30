@@ -42,7 +42,15 @@ const completeCreate = async () => {
     }, 3000);
 };
 
+const removeErrorMessages = () => {
+    const errorMessages = document.querySelectorAll(".errorMessage")
+    for (const el of errorMessages){
+        el.textContent = ""
+    };
+};
+
 const sendLogin = async () => {
+    removeErrorMessages()
     const reqOptions = {
         method: "POST",
         headers: {
@@ -67,6 +75,7 @@ const sendLogin = async () => {
 };
 
 const sendCreate = async () => {
+    removeErrorMessages()
     const reqOptions = {
         method: "POST",
         headers: {
@@ -77,7 +86,6 @@ const sendCreate = async () => {
             password: createPassword.value
         })
     };
-
 
     const response = await fetch(userApi + "/new", reqOptions);
     const createUser = await response.json();
@@ -92,6 +100,7 @@ const sendCreate = async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     createAccountBtn.addEventListener("click", () =>{
+        removeErrorMessages()
         login.style.display = "none";
         create.style.display = "flex";
     });
