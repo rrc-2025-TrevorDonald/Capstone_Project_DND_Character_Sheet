@@ -2,16 +2,10 @@ import { Char } from "../models/charModel";
 import { QuerySnapshot } from "firebase-admin/firestore";
 import {
     createDocument,
-    getDocuments,
-    getDocumentsByFieldValues
+    getDocuments
 } from "../repositories/firestoreRepository";
 
 const COLLECTION: string = "chars";
-
-interface FieldValuePair {
-    fieldName: string;
-    fieldValue: any;
-}
 
 export const createChar = async (charData: {
     charName: string,
@@ -403,13 +397,21 @@ export const getChars = async (): Promise<Char[]> => {
 
 export const getUserChars = async (userEmail: string): Promise<Char[]> => {
     try {
-        const emailMatch: FieldValuePair[] = [{fieldName: "email", fieldValue: userEmail}];
-        const snapshot: QuerySnapshot = await getDocumentsByFieldValues(COLLECTION, emailMatch);
+        let filteredChars: Char[] = [];
+        const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
-            return data.charName as Char;
+            return {
+                charName: data.charName,
+                email: data.email
+            } as Char;
         });
-        return chars;
+        for (let i = 0; i < chars.length; i++) {
+            if (chars[i].email === userEmail) {
+                filteredChars.push(chars[i]);
+            };
+        };
+        return filteredChars;
     } catch (error) {
         throw error;
     };

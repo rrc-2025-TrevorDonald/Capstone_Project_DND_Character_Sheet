@@ -8,6 +8,7 @@ describe("Character Service", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
+
     describe("createChar", () => {
         it("should create an char successfully", async () => {
             // Arrange
@@ -393,6 +394,61 @@ describe("Character Service", () => {
             );
             expect(actual.charName).toBe("Test");
             expect(actual.email).toBe("test@test.com")
+        });
+    });
+
+    describe("getChars", () => {
+        it("should return all chars", async () => {
+            // Arrange
+            const mockArray = [
+                {charName: "test1", email: "test1@test.com"},
+                {charName: "test2", email: "test2@test.com"},
+                {charName: "test3", email: "test3@test.com"}
+            ];
+
+            jest.spyOn(charService, "getChars").mockResolvedValue(mockArray);
+
+            (firestoreRepository.getDocuments as jest.Mock).mockResolvedValue(undefined);
+
+            // Act
+            const actual: Char[] = await charService.getChars();
+
+            // Assert
+            expect(actual).toStrictEqual([
+                {charName: "test1", email: "test1@test.com"},
+                {charName: "test2", email: "test2@test.com"},
+                {charName: "test3", email: "test3@test.com"}
+            ]);
+        });
+    });
+
+    describe("getUserChars", () => {
+        it("should return all chars with the supplied email", async () => {
+            // Arrange
+            const mockEmail = "test@test.com"
+            const mockArray = {
+                docs: [
+                    {data: () => ({ charName: "test1", email: "test@test.com" })},
+                    {data: () => ({ charName: "test2", email: "tests@test.com" })},
+                    {data: () => ({ charName: "test3", email: "test@test.com" })}
+                ]
+            };
+
+            jest.spyOn(charService, "getUserChars").mockResolvedValue([
+                {charName: "test1", email: "test@test.com"},
+                {charName: "test3", email: "test@test.com"}
+            ]);
+
+            (firestoreRepository.getDocuments as jest.Mock).mockResolvedValue(mockArray);
+
+            // Act
+            const actual: Char[] = await charService.getUserChars(mockEmail);
+
+            // Assert
+            expect(actual).toStrictEqual([
+                {charName: "test1", email: "test@test.com"},
+                {charName: "test3", email: "test@test.com"}
+            ]);
         });
     });
 });
