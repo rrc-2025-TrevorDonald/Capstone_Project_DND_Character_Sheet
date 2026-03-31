@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainScreen.css">
+    <title>D&D Character Sheet</title>
+</head>
+<body>
+    <header>
+        <h1>Dungeons & Dragons Character Sheet Manager</h1>
+    </header>
+    <main>
+        <section>
+            <section id="listSection">
+                <h2>Please select a Character to continue or create a new Character.</h2>
+                <ul id="charList">
+                    <li>"Name", "Class", "LVL"<button>select</button></li>
+                    <li>"Name", "Class", "LVL"<button>select</button></li>
+                    <li>"Name", "Class", "LVL"<button>select</button></li>
+                </ul>
+                <button id="createNewChar">Create New Character</button>
+            </section>
+            <section id="createSection">
+                <h4>Inputs with * are required fields</h4>
+                <div>
+                    <label for="charNameInput">*Character name</label>
+                    <input type="text" id="charNameInput">
+                    <label for="playerInput">*Player name</label>
+                    <input type="text" id="playerInput">
+                </div>
+                <div>
+                    <label for="lvlInput">Level</label>
+                    <input type="text" id="lvlInput">
+                    <label for="alignmentInput">Alignment</label>s
+                    <input type="text" id="alignmentInput">
+                </div>
+                <div>
+                    <label for="raceInput">Race</label>
+                    <input type="text" id="raceInput">
+                    <label for="classInput">Class</label>
+                    <input type="text" id="classInput">
+                </div>
+                <div>
+                    <button id="createBtn">Create</button>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <p>Created by: Trevor Donald, for Back-End Development Capstone Project</p>
+    </footer>
+    <script src="mainScreen.js"></script>
+</body>
+</html>
