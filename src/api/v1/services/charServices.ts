@@ -10,11 +10,11 @@ const COLLECTION: string = "chars";
 export const createChar = async (charData: {
     charName: string,
     email: string,
-    level?: string,
+    level: string,
     playerName: string,
-    alignment?: string,
-    race?: string,
-    class?: string
+    alignment: string,
+    race: string,
+    class: string
 }): Promise<Char> => {
     try {
         const newChar: Char = {

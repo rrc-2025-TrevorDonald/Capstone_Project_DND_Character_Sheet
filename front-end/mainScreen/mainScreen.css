@@ -20,6 +20,18 @@ header {
     width: 50%;
 }
 
+#headerDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header button {
+    margin-left: 2rem;
+}
+
+
+
 /* Character list */
 #listSection {
     text-align: center;
@@ -62,7 +74,7 @@ header {
     box-shadow: 2px 2px 9px black;
     width: 45%;
     height: 450px;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;

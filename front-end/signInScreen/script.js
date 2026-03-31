@@ -72,6 +72,7 @@ const sendLogin = async () => {
     } else {
         sessionStorage.setItem("user", signIn.email);
         sessionStorage.setItem("auth", signIn.idToken);
+        window.location.href = "../mainScreen/mainScreen.html"
     }
 };
 
