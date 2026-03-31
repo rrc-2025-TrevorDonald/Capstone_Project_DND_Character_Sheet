@@ -408,7 +408,9 @@ export const getUserChars = async (userEmail: string): Promise<Char[]> => {
             const data = doc.data();
             return {
                 charName: data.charName,
-                email: data.email
+                class: data.class,
+                level: data.level,
+                playerName: data.playerName
             } as Char;
         });
         for (let i: number = 0; i < chars.length; i++) {

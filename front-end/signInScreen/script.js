@@ -51,11 +51,11 @@ const removeErrorMessages = () => {
 };
 
 const sendLogin = async () => {
-    removeErrorMessages()
+    removeErrorMessages();
     const reqOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             email: loginEmail.value,
@@ -80,7 +80,7 @@ const sendCreate = async () => {
     const reqOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             email: createEmail.value,
