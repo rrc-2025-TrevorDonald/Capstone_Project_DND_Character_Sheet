@@ -10,8 +10,8 @@ export const createChar = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { charName, email } = req.body;
-        const char = { charName, email };
+        const { charName, email, playerName, level, race, playerClass, alignment } = req.body;
+        const char = { charName, email, playerName, level, race, playerClass, alignment  };
 
         const newChar: Char = await charService.createChar(char);
         res.status(HTTP_STATUS.OK).json(

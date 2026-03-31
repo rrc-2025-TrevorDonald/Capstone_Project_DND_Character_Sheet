@@ -12,20 +12,25 @@ describe("Character Service", () => {
     describe("createChar", () => {
         it("should create an char successfully", async () => {
             // Arrange
-            const mockInputData: Char = {
+            const mockInputData = {
                 charName: "Test",
-                email: "test@test.com"
+                email: "test@test.com",
+                level: "1",
+                playerName: "Test",
+                alignment: "Not Selected",
+                race: "Not Selected",
+                class: "Not Selected"
             };
             const mockResultData: Char = {
                 charName: "Test",
                 email: "test@test.com",
                 level: "1",
                 xp: "0",
-                playerName: "",
-                class: "",
-                race: "",
-                background: "",
-                alignment: "",
+                playerName: "Test",
+                class: "Not Selected",
+                race: "Not Selected",
+                background: "Not Selected",
+                alignment: "Not Selected",
                 str: 0,
                 dex: 0,
                 con: 0,

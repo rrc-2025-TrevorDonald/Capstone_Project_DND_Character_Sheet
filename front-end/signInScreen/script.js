@@ -15,6 +15,7 @@ const labelEmail = document.getElementById("labelEmail");
 const createEmail = document.getElementById("createEmail");
 const labelPassword = document.getElementById("labelPassword");
 const createPassword = document.getElementById("createPassword");
+const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
 const createError = document.getElementById("createError");
 const completeMessage = document.getElementById("completeMessage");
@@ -107,6 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginBtn.addEventListener("click", () => {
         sendLogin()
+    });
+    backBtn.addEventListener("click", () => {
+        removeErrorMessages()
+        login.style.display = "flex";
+        create.style.display = "none";
     });
     createBtn.addEventListener("click", () =>{
         sendCreate()

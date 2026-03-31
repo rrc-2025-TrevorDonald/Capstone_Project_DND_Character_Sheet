@@ -9,19 +9,24 @@ const COLLECTION: string = "chars";
 
 export const createChar = async (charData: {
     charName: string,
-    email: string
+    email: string,
+    level?: string,
+    playerName: string,
+    alignment?: string,
+    race?: string,
+    class?: string
 }): Promise<Char> => {
     try {
         const newChar: Char = {
             charName: charData.charName,
             email: charData.email,
-            level: "1",
+            level: charData.level,
             xp: "0",
-            playerName: "",
-            class: "",
-            race: "",
-            background: "",
-            alignment: "",
+            playerName: charData.playerName,
+            class: charData.class,
+            race: charData.race,
+            background: "Not Selected",
+            alignment: charData.alignment ,
             str: 0,
             dex: 0,
             con: 0,
