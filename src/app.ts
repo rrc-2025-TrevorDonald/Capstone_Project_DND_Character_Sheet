@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes"
+import charRoutes from "./api/v1/routes/charRoutes"
 
 const app: Express = express();
 
@@ -30,5 +31,6 @@ app.get("/api/v1/health", (req, res) => {
 
 app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/chars", charRoutes);
 
 export default app;

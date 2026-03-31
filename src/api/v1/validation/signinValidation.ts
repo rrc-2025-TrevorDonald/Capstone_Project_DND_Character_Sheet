@@ -19,3 +19,28 @@ export const signinSchemas: Record<string, RequestSchemas> = {
         })
     }
 };
+
+export const charSchemas: Record<string, RequestSchemas> = {
+    create: {
+        body: Joi.object({
+            charName: Joi.string().required().messages({
+                "string.required": '"charName" is required',
+                "string.empty": '"charName" is required',
+            }),
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            }),
+        })
+    },
+    getUserChars: {
+        body: Joi.object({
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            })
+        })
+    }
+};
