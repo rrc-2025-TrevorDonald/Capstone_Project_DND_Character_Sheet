@@ -397,7 +397,7 @@ export const getChars = async (): Promise<Char[]> => {
 
 export const getUserChars = async (userEmail: string): Promise<Char[]> => {
     try {
-        let filteredChars: Char[] = [];
+        const filteredChars: Char[] = [];
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
@@ -406,7 +406,7 @@ export const getUserChars = async (userEmail: string): Promise<Char[]> => {
                 email: data.email
             } as Char;
         });
-        for (let i = 0; i < chars.length; i++) {
+        for (let i: number = 0; i < chars.length; i++) {
             if (chars[i].email === userEmail) {
                 filteredChars.push(chars[i]);
             };
