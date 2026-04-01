@@ -1,8 +1,11 @@
 import { Char } from "../models/charModel";
-import { QuerySnapshot } from "firebase-admin/firestore";
+import { QuerySnapshot, DocumentSnapshot, DocumentData } from "firebase-admin/firestore";
 import {
     createDocument,
-    getDocuments
+    getDocuments,
+    getDocumentById,
+    updateDocument,
+    deleteDocument
 } from "../repositories/firestoreRepository";
 
 const COLLECTION: string = "chars";
@@ -413,4 +416,45 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
     } catch (error) {
         throw error;
     };
+};
+
+export const getCharById = async (id: string): Promise<Char> => {
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
+
+    if (!doc) {
+        throw new Error(`Char with ID ${id} not found`);
+    }
+
+    const data: DocumentData | undefined = doc.data();
+    const char: Char = {
+        charName: doc.id,
+        ...data,
+    } as Char;
+
+    return structuredClone(char);
+};  
+
+export const updateChar = async (
+    id: string,
+    charData: Char
+): Promise<Char> => {
+    // check if the char exists before updating
+    const char: Char = await getCharById(id);
+    if (!char) {
+        throw new Error(`Char with ID ${id} not found`);
+    }
+
+    await updateDocument<Char>(COLLECTION, id, charData);
+
+    return structuredClone(charData);
+};
+
+export const deleteChar = async (id: string): Promise<void> => {
+    // check if the char exists before deleting
+    const char: Char = await getCharById(id);
+    if (!char) {
+        throw new Error(`Char with ID ${id} not found`);
+    }
+
+    await deleteDocument(COLLECTION, id);
 };
