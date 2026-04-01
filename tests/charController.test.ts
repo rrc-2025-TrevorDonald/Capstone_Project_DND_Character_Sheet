@@ -428,10 +428,7 @@ describe("Char Controller", () => {
             
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Characters retrieved successfully",
-                data: mockResultData,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(mockResultData);
         });
     });
 
@@ -453,10 +450,7 @@ describe("Char Controller", () => {
             
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Characters retrieved successfully",
-                data: mockResultData,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(mockResultData);
         });
     });
 
@@ -479,10 +473,7 @@ describe("Char Controller", () => {
             
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Characters retrieved successfully",
-                data: mockResultData,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(mockResultData);
         });
     });
 
@@ -504,10 +495,7 @@ describe("Char Controller", () => {
             
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Character retrieved successfully",
-                data: mockResultData,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(mockResultData);
         });
     });
 

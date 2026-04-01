@@ -420,12 +420,19 @@ const lvl9012 = document.getElementById("lvl9012");
 const checkboxlvl9013 = document.getElementById("checkboxlvl9013");
 const lvl9013 = document.getElementById("lvl9013");
 
+const deleteBtn = document.getElementById("deleteBtn");
+const deleteDiv = document.getElementById("deleteDiv");
+const confirmDel = document.getElementById("confirmDel");
+const confirmBtn = document.getElementById("confirmBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const unableMsg = document.getElementById("unableMsg");
+
 const loginEmail = sessionStorage.getItem("user");
 const auth = sessionStorage.getItem("auth");
 
 const selectedChar = sessionStorage.getItem("char");
 
-const charsApi = "http://localhost:3000/api/v1/chars/";
+const charsApi = "http://localhost:3000/api/v1/chars/char/";
 
 const checkedYesNoPopulate = (output, input) => {
     if (input ==="1") {
@@ -488,8 +495,8 @@ const getChar = async (characterName) => {
                 "Authorization": `Bearer ${auth}`
             }
         };
-        const response = await fetch(charsApi + "char/" + characterName, reqOptions);
-
+        const response = await fetch(charsApi + characterName, reqOptions);
+        console.log(response)
         const char = await response.json();
 
         charNameHeader.innerHTML = char.charName;
@@ -858,8 +865,8 @@ const getChar = async (characterName) => {
         lvl9013.value = char.lvl9013;
         passWis.value = char.passWis;
 
-    } catch {
-        console.log("error getting character")
+    } catch(error) {
+        console.log(error)
     };
 };
 
@@ -1245,6 +1252,26 @@ const saveChar = async (characterName) => {
     };
 };
 
+const deleteChar = async (characterName) => {
+    try {
+        const reqOptions = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth}`
+            }
+        };
+
+        await fetch(charApi + characterName, reqOptions);
+
+        unableMsg.textContent = "";
+        deleteDiv.style.display = "none";
+        window.location.href = "../mainScreen/mainScreen.html";
+
+    } catch(error) {
+        console.log(error)
+    };    
+};
 document.addEventListener("DOMContentLoaded", () => {
     getChar(selectedChar);
 
@@ -1255,5 +1282,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backBtn.addEventListener("click", () => {
         window.location.href = "../mainScreen/mainScreen.html";
+    });
+
+    deleteBtn.addEventListener("click", () => {
+        deleteDiv.style.display = "flex";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        deleteDiv.style.display = "none";
+    });
+
+    confirmBtn.addEventListener("click", () => {
+        if (confirmDel.value === charNameHeader.value) {
+            deleteChar(charNameHeader.value);
+        } else {
+            unableMsg.textContent = "Entered text does not match character name";
+        };
     });
 });

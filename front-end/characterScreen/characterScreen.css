@@ -13,6 +13,7 @@ textarea {
     display: flex;
     gap: 5px;
     height: 120px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #headName {
@@ -21,6 +22,10 @@ textarea {
     border: 2px solid black;
     padding-left: 1rem;
     padding-bottom: 1rem;
+}
+
+#headName button {
+    margin-left: 30rem;
 }
 
 #theClasses {
@@ -65,6 +70,7 @@ textarea {
     display: flex;
     margin-top: 5px;
     height: 110px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #rolls {
@@ -112,6 +118,7 @@ textarea {
     width: 270px;
     margin-top: 5px;
     height: 650px;
+    box-shadow: 2px 2px 9px black;
 }
 #throwsSkills input {
     max-width: 30px;
@@ -149,6 +156,7 @@ textarea {
     display: flex;
     flex-direction: column;
     height: 650px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #acMore input {
@@ -176,6 +184,7 @@ textarea {
     margin-left: 5px;
     display: flex;
     flex-direction: column;
+    box-shadow: 2px 2px 9px black;
 }
 
 #acMore input {
@@ -202,6 +211,7 @@ textarea {
     height: 650px;
     margin-top: 5px;
     margin-left: 5px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #equipmentDiv input{
@@ -234,6 +244,7 @@ textarea {
     width: 300px;
     margin-top: 5px;
     margin-left: 5px;
+    box-shadow: 2px 2px 9px black;
 }
 #ageMore {
     display: flex;
@@ -259,6 +270,7 @@ textarea {
     width: 589px;
     height: 649px;
     margin-top: 5px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #backstory {
@@ -280,6 +292,7 @@ textarea {
     margin-top: 5px;
     margin-left: 5px;
     height: 1339px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #featsTraits {
@@ -302,6 +315,7 @@ textarea {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
+    box-shadow: 2px 2px 9px black;
 }
 
 #spellStats input {
@@ -327,6 +341,7 @@ textarea {
     margin-top: 5px;
     margin-left: 5px;
     height: 2856px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #alliesFeats textarea {
@@ -355,6 +370,7 @@ textarea {
     margin-top: 5px;
     margin-left: 5px;
     height: 2856px;
+    box-shadow: 2px 2px 9px black;
 }
 
 #backpack {
@@ -385,7 +401,7 @@ textarea {
     margin-left: 5px;
     display: flex;
     flex-direction: column;
-
+    box-shadow: 2px 2px 9px black;
 }
 
 #total1Slots,
@@ -445,4 +461,26 @@ textarea {
 
 #spell9 {
     top: 4106px;
+}
+
+#deleteDiv {
+    position: fixed;
+    top: 25%;
+    left: 34%;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(209, 66, 66);
+    padding: 1rem;
+    width:600px;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    box-shadow: 2px 2px 9px black;
+}
+
+#deleteDiv button {
+    margin-top: 1rem;
+    font-size: large;
 }
