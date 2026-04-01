@@ -8,29 +8,25 @@
 </head>
 <body>
     <header>
+        <h1>Dungeons & Dragons Character Sheet Manager</h1>
         <div id="headerDiv">
-            <h1>Dungeons & Dragons Character Sheet Manager</h1>
+            <button id="DMBtn">DM View</button>
             <button id="signOutBtn">Sign Out</button>
         </div>
     </header>
     <main>
-        <section>
-            <section id="listSection">
-                <h2>Please select a Character to continue or create a new Character.</h2>
-                <h3 id="charText"></h3>
-                <ul id="charList">
-                    
-                </ul>
-                <label for="charNameInput">Character name</label>
-                <input type="text" id="charNameInput">
-                <h3 id="createError" class="errorMessage"></h3>
-                <button id="createBtn">Create Character</button>
-            </section>
+        <section id="listSection">
+            <h2>Please select a Character to continue or create a new Character.</h2>
+            <h3 id="charText"></h3>
+            <ul id="charList">
+                
+            </ul>
+            <label for="charNameInput">Character name</label>
+            <input type="text" id="charNameInput">
+            <button id="createBtn">Create Character</button>
+            <h3 id="createError" class="errorMessage"></h3>
         </section>
     </main>
-    <footer>
-        <p>Created by: Trevor Donald, for Back-End Development Capstone Project</p>
-    </footer>
     <script src="mainScreen.js"></script>
 </body>
 </html>

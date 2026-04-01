@@ -34,3 +34,15 @@ export const newUser = async (
         next(error);
     };
 };
+
+export const hasDMAuth = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try{
+        res.status(OK).json("Has Auth");
+    } catch (error) {
+        next(error);
+    };
+}

@@ -1,3 +1,4 @@
+const dmButton = document.getElementById("DMBtn");
 const signOutBtn = document.getElementById("signOutBtn");
 
 const listSection = document.getElementById("listSection");
@@ -24,7 +25,6 @@ const removeErrorMessages = () => {
     };
 };
 
-// LEFT OFF FIXING THIS ???????????????????????????????????????????????//////////////////////////////////////////////
 const displayUserChars = async (userEmail) => {
     console.log(loginEmail)
     const reqOptions = {
@@ -49,7 +49,7 @@ const displayUserChars = async (userEmail) => {
 
     for (let i = 0; i < chars.length; i++) {
         const listedChar = document.createElement("li")
-        listedChar.innerHTML = `${chars[i]}<button id="${chars[i].charName}Button">Select</button>`
+        listedChar.innerHTML = `${chars[i].charName}<button id="${chars[i].charName}Button">Select</button>`
         charList.appendChild(listedChar)
 
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
@@ -87,9 +87,37 @@ const createChar = async () => {
     displayUserChars(loginEmail);
 };
 
+const authorizedDM = async () => {
+    removeErrorMessages();
+    try {
+        const reqOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth}`
+            }
+        };
+
+        const response = await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
+        const hasAuth = await response.json();
+        console.log(hasAuth)
+        
+        window.location.href = "../dmScreen/dmScreen.html";
+    } catch(error) {
+        createError.textContent = "Unauthorized you're not a DM"
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     displayUserChars(loginEmail);
     createBtn.addEventListener("click", () => {
         createChar()
     });
-})
+    signOutBtn.addEventListener("click", () => {
+        sessionStorage.clear();
+        window.location.href = "../signInScreen/index.html";
+    });
+    dmButton.addEventListener("click", () => {
+        authorizedDM();
+    });
+});
