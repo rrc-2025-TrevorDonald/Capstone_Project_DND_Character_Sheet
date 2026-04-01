@@ -4,6 +4,9 @@ const listSection = document.getElementById("listSection");
 const charText = document.getElementById("charText");
 const charList = document.getElementById("charList");
 
+const loginEmail = sessionStorage.getItem("user")
+const auth = sessionStorage.getItem("auth")
+
 const charApi = "http://localhost:3000/api/v1/chars/all";
 
 const displayAllChars = async () => {
@@ -27,7 +30,7 @@ const displayAllChars = async () => {
 
     for (let i = 0; i < chars.length; i++) {
         const listedChar = document.createElement("li")
-        listedChar.innerHTML = `${chars[i].charName}<button id="${chars[i].charName}Button">Select</button>`
+        listedChar.innerHTML = `${chars[i].charName}, ${chars[i].email}<button id="${chars[i].charName}Button">Select</button>`
         charList.appendChild(listedChar)
 
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)

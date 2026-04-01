@@ -387,7 +387,10 @@ export const getChars = async (): Promise<Char[]> => {
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
-            return data.charName as Char;
+            return {
+                charName: data.charName,
+                email: data.email
+            } as Char;
         });
         return chars;
     } catch (error) {
