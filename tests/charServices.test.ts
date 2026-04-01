@@ -12,7 +12,7 @@ describe("Character Service", () => {
     describe("createChar", () => {
         it("should create an char successfully", async () => {
             // Arrange
-            const mockInputData: Char = {
+            const mockInputData = {
                 charName: "Test",
                 email: "test@test.com"
             };

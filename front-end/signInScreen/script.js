@@ -15,6 +15,7 @@ const labelEmail = document.getElementById("labelEmail");
 const createEmail = document.getElementById("createEmail");
 const labelPassword = document.getElementById("labelPassword");
 const createPassword = document.getElementById("createPassword");
+const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
 const createError = document.getElementById("createError");
 const completeMessage = document.getElementById("completeMessage");
@@ -50,27 +51,32 @@ const removeErrorMessages = () => {
 };
 
 const sendLogin = async () => {
-    removeErrorMessages()
-    const reqOptions = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: loginEmail.value,
-            password: loginPassword.value
-        })
-    };
+    try {
+        removeErrorMessages();
+        const reqOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: loginEmail.value,
+                password: loginPassword.value
+            })
+        };
 
-    const response = await fetch(userApi, reqOptions);
-    const signIn = await response.json();
+        const response = await fetch(userApi, reqOptions);
+        const signIn = await response.json();
 
-    if (signIn.error) {
-        const strippedError = signIn.error.split("Body:").splice(1);
-        loginError.textContent = strippedError.shift(1);
-    } else {
-        sessionStorage.setItem("user", signIn.email);
-        sessionStorage.setItem("auth", signIn.idToken);
+        if (signIn.error) {
+            const strippedError = signIn.error.split("Body:").splice(1);
+            loginError.textContent = strippedError.shift(1);
+        } else {
+            sessionStorage.setItem("user", signIn.email);
+            sessionStorage.setItem("auth", signIn.idToken);
+            window.location.href = "../mainScreen/mainScreen.html"
+        }
+    } catch(error) {
+        loginError.textContent = error.message
     }
 };
 
@@ -79,7 +85,7 @@ const sendCreate = async () => {
     const reqOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             email: createEmail.value,
@@ -107,6 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginBtn.addEventListener("click", () => {
         sendLogin()
+    });
+    backBtn.addEventListener("click", () => {
+        removeErrorMessages()
+        login.style.display = "flex";
+        create.style.display = "none";
     });
     createBtn.addEventListener("click", () =>{
         sendCreate()

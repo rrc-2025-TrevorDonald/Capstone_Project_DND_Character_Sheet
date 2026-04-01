@@ -387,7 +387,10 @@ export const getChars = async (): Promise<Char[]> => {
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
-            return data.charName as Char;
+            return {
+                charName: data.charName,
+                email: data.email
+            } as Char;
         });
         return chars;
     } catch (error) {
@@ -395,23 +398,18 @@ export const getChars = async (): Promise<Char[]> => {
     };
 };
 
-export const getUserChars = async (userEmail: string): Promise<Char[]> => {
+export const getUserChars = async (email: string): Promise<Char[]> => {
     try {
-        const filteredChars: Char[] = [];
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
-            return {
+            return{
                 charName: data.charName,
                 email: data.email
-            } as Char;
+            }  as Char;;
         });
-        for (let i: number = 0; i < chars.length; i++) {
-            if (chars[i].email === userEmail) {
-                filteredChars.push(chars[i]);
-            };
-        };
-        return filteredChars;
+        
+        return chars.filter(i => i.email === email);
     } catch (error) {
         throw error;
     };

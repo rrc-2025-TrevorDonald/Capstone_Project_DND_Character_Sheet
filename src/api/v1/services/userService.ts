@@ -59,3 +59,7 @@ export const userCreate = async (
         throw error;
     };
 };
+
+export const hasDMAuth = (): string => {
+    return "Has Auth" as string;
+}

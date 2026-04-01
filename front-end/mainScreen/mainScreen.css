@@ -1,0 +1,118 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    /* background-color: rgb(243, 243, 243); */
+    background-image: url("../../images/background1.jpg");
+    background-size: cover;
+}
+
+.errorMessage {
+    color: red;
+}
+
+header {
+    text-align: center;
+    background-color: rgb(209, 66, 66, 0.925);
+    padding: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#headerDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header button {
+    margin-left: 2rem;
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+    height: 25px;
+    width: 120px;
+}
+
+/* Character list */
+#listSection {
+    text-align: center;
+    background-color: rgba(223, 223, 223, 0.925);
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 45%;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#listSection ul {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+#listSection li {
+    margin-top: .25rem;
+    list-style: none;
+}
+
+#listSection li button {
+    margin-left: 1rem;
+}
+
+#createNewChar {
+    margin-top: 2rem;
+}
+/* Create Character */
+#createSection {
+    text-align: center;
+    background-color: rgba(223, 223, 223, 0.925);
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 45%;
+    height: 450px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#info {
+    display: flex;
+    gap: 6rem;
+}
+
+#info label {
+    margin-top: 1rem;
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#createSection h4 {
+    margin-top: 3rem;
+}
+
+#backBtn {
+    margin-right: 1rem;
+}
+
+#createBtn {
+    margin-top: 2rem;
+}
