@@ -75,4 +75,20 @@ describe("User Controller", () => {
             expect(mockRes.json).toHaveBeenCalledWith(resolvedData);
         });
     });
+
+    describe("hasAuth", () => {
+        it("should handle successful operation with valid data", async () => {
+            // Arrange & Act
+            const resolvedData: string = "Has Auth";            
+            userController.hasDMAuth(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            // Assert
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith(resolvedData);
+        });
+    });
 });
