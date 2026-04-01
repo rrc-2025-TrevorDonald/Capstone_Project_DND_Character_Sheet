@@ -1,0 +1,448 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 1860px;
+    background-image: url("../../images/background1.jpg");
+    background-attachment: fixed;
+}
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+}
+#top {
+    position: absolute;
+    display: flex;
+    gap: 5px;
+    height: 120px;
+}
+
+#headName {
+    width: 846px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}
+
+#theClasses {
+    display: flex;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 2;
+    width: 824px;
+}
+
+#class1,
+#class2,
+#class3 {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: end;
+}
+
+#buttons {
+    width: 120px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/*////////////////////////////////////////////////////////////// */
+
+#rollsInspa {
+    position: absolute;
+    top: 127px;
+    display: flex;
+    gap: 5px;
+    display: flex;
+    margin-top: 5px;
+    height: 110px;
+}
+
+#rolls {
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    width: 1453px;
+    display: flex;
+    gap: 25px;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+#rolls input {
+    width: 50px;
+    height: 30px;
+    font-size: 20px;
+}
+
+#inspaProfBonus{
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 330px;
+}
+
+#inspaProfBonus input {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+/*////////////////////////////////////////////////////////////// */
+
+#throwsSkills {
+    position: absolute;
+    top: 242px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 270px;
+    margin-top: 5px;
+    height: 650px;
+}
+#throwsSkills input {
+    max-width: 30px;
+}
+
+#throws {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+}
+
+#skills {
+    margin-top: 5px;
+}
+
+#passWis {
+    margin-top: 15px;
+}
+
+.under {
+    text-decoration: underline;
+}
+
+/*////////////////////////////////////////////////////////////// */
+
+#acAttacksEquip {
+    position: absolute;
+    left: 100px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 350px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+}
+
+#acMore input {
+    max-width: 30px;
+}
+
+#atkSpellcast {
+    margin-top: 5px;
+    min-width: 311px;
+    min-height: 179px;
+    resize: none;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#acAttacksEquip {
+    position: absolute;
+    top: 242px;
+    left: 315px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 350px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#acMore input {
+    max-width: 30px;
+}
+
+#atkSpellcast {
+    margin-top: 5px;
+    width: 311px;
+    min-height: 179px;
+    resize: none;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#equipmentDiv {
+    position: absolute;
+    top: 242px;
+    left: 707px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 228px;
+    height: 650px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#equipmentDiv input{
+    max-width: 30px;
+    margin: .5px;
+}
+
+#money {
+    display: grid;
+    grid-template-columns: 25px 50px 25px 50px;
+    grid-template-rows: 25px 25px 25px;
+
+}
+#equipment {
+    margin-top: 5px;
+    width: 189px;
+    height: 504px;
+    resize: none;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#moreThanAge {
+    position: absolute;
+    top: 934px;
+    left: 3px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 300px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#ageMore {
+    display: flex;
+    flex-direction: column;
+}
+
+#personal textarea {
+    resize: none;
+    min-width: 230px;
+    min-height: 75px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+
+#backstoryDiv {
+    position: absolute;
+    top: 934px;
+    left: 351px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 589px;
+    height: 649px;
+    margin-top: 5px;
+}
+
+#backstory {
+    resize: none;
+    width: 550px;
+    height: 604px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#featsTraitsDiv {
+    position: absolute;
+    top: 242px;
+    left: 978px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 490px;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 1339px;
+}
+
+#featsTraits {
+    resize: none;
+    width: 449px;
+    height: 1296px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#spellStats {
+    position: absolute;
+    top: 242px;
+    left: 1517px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 315px;
+    height: 475px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#spellStats input {
+    max-width: 30px;
+}
+
+#cantrips {
+    resize: none;
+    width: 281px;
+    height: 342px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#alliesFeats {
+    position: absolute;
+    top: 1625px;
+    left: 3px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 500px;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 2856px;
+}
+
+#alliesFeats textarea {
+    resize: none;
+    width: 460px;
+}
+
+#alliesOrgs {
+    height: 150px;
+}
+
+#addFeatsTraits {
+    height: 2612px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#backpackDiv {
+    position: absolute;
+    top: 1625px;
+    left: 547px;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 921px;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 2856px;
+}
+
+#backpack {
+    resize: none;
+    width: 882px;
+    height: 2806px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#spell1,
+#spell2,
+#spell3,
+#spell4,
+#spell5,
+#spell6,
+#spell7,
+#spell8,
+#spell9 {
+    left: 1512px;
+    position: absolute;
+    background-color: rgba(223, 223, 223, 0.925);
+    border: 2px solid black;
+    padding: 1rem;
+    width: 315px;
+    height: 375px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#total1Slots,
+#slots1Expend,
+#total2Slots,
+#slots2Expend,
+#total3Slots,
+#slots3Expend,
+#total4Slots,
+#slots4Expend,
+#total5Slots,
+#slots5Expend,
+#total6Slots,
+#slots6Expend,
+#total7Slots,
+#slots7Expend,
+#total8Slots,
+#slots8Expend,
+#total9Slots,
+#slots9Expend  {
+    width: 30px;
+}
+
+/* ////////////////////////////////////////////////// */
+
+#spell1 {
+    top: 760px;
+}
+
+#spell2 {
+    top: 1178px;
+}
+
+#spell3 {
+    top: 1596px;
+}
+
+#spell4 {
+    top: 2014px;
+}
+
+#spell5 {
+    top: 2432px;
+}
+
+#spell6 {
+    top: 2850px;
+}
+
+#spell7 {
+    top: 3268px;
+}
+
+#spell8 {
+    top: 3687px;
+}
+
+#spell9 {
+    top: 4106px;
+}
