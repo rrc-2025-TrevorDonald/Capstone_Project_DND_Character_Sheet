@@ -11,7 +11,7 @@ export const createChar = async (
 ): Promise<void> => {
     try {
         const { charName, email } = req.body;
-        const char = { charName, email  };
+        const char = { charName, email };
 
         const newChar: Char = await charService.createChar(char);
         res.status(HTTP_STATUS.OK).json(

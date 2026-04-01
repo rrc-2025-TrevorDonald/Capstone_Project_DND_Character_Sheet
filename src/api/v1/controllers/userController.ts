@@ -39,7 +39,7 @@ export const hasDMAuth = (
     req: Request,
     res: Response,
     next: NextFunction
-) => {
+): void => {
     try{
         res.status(OK).json("Has Auth");
     } catch (error) {

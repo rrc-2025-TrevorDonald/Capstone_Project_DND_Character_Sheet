@@ -12,7 +12,7 @@ export const createChar = async (charData: {
     email: string
 }): Promise<Char> => {
     try {
-        const newChar = {
+        const newChar: Char = {
             charName: charData.charName,
             email: charData.email,
             level: "1",
