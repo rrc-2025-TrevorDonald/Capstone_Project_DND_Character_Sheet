@@ -23,7 +23,7 @@ describe("Char Controller", () => {
     });
 
     describe("createChar", () => {
-        it("should handle successful operation", async () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             const mockResultData: Char = {
                 charName: "Test",
@@ -409,8 +409,8 @@ describe("Char Controller", () => {
         });
     });
 
-    describe("createChar", () => {
-        it("should handle successful operation", async () => {
+    describe("getChar", () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             const mockResultData: Char[] = [
                 {charName: "test1", email: "test1@test.com"},
@@ -461,7 +461,7 @@ describe("Char Controller", () => {
     });
 
     describe("getUserChars", () => {
-        it("should handle successful operation", async () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             mockReq.params = {email: "test@test.com"};
             const mockResultData: Char[] = [
@@ -487,7 +487,7 @@ describe("Char Controller", () => {
     });
 
     describe("getCharById", () => {
-        it("should handle successful operation", async () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             mockReq.params = {id: "test"};
             const mockResultData: Char[] = [
@@ -512,7 +512,7 @@ describe("Char Controller", () => {
     });
 
     describe("updateChar", () => {
-        it("should handle successful operation", async () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             const mockResultData: Char = {
                 charName: "Test",
@@ -1259,10 +1259,10 @@ describe("Char Controller", () => {
     });
 
     describe("deleteChar", () => {
-        it("should handle successful operation", async () => {
+        it("should handle successful operation with valid data", async () => {
             // Arrange & Act
             mockReq.params = {id: "test"};
-            
+
             (charService.deleteChar as jest.Mock).mockReturnValue(undefined);
 
             await charController.deleteChar(

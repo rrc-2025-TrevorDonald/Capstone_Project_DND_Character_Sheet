@@ -5,6 +5,7 @@ import { UserLogin, UserCreate } from "../models/userModels";
 
 const APIKEY: string = apiKey;
 const OK: number = 200;
+const CREATED: number = 201;
 
 export const newLogin = async (
     req: Request,
@@ -29,7 +30,7 @@ export const newUser = async (
     try {
         const { email, password } = req.body;
         const sendUser: UserCreate = await userCreate(email, password);
-        res.status(OK).json(sendUser);
+        res.status(CREATED).json(sendUser);
     } catch (error) {
         next(error);
     };
