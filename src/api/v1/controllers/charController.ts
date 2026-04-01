@@ -49,3 +49,51 @@ export const getUserChars = async (
         next(error);
     };
 };
+
+export const getChar = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { charName } = req.params;
+        const char: Char = await charService.getCharById(String(charName));
+        res.status(HTTP_STATUS.OK).json(char);
+    } catch (error) {
+        next(error);
+    };
+};
+
+export const updateChar = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { charName } = req.params;
+        const { ...rest } = req.body;
+        const updateData = { ...rest };
+
+        const charUpdate: Char = await charService.updateChar(String(charName), updateData);
+        res.status(HTTP_STATUS.OK).json(charUpdate);         
+    } catch (error) {
+        next(error)
+    };
+};
+
+export const deleteChar = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        await charService.deleteChar(String(id));
+        res.status(HTTP_STATUS.OK).json(
+            successResponse("Char successfully deleted")
+        );
+    } catch (error: unknown) {
+        next(error);
+    }
+};

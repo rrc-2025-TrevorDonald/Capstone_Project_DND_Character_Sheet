@@ -42,5 +42,13 @@ export const charSchemas: Record<string, RequestSchemas> = {
                 "string.pattern.base": '"email" must be a valid email format'
             })
         })
+    },
+    delUpdateGet: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "string.required": '"id" is required',
+                "string.empty": '"id" is required',
+            }),
+        })
     }
 };

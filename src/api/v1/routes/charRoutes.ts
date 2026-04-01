@@ -3,7 +3,7 @@ import * as charController from "../controllers/charController"
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 import { validateRequest } from "../middleware/validate";
-import { charSchemas } from "../validation/signinValidation";
+import { charSchemas } from "../validation/validation";
 
 const router: Router = express.Router();
 
@@ -26,6 +26,27 @@ router.get(
     isAuthorized({ hasRole: ["player", "dm", "admin"]}),
     validateRequest(charSchemas.getUserChars),
     charController.getUserChars
+);
+router.get(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.getChar
+);
+router.put(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.updateChar
+);
+router.delete(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.deleteChar
 );
 
 export default router;

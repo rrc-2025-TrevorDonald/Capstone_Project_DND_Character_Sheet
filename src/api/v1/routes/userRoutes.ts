@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as userController from "../controllers/userController"
 import { validateRequest } from "../middleware/validate";
-import { signinSchemas } from "../validation/signinValidation";
+import { signinSchemas } from "../validation/validation";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 
