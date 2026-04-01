@@ -25,7 +25,6 @@ export const successResponse = <T>(
     count?: number
 ): ApiResponse<T> => ({
     message,
-    count,
     data
 });
 
