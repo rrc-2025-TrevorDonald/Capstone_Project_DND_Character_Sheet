@@ -21,7 +21,7 @@ router.get(
     charController.getChars
 );
 router.get(
-    "/",
+    "/:email",
     authenticate,
     isAuthorized({ hasRole: ["player", "dm", "admin"]}),
     validateRequest(charSchemas.getUserChars),

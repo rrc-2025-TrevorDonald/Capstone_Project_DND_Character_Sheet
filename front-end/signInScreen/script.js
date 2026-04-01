@@ -51,28 +51,32 @@ const removeErrorMessages = () => {
 };
 
 const sendLogin = async () => {
-    removeErrorMessages();
-    const reqOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: loginEmail.value,
-            password: loginPassword.value
-        })
-    };
+    try {
+        removeErrorMessages();
+        const reqOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: loginEmail.value,
+                password: loginPassword.value
+            })
+        };
 
-    const response = await fetch(userApi, reqOptions);
-    const signIn = await response.json();
+        const response = await fetch(userApi, reqOptions);
+        const signIn = await response.json();
 
-    if (signIn.error) {
-        const strippedError = signIn.error.split("Body:").splice(1);
-        loginError.textContent = strippedError.shift(1);
-    } else {
-        sessionStorage.setItem("user", signIn.email);
-        sessionStorage.setItem("auth", signIn.idToken);
-        window.location.href = "../mainScreen/mainScreen.html"
+        if (signIn.error) {
+            const strippedError = signIn.error.split("Body:").splice(1);
+            loginError.textContent = strippedError.shift(1);
+        } else {
+            sessionStorage.setItem("user", signIn.email);
+            sessionStorage.setItem("auth", signIn.idToken);
+            window.location.href = "../mainScreen/mainScreen.html"
+        }
+    } catch(error) {
+        loginError.textContent = error.message
     }
 };
 

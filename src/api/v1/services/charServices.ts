@@ -9,24 +9,19 @@ const COLLECTION: string = "chars";
 
 export const createChar = async (charData: {
     charName: string,
-    email: string,
-    level: string,
-    playerName: string,
-    alignment: string,
-    race: string,
-    class: string
+    email: string
 }): Promise<Char> => {
     try {
-        const newChar: Char = {
+        const newChar = {
             charName: charData.charName,
             email: charData.email,
-            level: charData.level,
+            level: "1",
             xp: "0",
-            playerName: charData.playerName,
-            class: charData.class,
-            race: charData.race,
-            background: "Not Selected",
-            alignment: charData.alignment ,
+            playerName: "",
+            class: "",
+            race: "",
+            background: "",
+            alignment: "",
             str: 0,
             dex: 0,
             con: 0,
@@ -400,25 +395,18 @@ export const getChars = async (): Promise<Char[]> => {
     };
 };
 
-export const getUserChars = async (userEmail: string): Promise<Char[]> => {
+export const getUserChars = async (email: string): Promise<Char[]> => {
     try {
-        const filteredChars: Char[] = [];
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
         const chars: Char[] = snapshot.docs.map((doc) => {
             const data = doc.data();
-            return {
+            return{
                 charName: data.charName,
-                class: data.class,
-                level: data.level,
-                playerName: data.playerName
-            } as Char;
+                email: data.email
+            }  as Char;;
         });
-        for (let i: number = 0; i < chars.length; i++) {
-            if (chars[i].email === userEmail) {
-                filteredChars.push(chars[i]);
-            };
-        };
-        return filteredChars;
+        
+        return chars.filter(i => i.email === email);
     } catch (error) {
         throw error;
     };

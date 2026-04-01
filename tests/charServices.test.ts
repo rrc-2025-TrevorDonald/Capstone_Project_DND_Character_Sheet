@@ -14,23 +14,18 @@ describe("Character Service", () => {
             // Arrange
             const mockInputData = {
                 charName: "Test",
-                email: "test@test.com",
-                level: "1",
-                playerName: "Test",
-                alignment: "Not Selected",
-                race: "Not Selected",
-                class: "Not Selected"
+                email: "test@test.com"
             };
             const mockResultData: Char = {
                 charName: "Test",
                 email: "test@test.com",
                 level: "1",
                 xp: "0",
-                playerName: "Test",
-                class: "Not Selected",
-                race: "Not Selected",
-                background: "Not Selected",
-                alignment: "Not Selected",
+                playerName: "",
+                class: "",
+                race: "",
+                background: "",
+                alignment: "",
                 str: 0,
                 dex: 0,
                 con: 0,

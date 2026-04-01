@@ -10,8 +10,8 @@ export const createChar = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { charName, email, playerName, level, race, playerClass, alignment } = req.body;
-        const char = { charName, email, playerName, level, race, playerClass, alignment  };
+        const { charName, email } = req.body;
+        const char = { charName, email  };
 
         const newChar: Char = await charService.createChar(char);
         res.status(HTTP_STATUS.OK).json(
@@ -29,9 +29,7 @@ export const getChars = async (
 ): Promise<void> => {
     try {
         const chars: Pick<Char, "charName">[] = await charService.getChars();
-        res.status(HTTP_STATUS.OK).json(
-            successResponse(chars, "Chars successfully retrieved")
-        );
+        res.status(HTTP_STATUS.OK).json(chars);
     } catch (error) {
         next(error);
     };
@@ -43,13 +41,10 @@ export const getUserChars = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { email } = req.body;
-        const userEmail = { email };
+        const { email } = req.params;
 
-        const chars: Pick<Char, "charName">[] = await charService.getUserChars(String(userEmail));
-        res.status(HTTP_STATUS.OK).json(
-            successResponse(chars, "Chars successfully retrieved")
-        );
+        const chars: Pick<Char, "charName">[] = await charService.getUserChars(String(email));
+        res.status(HTTP_STATUS.OK).json(chars);
     } catch (error) {
         next(error);
     };
