@@ -40,30 +40,40 @@ describe("User Routes", () => {
     describe("POST /api/v1/users/", () => {
         it("should call newLogin with valid data", async () => {
             // Arrange & Act
-            await request(app).post("/api/v1/users/");
+            await request(app)
+                .post("/api/v1/users/")
+                .send({
+                    email: "test@test.com",
+                    password: "password123"
+                });
 
             // Assert
-            expect(userController.newLogin).toHaveBeenCalled()
+            expect(userController.newLogin).toHaveBeenCalled();
         });
     });
 
     describe("POST /api/v1/users/new", () => {
         it("should call newUser with valid data", async () => {
             // Arrange & Act
-            await request(app).post("/api/v1/users/new");
+            await request(app)
+                .post("/api/v1/users/new")
+                .send({
+                    email: "test@test.com",
+                    password: "password123"
+                });
 
             // Assert
-            expect(userController.newUser).toHaveBeenCalled()
+            expect(userController.newUser).toHaveBeenCalled();
         });
     });
 
     describe("GET /api/v1/users/new", () => {
-        it("should call newUser with valid data", async () => {
+        it("should call hasDMAuth with valid data", async () => {
             // Arrange & Act
             await request(app).get("/api/v1/users/dm");
 
             // Assert
-            expect(userController.hasDMAuth).toHaveBeenCalled()
+            expect(userController.hasDMAuth).toHaveBeenCalled();
         });
     });
 });
