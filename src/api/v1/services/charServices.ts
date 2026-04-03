@@ -1,5 +1,5 @@
 import { Char } from "../models/charModel";
-import { QuerySnapshot, DocumentSnapshot, DocumentData } from "firebase-admin/firestore";
+import { QuerySnapshot } from "firebase-admin/firestore";
 import {
     createDocument,
     getDocuments,
@@ -419,20 +419,28 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
 };
 
 export const getCharById = async (id: string): Promise<Char> => {
-    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
+    try {
+        const doc = await getDocumentById(COLLECTION, id);
+        if (!doc) {
+            throw new Error(`${id} does not exist`);
+        };
 
-    if (!doc) {
-        throw new Error(`Char with ID ${id} not found`);
-    }
+        const data = doc.data();
 
-    const data: DocumentData | undefined = doc.data();
-    const char: Char = {
-        charName: doc.id,
-        ...data,
-    } as Char;
+        if (!data) {
+            throw new Error(`Data associated with ${id} not found`);
+        };
 
-    return structuredClone(char);
-};  
+        const char: Char = {
+            charName: doc.id,
+            ...data
+        } as Char;
+
+        return char;
+    } catch (error) {
+        throw error;
+    };
+};
 
 export const updateChar = async (
     id: string,

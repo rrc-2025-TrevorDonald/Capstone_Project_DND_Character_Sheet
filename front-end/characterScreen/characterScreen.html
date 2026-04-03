@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="characterScreen.css">
+    <title>Character Sheet</title>
+</head>
+<body>
+    <header>
+        <section id="top">
+            <div id="buttons">
+                <button id="saveBtn">Save Character</button>
+                <button id="backBtn">Back</button>
+            </div>
+            <section id="headName">
+                <div id="1">
+                    <h1 id="charNameHeader"></h1>
+                    <label for="player">Player:</label>
+                    <input type="text" id="player" placeholder="Player Name">
+                    <button id="deleteBtn">Delete Character</button>
+                </div>
+            </section>
+            <section id="theClasses">
+                <div id="class1">
+                    <div>
+                        <label for="lvl">Level:</label>
+                        <input type="text" id="lvl" placeholder="lvl">
+                    </div>
+                    <div>
+                        <label for="xp">XP:</label>
+                        <input type="text" id="xp" placeholder="EXP">
+                    </div>
+                </div>
+                <div id="class2">
+                    <div>
+                        <label for="class">Class:</label>
+                        <input type="text" id="class" placeholder="Class">
+                    </div>
+                    <div>
+                        <label for="race">Race:</label>
+                        <input type="text" id="race" placeholder="Race">
+                    </div>
+                </div>
+                <div id="class3">
+                    <div>
+                        <label for="background">Background:</label>
+                        <input type="text" id="background" placeholder="Background">
+                    </div>
+                    <div>
+                        <label for="alignment">Alignment:</label>
+                        <input type="text" id="alignment" placeholder="Alignment">
+                    </div>
+                </div>
+            </section>
+        </section>
+    </header>
+    <main>
+        <div id="rollsInspa">
+            <div id="rolls">
+                <label for="str">Strength</label>
+                <input type="number" id="str" placeholder="0">
+                <h4 id="strMod"></h4>
+                <label for="dex">Dexterity</label>
+                <input type="number" id="dex" placeholder="0">
+                <h4 id="dexMod"></h4>
+                <label for="con">Constitution</label>
+                <input type="number" id="con" placeholder="0">
+                <h4 id="conMod"></h4>
+                <label for="int">Intelligence</label>
+                <input type="number" id="int" placeholder="0">
+                <h4 id="intMod"></h4>
+                <label for="wis">Wisdom</label>
+                <input type="number" id="wis" placeholder="0">
+                <h4 id="wisMod"></h4>
+                <label for="cha">Charisma</label>
+                <input type="number" id="cha" placeholder="0">
+                <h4 id="chaMod"></h4>
+            </div>
+            <div id="inspaProfBonus">
+                <label for="inspa">Inspiration</label>
+                <input type="text" id="inspa" placeholder="0">
+                <label for="profBonus">Proficiency Bonus</label>
+                <input type="text" id="profBonus" placeholder="0">
+            </div>
+        </div>
+        <div id="line1">
+            <div id="throwsSkills">
+                <div id="throws">
+                    <fieldset>
+                        <legend>Saving Throws</legend>
+                        <div>
+                            <input type="checkbox" id="checkboxStr">
+                            <label for="saveStr">Strength</label>
+                            <input type="text" id="saveStr" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxDex">
+                            <label for="saveDex">Dexterity</label>
+                            <input type="text" id="saveDex" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxCon">
+                            <label for="saveCon">Constitution</label>
+                            <input type="text" id="saveCon" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxInt">
+                            <label for="saveInt">Intelligence</label>
+                            <input type="text" id="saveInt" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxWis">
+                            <label for="saveWis">Wisdom</label>
+                            <input type="text" id="saveWis" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxCha">
+                            <label for="saveCha">Charisma</label>
+                            <input type="text" id="saveCha" placeholder="0">
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="skills">
+                    <fieldset>
+                        <legend>Skills</legend>
+                        <div>
+                            <input type="checkbox" id="checkboxAcro">
+                            <label for="acrobatics">Acrobatics (Dex)</label>
+                            <input type="text" id="acrobatics" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxAnimal">
+                            <label for="animal">Animal Handling (Wis)</label>
+                            <input type="text" id="animal" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxArcana">
+                            <label for="arcana">Arcana (Int)</label>
+                            <input type="text" id="arcana" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxAthl">
+                            <label for="athletics">Athletics (Str)</label>
+                            <input type="text" id="athletics" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxDec">
+                            <label for="deception">Deception (Cha)</label>
+                            <input type="text" id="deception" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxHis">
+                            <label for="history">History (Int)</label>
+                            <input type="text" id="history" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxInsight">
+                            <label for="insight">Insight (Wis)</label>
+                            <input type="text" id="insight" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxInti">
+                            <label for="intimidation">Intimidation (Cha)</label>
+                            <input type="text" id="intimidation" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxInvest">
+                            <label for="investigation">Investigation (Int)</label>
+                            <input type="text" id="investigation" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxMed">
+                            <label for="medicine">Medicine (Wis)</label>
+                            <input type="text" id="medicine" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxNat">
+                            <label for="nature">Nature (Int)</label>
+                            <input type="text" id="nature" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxPercep">
+                            <label for="perception">Perception (Wis)</label>
+                            <input type="text" id="perception" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxPerf">
+                            <label for="performance">Performance (Cha)</label>
+                            <input type="text" id="performance" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxPers">
+                            <label for="persuasion">Persuasion (Cha)</label>
+                            <input type="text" id="persuasion" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxRel">
+                            <label for="religion">Religion (Int)</label>
+                            <input type="text" id="religion" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxSleight">
+                            <label for="sleight">Sleight of Hand (Dex)</label>
+                            <input type="text" id="sleight" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxStealth">
+                            <label for="stealth">Stealth (Dex)</label>
+                            <input type="text" id="stealth" placeholder="0">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkboxSurvival">
+                            <label for="survival">Survival (Wis)</label>
+                            <input type="text" id="survival" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="passWis" class="under">Passive Wisdom</label>
+                            <input type="text" id="passWis" placeholder="0">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+            <div id="acAttacksEquip">
+                <div id="acMore">
+                    <fieldset>
+                        <div>
+                            <label for="ac">Armor Class</label>
+                            <input type="text" id="ac" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="initiative">Initiative</label>
+                            <input type="text" id="initiative" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="speed">Speed</label>
+                            <input type="text" id="speed" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="maxHP">Maximum Hit Points</label>
+                            <input type="text" id="maxHP" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="currentHP">Current Hit Points</label>
+                            <input type="text" id="currentHP" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="hitDice">Hit Dice</label>
+                            <input type="text" id="hitDice" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="totalHitDice">Total</label>
+                            <input type="text" id="totalHitDice" placeholder="0">
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="attacks">
+                    <fieldset>
+                        <legend>Attacks</legend>
+                        <fieldset>
+                            <div>
+                                <label for="slot1Name">Name</label>
+                                <input type="text" id="slot1Name" placeholder="name">
+                            </div>
+                            <div>
+                                <label for="slot1ATKBonus">ATK Bonus</label>
+                                <input type="text" id="slot1ATKBonus" placeholder="ATK Bonus">
+                            </div>
+                            <div>
+                                <label for="slot1DMG">Damage/Type</label>
+                                <input type="text" id="slot1DMG" placeholder="Damage/Type">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div>
+                                <label for="slot2Name">Name</label>
+                                <input type="text" id="slot2Name" placeholder="name">
+                            </div>
+                            <div>
+                                <label for="slot2ATKBonus">ATK Bonus</label>
+                                <input type="text" id="slot2ATKBonus" placeholder="ATK Bonus">
+                            </div>
+                            <div>
+                                <label for="slot2DMG">Damage/Type</label>
+                                <input type="text" id="slot2DMG" placeholder="Damage/Type">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div>
+                                <label for="slot3Name">Name</label>
+                                <input type="text" id="slot3Name" placeholder="name">
+                            </div>
+                            <div>
+                                <label for="slot3ATKBonus">ATK Bonus</label>
+                                <input type="text" id="slot3ATKBonus" placeholder="ATK Bonus">
+                            </div>
+                            <div>
+                                <label for="slot3DMG">Damage/Type</label>
+                                <input type="text" id="slot3DMG" placeholder="Damage/Type">
+                            </div>
+                            <div>
+                        </fieldset>
+                        <textarea id="atkSpellcast"></textarea>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="equipmentDiv">
+                <fieldset id="field2">
+                    <legend>Equipment</legend>
+                        <fieldset>
+                            <div id="money">
+                                <label for="pp">PP</label>
+                                <input type="text" id="pp" placeholder="0">
+                                <label for="gp">GP</label>
+                                <input type="text" id="gp" placeholder="0">
+                                <label for="ep">EP</label>
+                                <input type="text" id="ep" placeholder="0">
+                                <label for="sp">SP</label>
+                                <input type="text" id="sp" placeholder="0">
+                                <label for="cp">CP</label>
+                                <input type="text" id="cp" placeholder="0">
+                            </div>
+                        </fieldset>
+                    <textarea id="equipment"></textarea>
+                </fieldset>
+            </div>
+            <div id="moreThanAge">
+                <div id="ageMore">
+                    <fieldset>
+                        <div>
+                            <label for="age">Age</label>
+                            <input type="text" id="age" placeholder="0">
+                        <div>
+                        </div>
+                            <label for="height">Height</label>
+                            <input type="text" id="height" placeholder="0'0"">
+                        <div>
+                        </div>
+                            <label for="weight">Weight</label>
+                            <input type="text" id="weight" placeholder="0lbs">
+                        <div>
+                        </div>
+                            <label for="eyes">Eyes</label>
+                            <input type="text" id="eyes" placeholder="Eyes">
+                        <div>
+                        </div>
+                            <label for="skin">Skin</label>
+                            <input type="text" id="skin" placeholder="Skin">
+                        <div>
+                        </div>
+                            <label for="hair">Hair</label>
+                            <input type="text" id="hair" placeholder="Hair">
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="personal">
+                    <fieldset>
+                        <fieldset>
+                            <legend>Personality Traits</legend>
+                            <textarea id="personTraits"></textarea>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Ideals</legend>
+                            <textarea id="ideals"></textarea>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Bonds</legend>
+                            <textarea id="bonds"></textarea>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Flaws</legend>
+                            <textarea id="flaws"></textarea>
+                        </fieldset>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="featsTraitsDiv">
+                <fieldset>
+                    <legend>Features & Traits</legend>
+                    <textarea id="featsTraits"></textarea>
+                </fieldset>
+            </div>
+        </div>
+        <div id="line2">
+            <div id="backstoryDiv">
+                <fieldset>
+                    <legend>Backstory</legend>
+                    <textarea id="backstory"></textarea>
+                </fieldset>
+            </div>
+            <div id="alliesFeats">
+                <div id="alliesOrgsDiv">
+                    <fieldset>
+                        <legend>Allies & Organizations</legend>
+                        <textarea id="alliesOrgs"></textarea>
+                    </fieldset>
+                </div>
+                <div id="addFeatsTraitsDiv">
+                    <fieldset>
+                        <legend>Additional Features & Traits</legend>
+                        <textarea id="addFeatsTraits"></textarea>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="backpackDiv">
+                <fieldset>
+                    <legend>Backpack</legend>
+                    <textarea id="backpack"></textarea>
+                </fieldset>
+            </div>
+        </div>
+        <div id="line3">
+            <div id="spellStats">
+                <fieldset>
+                    <div>
+                        <label for="spellAbil">Spellcasting Ability</label>
+                        <input type="text" id="spellAbil" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="spellSaveDC">Spell Save DC</label>
+                        <input type="text" id="spellSaveDC" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="spellATKBonus">Spell Attack Bonus</label>
+                        <input type="text" id="spellATKBonus" placeholder="0">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Cantrips</legend>
+                    <textarea id="cantrips"></textarea>
+                </fieldset>
+            </div>
+            <div id="spell1">
+                <fieldset>
+                    <legend>lvl 1 Slots</legend>
+                    <div>
+                        <label for="total1Slots">Slots Total</label>
+                        <input type="text" id="total1Slots" placeholder="0">
+                    </div>
+                        <div>
+                        <label for="slots1Expend">Slots Expended</label>
+                        <input type="text" id="slots1Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl101">
+                        <input type="text" id="lvl101" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl102">
+                        <input type="text" id="lvl102" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl103">
+                        <input type="text" id="lvl103" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl104">
+                        <input type="text" id="lvl104" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl105">
+                        <input type="text" id="lvl105" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl106">
+                        <input type="text" id="lvl106" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl107">
+                        <input type="text" id="lvl107" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl108">
+                        <input type="text" id="lvl108" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl109">
+                        <input type="text" id="lvl109" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl1010">
+                        <input type="text" id="lvl1010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl1011">
+                        <input type="text" id="lvl1011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl1012">
+                        <input type="text" id="lvl1012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl1013">
+                        <input type="text" id="lvl1013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell2">
+                <fieldset>
+                    <legend>lvl 2 Slots</legend>
+                    <div>
+                        <label for="total2Slots">Slots Total</label>
+                        <input type="text" id="total2Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots2Expend">Slots Expended</label>
+                        <input type="text" id="slots2Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl201">
+                        <input type="text" id="lvl201" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl202">
+                        <input type="text" id="lvl202" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl203">
+                        <input type="text" id="lvl203" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl204">
+                        <input type="text" id="lvl204" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl205">
+                        <input type="text" id="lvl205" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl206">
+                        <input type="text" id="lvl206" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl207">
+                        <input type="text" id="lvl207" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl208">
+                        <input type="text" id="lvl208" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl209">
+                        <input type="text" id="lvl209" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl2010">
+                        <input type="text" id="lvl2010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl2011">
+                        <input type="text" id="lvl2011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl2012">
+                        <input type="text" id="lvl2012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl2013">
+                        <input type="text" id="lvl2013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell3">
+                <fieldset>
+                    <legend>lvl 3 Slots</legend>
+                    <div>
+                        <label for="total3Slots">Slots Total</label>
+                        <input type="text" id="total3Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slot3Expend">Slots Expended</label>
+                        <input type="text" id="slots3Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl301">
+                        <input type="text" id="lvl301" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl302">
+                        <input type="text" id="lvl302" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl303">
+                        <input type="text" id="lvl303" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl304">
+                        <input type="text" id="lvl304" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl305">
+                        <input type="text" id="lvl305" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl306">
+                        <input type="text" id="lvl306" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl307">
+                        <input type="text" id="lvl307" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl308">
+                        <input type="text" id="lvl308" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl309">
+                        <input type="text" id="lvl309" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl3010">
+                        <input type="text" id="lvl3010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl3011">
+                        <input type="text" id="lvl3011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl3012">
+                        <input type="text" id="lvl3012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl3013">
+                        <input type="text" id="lvl3013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell4">
+                <fieldset>
+                    <legend>lvl 4 Slots</legend>
+                    <div>
+                        <label for="tota4Slots">Slots Total</label>
+                        <input type="text" id="total4Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots4Expend">Slots Expended</label>
+                        <input type="text" id="slots4Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl401">
+                        <input type="text" id="lvl401" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl402">
+                        <input type="text" id="lvl402" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl403">
+                        <input type="text" id="lvl403" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl404">
+                        <input type="text" id="lvl404" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl405">
+                        <input type="text" id="lvl405" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl406">
+                        <input type="text" id="lvl406" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl407">
+                        <input type="text" id="lvl407" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl408">
+                        <input type="text" id="lvl408" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl409">
+                        <input type="text" id="lvl409" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl4010">
+                        <input type="text" id="lvl4010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl4011">
+                        <input type="text" id="lvl4011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl4012">
+                        <input type="text" id="lvl4012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl4013">
+                        <input type="text" id="lvl4013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="line4">
+            <div id="spell5">
+                <fieldset>
+                    <legend>lvl 5 Slots</legend>
+                    <div>
+                        <label for="total5Slots">Slots Total</label>
+                        <input type="text" id="total5Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots5Expend">Slots Expended</label>
+                        <input type="text" id="slots5Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl501">
+                        <input type="text" id="lvl501" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl502">
+                        <input type="text" id="lvl502" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl503">
+                        <input type="text" id="lvl503" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl504">
+                        <input type="text" id="lvl504" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl505">
+                        <input type="text" id="lvl505" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl506">
+                        <input type="text" id="lvl506" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl507">
+                        <input type="text" id="lvl507" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl508">
+                        <input type="text" id="lvl508" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl509">
+                        <input type="text" id="lvl509" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl5010">
+                        <input type="text" id="lvl5010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl5011">
+                        <input type="text" id="lvl5011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl5012">
+                        <input type="text" id="lvl5012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl5013">
+                        <input type="text" id="lvl5013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell6">
+                <fieldset>
+                    <legend>lvl 6 Slots</legend>
+                    <div>
+                        <label for="total6Slots">Slots Total</label>
+                        <input type="text" id="total6Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots6Expend">Slots Expended</label>
+                        <input type="text" id="slots6Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl601">
+                        <input type="text" id="lvl601" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl602">
+                        <input type="text" id="lvl602" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl603">
+                        <input type="text" id="lvl603" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl604">
+                        <input type="text" id="lvl604" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl605">
+                        <input type="text" id="lvl605" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl606">
+                        <input type="text" id="lvl606" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl607">
+                        <input type="text" id="lvl607" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl608">
+                        <input type="text" id="lvl608" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl609">
+                        <input type="text" id="lvl609" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl6010">
+                        <input type="text" id="lvl6010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl6011">
+                        <input type="text" id="lvl6011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl6012">
+                        <input type="text" id="lvl6012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl6013">
+                        <input type="text" id="lvl6013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell7">
+                <fieldset>
+                    <legend>lvl 7 Slots</legend>
+                    <div>
+                        <label for="total7Slots">Slots Total</label>
+                        <input type="text" id="total7Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots7Expend">Slots Expended</label>
+                        <input type="text" id="slots7Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl701">
+                        <input type="text" id="lvl701" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl702">
+                        <input type="text" id="lvl702" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl703">
+                        <input type="text" id="lvl703" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl704">
+                        <input type="text" id="lvl704" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl705">
+                        <input type="text" id="lvl705" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl706">
+                        <input type="text" id="lvl706" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl707">
+                        <input type="text" id="lvl707" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl708">
+                        <input type="text" id="lvl708" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl709">
+                        <input type="text" id="lvl709" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl7010">
+                        <input type="text" id="lvl7010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl7011">
+                        <input type="text" id="lvl7011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl7012">
+                        <input type="text" id="lvl7012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl7013">
+                        <input type="text" id="lvl7013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell8">
+                <fieldset>
+                    <legend>lvl 8 Slots</legend>
+                    <div>
+                        <label for="total8Slots">Slots Total</label>
+                        <input type="text" id="total8Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots8Expend">Slots Expended</label>
+                        <input type="text" id="slots8Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl801">
+                        <input type="text" id="lvl801" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl802">
+                        <input type="text" id="lvl802" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl803">
+                        <input type="text" id="lvl803" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl804">
+                        <input type="text" id="lvl804" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl805">
+                        <input type="text" id="lvl805" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl806">
+                        <input type="text" id="lvl806" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl807">
+                        <input type="text" id="lvl807" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl808">
+                        <input type="text" id="lvl808" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl809">
+                        <input type="text" id="lvl809" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl8010">
+                        <input type="text" id="lvl8010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl8011">
+                        <input type="text" id="lvl8011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl8012">
+                        <input type="text" id="lvl8012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl8013">
+                        <input type="text" id="lvl8013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="spell9">
+                <fieldset>
+                    <legend>lvl 9 Slots</legend>
+                    <div>
+                        <label for="total9Slots">Slots Total</label>
+                        <input type="text" id="total9Slots" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="slots9Expend">Slots Expended</label>
+                        <input type="text" id="slots9Expend" placeholder="0">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl901">
+                        <input type="text" id="lvl901" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl902">
+                        <input type="text" id="lvl902" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl903">
+                        <input type="text" id="lvl903" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl904">
+                        <input type="text" id="lvl904" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl905">
+                        <input type="text" id="lvl905" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl906">
+                        <input type="text" id="lvl906" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl907">
+                        <input type="text" id="lvl907" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl908">
+                        <input type="text" id="lvl908" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl909">
+                        <input type="text" id="lvl909" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl9010">
+                        <input type="text" id="lvl9010" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl9011">
+                        <input type="text" id="lvl9011" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl9012">
+                        <input type="text" id="lvl9012" placeholder="Spell Name">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkboxlvl9013">
+                        <input type="text" id="lvl9013" placeholder="Spell Name">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="deleteDiv">
+            <h2>To confirm deletion of character, please enter the confirm to delete character</h2>
+            <input type="text" id="confirmDelete">
+            <button id="confirmBtn">Confirm Deletion</button>
+            <button id="cancelBtn">Cancel</button>
+            <h2 id="unableMsg"></h2>
+        </div>
+    </main>
+    <script src="characterScreen.js"></script>
+</body>
+</html>

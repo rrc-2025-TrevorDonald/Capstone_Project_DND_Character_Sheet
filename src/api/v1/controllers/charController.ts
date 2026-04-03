@@ -29,9 +29,7 @@ export const getChars = async (
 ): Promise<void> => {
     try {
         const chars: Pick<Char, "charName">[] = await charService.getChars();
-        res.status(HTTP_STATUS.OK).json(
-            successResponse(chars, "Characters retrieved successfully")
-        );
+        res.status(HTTP_STATUS.OK).json(chars);
     } catch (error) {
         next(error);
     };
@@ -46,9 +44,7 @@ export const getUserChars = async (
         const { email } = req.params;
 
         const chars: Pick<Char, "charName">[] = await charService.getUserChars(String(email));
-        res.status(HTTP_STATUS.OK).json(
-            successResponse(chars, "Characters retrieved successfully")
-        );
+        res.status(HTTP_STATUS.OK).json(chars);
     } catch (error) {
         next(error);
     };
@@ -60,11 +56,9 @@ export const getChar = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { charName } = req.params;
-        const char: Char = await charService.getCharById(String(charName));
-        res.status(HTTP_STATUS.OK).json(
-            successResponse(char, "Character retrieved successfully")
-        );
+        const { id } = req.params;
+        const char: Char = await charService.getCharById(String(id));
+        res.status(HTTP_STATUS.OK).json(char);
     } catch (error) {
         next(error);
     };
@@ -76,11 +70,11 @@ export const updateChar = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { charName } = req.params;
+        const { id } = req.params;
         const { ...rest } = req.body;
         const updateData = { ...rest };
 
-        const charUpdate: Char = await charService.updateChar(String(charName), updateData);
+        const charUpdate: Char = await charService.updateChar(String(id), updateData);
         res.status(HTTP_STATUS.OK).json(
             successResponse(charUpdate, "Character updated successfully")
         );         
