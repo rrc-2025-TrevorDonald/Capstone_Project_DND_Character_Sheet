@@ -422,7 +422,7 @@ const lvl9013 = document.getElementById("lvl9013");
 
 const deleteBtn = document.getElementById("deleteBtn");
 const deleteDiv = document.getElementById("deleteDiv");
-const confirmDel = document.getElementById("confirmDel");
+const confirmDelete = document.getElementById("confirmDelete");
 const confirmBtn = document.getElementById("confirmBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const unableMsg = document.getElementById("unableMsg");
@@ -1262,7 +1262,7 @@ const deleteChar = async (characterName) => {
             }
         };
 
-        await fetch(charApi + characterName, reqOptions);
+        await fetch(charsApi + characterName, reqOptions);
 
         unableMsg.textContent = "";
         deleteDiv.style.display = "none";
@@ -1293,10 +1293,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     confirmBtn.addEventListener("click", () => {
-        if (confirmDel.value === charNameHeader.value) {
-            deleteChar(charNameHeader.value);
+        if (confirmDelete.value === "confirm") {
+            deleteChar(selectedChar);
+            return
         } else {
-            unableMsg.textContent = "Entered text does not match character name";
+            unableMsg.textContent = 'Entered text does not match "confirm"';
         };
     });
 });
