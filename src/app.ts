@@ -2,6 +2,12 @@ import express, { Express } from "express";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes"
 import charRoutes from "./api/v1/routes/charRoutes"
+import errorHandler from "./api/v1/middleware/errorHandler";
+import {
+    accessLogger,
+    errorLogger,
+    consoleLogger,
+} from "./api/v1/middleware/logger";
 
 const app: Express = express();
 
@@ -11,6 +17,11 @@ interface HealthCheckResponse {
     timestamp: string;
     version: string;
 };
+
+app.use(accessLogger);
+app.use(errorLogger);
+app.use(consoleLogger);
+
 
 app.use(express.json());
 
@@ -32,5 +43,7 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/chars", charRoutes);
+
+app.use(errorHandler);
 
 export default app;
