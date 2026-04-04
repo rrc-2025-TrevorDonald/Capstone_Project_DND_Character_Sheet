@@ -72,6 +72,9 @@ export class UserNotFoundError extends AppError {
     }
 };
 
+/**
+ * Class representing an character not found error.
+ */
 export class CharNotFoundError extends AppError {
     constructor(
         message: string,
@@ -82,6 +85,9 @@ export class CharNotFoundError extends AppError {
     }
 };
 
+/**
+ * Class representing an character data not found error.
+ */
 export class CharDataNotFoundError extends AppError {
     constructor(
         message: string,

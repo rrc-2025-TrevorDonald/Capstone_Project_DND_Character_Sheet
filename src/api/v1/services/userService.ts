@@ -3,6 +3,12 @@ import admin from "firebase-admin";
 import { UserNotFoundError } from "../errors/errors";
 import { Auth, UserRecord } from "node_modules/firebase-admin/lib/auth";
 
+/**
+ * Logs in a user
+ * @param userEmail - the email used for logging in
+ * @param userPassword - the password used for logging in
+ * @returns the email and idToken of the logged in user
+ */
 export const userLogin = async (
     userEmail: string,
     userPassword: string,
@@ -32,6 +38,12 @@ export const userLogin = async (
     } as UserLogin;
 };
 
+/**
+ * Creates a new user
+ * @param userEmail - the email used to create the account
+ * @param userPassword - the password for the created account
+ * @returns The created users email and password
+ */
 export const userCreate = async (
     userEmail: string,
     userPassword: string,
@@ -51,6 +63,10 @@ export const userCreate = async (
     } as UserCreate;
 };
 
+/**
+ * Returns "Has Auth"
+ * @returns string containing "Has Auth"
+ */
 export const hasDMAuth = (): string => {
     return "Has Auth" as string;
 };
