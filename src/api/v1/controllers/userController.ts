@@ -7,6 +7,13 @@ const APIKEY: string = apiKey;
 const OK: number = 200;
 const CREATED: number = 201;
 
+/**
+ * Handles newLogin requests and calls the userLogin service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const newLogin = async (
     req: Request,
     res: Response,
@@ -22,6 +29,13 @@ export const newLogin = async (
     };
 };
 
+/**
+ * Handles newUser request and calls the userCreate service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const newUser = async (
     req: Request,
     res: Response,
@@ -36,6 +50,13 @@ export const newUser = async (
     };
 };
 
+/**
+ * Responds json str if a user has dm or admin authorization.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const hasDMAuth = (
     req: Request,
     res: Response,
