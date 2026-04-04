@@ -14,11 +14,7 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "alwaysStrict": true,
-        "baseUrl": "./",
-        "paths": {
-            "*": ["*"]
-        },
-        "ignoreDeprecations": "6.0"
+        "baseUrl": "./"
     },
     "include": ["src/**/*", "test/**/*", "config/**/*"],
     "exclude": ["node_modules", "dist"]
