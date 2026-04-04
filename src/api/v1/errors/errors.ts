@@ -71,3 +71,23 @@ export class UserNotFoundError extends AppError {
         super(message, code, statusCode);
     }
 };
+
+export class CharNotFoundError extends AppError {
+    constructor(
+        message: string,
+        code: string = "CHARACTER_NOT_FOUND",
+        statusCode: number = HTTP_STATUS.NOT_FOUND
+    ) {
+        super(message, code, statusCode);
+    }
+};
+
+export class CharDataNotFoundError extends AppError {
+    constructor(
+        message: string,
+        code: string = "CHARACTER_NOT_FOUND",
+        statusCode: number = HTTP_STATUS.NOT_FOUND
+    ) {
+        super(message, code, statusCode);
+    }
+};
