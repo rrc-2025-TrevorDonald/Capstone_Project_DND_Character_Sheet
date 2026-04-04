@@ -18,8 +18,8 @@ const router: Router = express.Router();
  *              content:
  *                  application/json: {
  *                      charName: string,
-*                          email: string
-*                       }
+ *                         email: string
+ *                      }
  *                      schema:
  *                          $ref: "#/src/api/v1/validation/validation"
  *          response:
@@ -49,11 +49,11 @@ router.post(
  *                  description: Chars retrieved successfully
  *                      content:
  *                          application/json: [
-*                               {
-*                                   charName: string,
-*                                   email: string
-*                               }, etc...
-*                           ]
+ *                              {
+ *                                  charName: string,
+ *                                  email: string
+ *                              }, etc...
+ *                           ]
  */
 router.get(
     "/all",
@@ -79,11 +79,11 @@ router.get(
  *                  description: Chars retrieved successfully
  *                      content:
  *                          application/json: [
-*                               {
-*                                   charName: string,
-*                                   email: string
-*                               }, etc...
-*                           ]
+ *                              {
+ *                                  charName: string,
+ *                                  email: string
+ *                              }, etc...
+ *                          ]
  */
 router.get(
     "/:email",
@@ -110,9 +110,9 @@ router.get(
  *                  description: Char retrieved successfully
  *                      content:
  *                          application/json: {
-*                               charName: string,
-*                               ...rest of data
-*                           }
+ *                              charName: string,
+ *                              ...rest of data
+ *                          }
  */
 router.get(
     "/char/:id",

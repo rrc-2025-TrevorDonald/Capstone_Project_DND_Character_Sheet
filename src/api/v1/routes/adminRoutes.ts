@@ -18,7 +18,7 @@ const router: express.Router = express.Router();
  *                      uid: string,
  *                      claims: {
  *                          role: string
-*                       }
+ *                      }
  *                  }
  *          response:
  *              "200": 
