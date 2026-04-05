@@ -2,7 +2,9 @@ import Joi from "joi";
 import { RequestSchemas } from "../middleware/validate";
 
 
-
+/**
+ * Sign in (login) schema organized by request type
+ */
 export const signinSchemas: Record<string, RequestSchemas> = {
     loginOrCreate: {
         body: Joi.object({
@@ -20,6 +22,9 @@ export const signinSchemas: Record<string, RequestSchemas> = {
     }
 };
 
+/**
+ * Char schema organized by request type
+ */
 export const charSchemas: Record<string, RequestSchemas> = {
     create: {
         body: Joi.object({

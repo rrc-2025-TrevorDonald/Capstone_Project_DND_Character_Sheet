@@ -4,6 +4,13 @@ import { Char } from "../models/charModel";
 import * as charService from "../services/charServices";
 import { successResponse } from "../models/responseModel";
 
+/**
+ * Handles createChar request and calls the createChar service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const createChar = async (
     req: Request,
     res: Response,
@@ -22,6 +29,13 @@ export const createChar = async (
     };
 };
 
+/**
+ * Handles getChars request and calls the getChars service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const getChars = async (
     req: Request,
     res: Response,
@@ -35,6 +49,13 @@ export const getChars = async (
     };
 };
 
+/**
+ * Handles getUserChars request and calls the getUserChars service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const getUserChars = async (
     req: Request,
     res: Response,
@@ -50,6 +71,13 @@ export const getUserChars = async (
     };
 };
 
+/**
+ * Handles getChar request and calls the getCharById service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const getChar = async (
     req: Request,
     res: Response,
@@ -64,6 +92,13 @@ export const getChar = async (
     };
 };
 
+/**
+ * Handles updateChar request and calls the updateChar service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const updateChar = async (
     req: Request,
     res: Response,
@@ -83,6 +118,13 @@ export const updateChar = async (
     };
 };
 
+/**
+ * Handles deleteChar request and calls the deleteChar service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
 export const deleteChar = async (
     req: Request,
     res: Response,
@@ -97,5 +139,5 @@ export const deleteChar = async (
         );
     } catch (error: unknown) {
         next(error);
-    }
+    };
 };

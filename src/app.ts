@@ -8,6 +8,7 @@ import {
     errorLogger,
     consoleLogger,
 } from "./api/v1/middleware/logger";
+import setupSwagger from "./config/swagger";
 
 const app: Express = express();
 
@@ -43,6 +44,8 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/chars", charRoutes);
+
+setupSwagger(app);
 
 app.use(errorHandler);
 

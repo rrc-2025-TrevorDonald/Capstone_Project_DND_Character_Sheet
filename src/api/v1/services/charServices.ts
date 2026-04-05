@@ -14,6 +14,11 @@ import {
 
 const COLLECTION: string = "chars";
 
+/**
+ * Creates a new char
+ * @param charData - The data for the new char (name and description)
+ * @returns The created char with the charName as the ID
+ */
 export const createChar = async (charData: {
     charName: string,
     email: string
@@ -385,6 +390,10 @@ export const createChar = async (charData: {
     return newChar  as Char;
 };
 
+/**
+ * Retrieves all chars from the database
+ * @returns The char if found
+ */
 export const getChars = async (): Promise<Char[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const chars: Char[] = snapshot.docs.map((doc) => {
@@ -397,6 +406,11 @@ export const getChars = async (): Promise<Char[]> => {
     return chars;
 };
 
+/**
+ * Retrieves the chars from the database that have the same email
+ * @param id - This ID of the char to retrieve
+ * @returns The char if found
+ */
 export const getUserChars = async (email: string): Promise<Char[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const chars: Char[] = snapshot.docs.map((doc) => {
@@ -410,6 +424,11 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
     return chars.filter(i => i.email === email);
 };
 
+/**
+ * Retrieves a single char by ID from the database
+ * @param id - This ID of the char to retrieve
+ * @returns The char if found
+ */
 export const getCharById = async (id: string): Promise<Char> => {
     const doc = await getDocumentById(COLLECTION, id);
     if (!doc) {
@@ -430,6 +449,14 @@ export const getCharById = async (id: string): Promise<Char> => {
     return char;
 };
 
+/**
+ * Updates (replaces) an existing char
+ * @param id - The ID of the char to update
+ * @param charData - The fields to updates (name and/or description)
+ * @returns The updated char
+ * @throws Error if char with given ID is not found or missing data within
+ * retrieved char
+ */
 export const updateChar = async (
     id: string,
     charData: Char
@@ -444,6 +471,11 @@ export const updateChar = async (
     return structuredClone(charData);
 };
 
+/**
+ * Deletes an char from storage
+ * @param id - The ID of the char to delete
+ * @throws Error if char with given ID is not found
+ */
 export const deleteChar = async (id: string): Promise<void> => {
     const char: Char = await getCharById(id);
     if (!char) {
