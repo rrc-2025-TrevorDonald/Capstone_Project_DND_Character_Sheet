@@ -140,7 +140,7 @@ router.get(
  *         description: Error getting char
  */
 router.get(
-    "/char/:charName",
+    "/char/:id",
     authenticate,
     isAuthorized({ hasRole: ["player", "dm", "admin"]}),
     validateRequest(charSchemas.delUpdateGet),
@@ -1049,7 +1049,7 @@ router.get(
  *         description: Error getting char
  */
 router.put(
-    "/char/:charName",
+    "/char/:id",
     authenticate,
     isAuthorized({ hasRole: ["player", "dm", "admin"]}),
     validateRequest(charSchemas.delUpdateGet),
