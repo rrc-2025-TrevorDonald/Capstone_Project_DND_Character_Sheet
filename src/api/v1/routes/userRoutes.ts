@@ -9,27 +9,37 @@ const router: Router = express.Router();
 
 /**
  * @openapi
- * /api/v1/users/:
- *      POST:
- *          summary: Signs a user in using given email and password
- *          tags: [Users]
- *          requestBody:
- *              required: true
- *              content:
- *                  application/json: {
- *                      email: string,
- *                      password: string,
- *                  }
- *                      schema:
- *                          $ref: "#/src/api/v1/validation/validation"
- *          response:
- *              "200": 
- *                  description: Successful login
- *                      content:
- *                          application/json: {
- *                              email: string,
- *                              idToken: string
- *                          }
+ * /:
+ *   post:
+ *     summary: Logs in a user using given email and password
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: example@gmail.com
+ *               password:
+ *                 type: string
+ *                 minLength: 5
+ *     responses:
+ *       '200':
+ *         description: Successfully logs in a user
+ *         content:
+ *           application/json:
+ *             example:
+ *               email: example@gmail.com
+ *               idToken: adsfh98u314-9io12un34rf0892-134r-201893yfn028794ytr0234nyt...
+ *       '404':
+ *         description: User not found
  */
 router.post(
     "/",
@@ -39,27 +49,37 @@ router.post(
 
 /**
  * @openapi
- * /api/v1/users/new:
- *      POST:
- *          summary: Creates a new user with given email and password
- *          tags: [Users]
- *          requestBody:
- *              required: true
- *              content:
- *                  application/json: {
- *                      email: string,
- *                      password: string,
- *                  }
- *                      schema:
- *                          $ref: "#/src/api/v1/validation/validation"
- *          response:
- *              "200": 
- *                  description: Successfully created
- *                      content:
- *                          application/json: {
- *                      email: string,
- *                      password: string,
- *                  }
+ * /new:
+ *   post:
+ *     summary: Creates a user using given email and password
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: example@gmail.com
+ *               password:
+ *                 type: string
+ *                 minLength: 5
+ *     responses:
+ *       '200':
+ *         description: Successfully logs in a user
+ *         content:
+ *           application/json:
+ *             example:
+ *               email: example@gmail.com
+ *               password: inputted password
+ *       '400':
+ *         description: Error creating user
  */
 router.post(
     "/new",
@@ -69,16 +89,21 @@ router.post(
 
 /**
  * @openapi
- * /api/v1/users/dm:
- *      GET:
- *          summary: Returns successful response of "Has Auth" if user has permissions
- *          tags: [Users]
- *          response:
- *              "200": 
- *                  description: Has Auth
- *                      content:
- *                          application/json: {
- *                              message: Has Auth}
+ * /dm:
+ *   post:
+ *     summary: Endpoint for validating if user had dm or admin privileges
+ *     tags: [Users]
+ *     responses:
+ *       '200':
+ *         description: Successfully logs in a user
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Has Auth
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
  */
 router.get(
     "/dm",
