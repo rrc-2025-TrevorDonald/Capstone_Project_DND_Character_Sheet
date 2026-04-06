@@ -865,6 +865,7 @@ const getChar = async (characterName) => {
         lvl9013.value = char.lvl9013;
         passWis.value = char.passWis;
 
+        sessionStorage.setItem("displayed", true)
     } catch(error) {
         console.log(error)
     };
@@ -1273,7 +1274,9 @@ const deleteChar = async (characterName) => {
     };    
 };
 document.addEventListener("DOMContentLoaded", () => {
-    getChar(selectedChar);
+     if (!sessionStorage.getItem("displayed")) {
+        getChar(selectedChar);
+    };
 
     saveBtn.addEventListener("click", () => {
         saveChar(selectedChar);
@@ -1281,6 +1284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     backBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("displayed")
         window.location.href = "../mainScreen/mainScreen.html";
     });
 
@@ -1294,6 +1298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     confirmBtn.addEventListener("click", () => {
         if (confirmDelete.value === "confirm") {
+            sessionStorage.removeItem("displayed")
             deleteChar(selectedChar);
             return
         } else {
