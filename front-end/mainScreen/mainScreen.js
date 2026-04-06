@@ -13,19 +13,23 @@ const playerInput = document.getElementById("playerInput");
 const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
 
-const loginEmail = sessionStorage.getItem("user")
-const auth = sessionStorage.getItem("auth")
+const loginEmail = sessionStorage.getItem("user");
+const auth = sessionStorage.getItem("auth");
 
 const charApi = "http://localhost:3000/api/v1/chars";
 
 const removeErrorMessages = () => {
-    const errorMessages = document.querySelectorAll(".errorMessage")
+    const errorMessages = document.querySelectorAll(".errorMessage");
     for (const el of errorMessages){
-        el.textContent = ""
+        el.textContent = "";
     };
 };
 
 const displayUserChars = async (userEmail) => {
+    const listedChars = document.querySelectorAll("li");
+    for (const el of listedChars){
+        el.remove();
+    };
     console.log(loginEmail)
     const reqOptions = {
         method: "GET",
@@ -54,10 +58,13 @@ const displayUserChars = async (userEmail) => {
 
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
         selectCharButton.addEventListener("click", () => {
-            sessionStorage.setItem("char", chars[i].charName)
+            sessionStorage.setItem("char", chars[i].charName);
+            sessionStorage.removeItem("displayed");
             window.location.href = "../characterScreen/characterScreen.html"
         })
     }
+
+    sessionStorage.setItem("displayed", true)
 };
 
 const createChar = async () => {
@@ -83,7 +90,6 @@ const createChar = async () => {
         return
     };
 
-    window.location.reload();
     displayUserChars(loginEmail);
 };
 
@@ -109,7 +115,9 @@ const authorizedDM = async () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    displayUserChars(loginEmail);
+    if (!sessionStorage.getItem("displayed")) {
+        displayUserChars(loginEmail);
+    };
     createBtn.addEventListener("click", () => {
         createChar()
     });
