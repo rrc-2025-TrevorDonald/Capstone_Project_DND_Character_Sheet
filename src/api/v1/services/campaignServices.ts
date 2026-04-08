@@ -160,3 +160,16 @@ export const removePlayerFromCampaign = async (
 
     return structuredClone(campaign);
 };
+
+export const getDmCampaigns = async (email: string): Promise<Campaign[]> => {
+    const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
+    const camps: Campaign[] = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            campName: data.charName,
+            dm: data.email
+        } as Campaign;
+    });
+    
+    return camps.filter(i => i.dm === email);
+};

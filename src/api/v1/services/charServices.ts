@@ -418,7 +418,7 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
         return{
             charName: data.charName,
             email: data.email
-        }  as Char;;
+        } as Char;
     });
     
     return chars.filter(i => i.email === email);

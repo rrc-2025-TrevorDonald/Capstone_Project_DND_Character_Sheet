@@ -43,7 +43,7 @@ describe("Campaign Services", () => {
     });
 
     describe("getCampaigns", () => {
-        it("should return all chars", async () => {
+        it("should return all camps", async () => {
             // Arrange
             const mockArray = [
                 {campName: "test1", notes: "", players: [], dm: "test"},
@@ -234,4 +234,34 @@ describe("Campaign Services", () => {
             });
         });
     });
+
+    describe("getDmCampaigns", () => {
+            it("should return all campaigns with the supplied email", async () => {
+                // Arrange
+                const mockEmail = "test@test.com"
+                const mockArray = {
+                    docs: [
+                        {data: () => ({ campName: "test1", dm: "test@test.com" })},
+                        {data: () => ({ campName: "test2", dm: "tests@test.com" })},
+                        {data: () => ({ campName: "test3", dm: "test@test.com" })}
+                    ]
+                };
+    
+                jest.spyOn(campaignService, 'getDmCampaigns').mockResolvedValue([
+                    {campName: "test1", dm: "test@test.com"},
+                    {campName: "test3", dm: "test@test.com"}
+                ]);
+    
+                (firestoreRepository.getDocuments as jest.Mock).mockResolvedValue(mockArray);
+    
+                // Act
+                const actual: Campaign[] = await campaignService.getDmCampaigns(mockEmail);
+    
+                // Assert
+                expect(actual).toStrictEqual([
+                    {campName: "test1", dm: "test@test.com"},
+                    {campName: "test3", dm: "test@test.com"}
+                ]);
+            });
+        });
 });
