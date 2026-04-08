@@ -1,4 +1,5 @@
 import { db } from "../../../config/firebaseConfig";
+const admin = require("firebase-admin");
 
 /**
  * Creates a new document in a specified Firestore collection.
@@ -128,3 +129,23 @@ export const deleteDocument = async (
         );
     }
 };
+
+export const addPlayer = async (
+    collectionName: string,
+    id: string,
+    data: object
+): Promise<void> => {
+    try {
+        const database: FirebaseFirestore.DocumentReference = db.collection(collectionName).doc(id);
+
+        await database.update({
+            players: admin.firestore.FieldValue.arrayUnion(data)
+        })
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Unknown error";
+        throw new Error(
+            `Failed to update document ${id} in ${collectionName}: ${errorMessage}`
+        );
+    }
+}
