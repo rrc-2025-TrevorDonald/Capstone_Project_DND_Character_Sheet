@@ -16,7 +16,7 @@ const COLLECTION: string = "chars";
 
 /**
  * Creates a new char
- * @param charData - The data for the new char (name and description)
+ * @param charData - The data for the new char
  * @returns The created char with the charName as the ID
  */
 export const createChar = async (charData: {
