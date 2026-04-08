@@ -102,14 +102,3 @@ header {
     margin-top: 6rem;
     display: none;
 }
-footer {
-    text-align: center;
-    background-color: rgb(209, 66, 66, 0.925);
-    padding: .1rem;
-    margin-top: 10.3rem;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 25px;
-    box-shadow: 2px 2px 9px black;
-    width: 50%;
-}

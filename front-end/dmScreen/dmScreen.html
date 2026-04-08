@@ -15,13 +15,27 @@
         </div>
     </header>
     <main>
-        <section id="listSection">
+        <section id="campListSection">
             <h2>Dungeons Master Dashboard</h2>
-            <h3>Heres the list of Characters in your campaign</h3>
+            <h3>Please select a Campaign to continue or create a new Campaign.</h3>
+            <h3 id="campText"></h3>
+            <ul id="campList">
+                
+            </ul>
+            <label for="campNameInput">Campaign name</label>
+            <input type="text" id="campNameInput">
+            <button id="createBtn">Create Character</button>
+            <button id="seeAllBtn">See all Characters</button>
+            <h3 id="createError" class="errorMessage"></h3>
+        </section>
+        <section id="charListSection">
+            <h2>Dungeons Master Dashboard</h2>
+            <h3>Heres the list of Characters</h3>
             <h3 id="charText"></h3>
             <ul id="charList">
                 
             </ul>
+            <button id="seeCampBtn">Back to Campaigns</button>
         </section>
     </main>
     <script src="dmScreen.js"></script>

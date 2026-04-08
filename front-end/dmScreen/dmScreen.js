@@ -1,15 +1,95 @@
 const backBtn = document.getElementById("backBtn");
 const signOutBtn = document.getElementById("signOutBtn");
-const listSection = document.getElementById("listSection");
+
+const campListSection = document.getElementById("campListSection");
+const campText = document.getElementById("campText");
+const campList = document.getElementById("campList");
+const campNameInput = document.getElementById("campNameInput");
+const createBtn = document.getElementById("createBtn");
+const seeAllBtn = document.getElementById("seeAllBtn");
+
+const charListSection = document.getElementById("charListSection");
 const charText = document.getElementById("charText");
 const charList = document.getElementById("charList");
+const seeCampBtn = document.getElementById("seeCampBtn")
 
 const loginEmail = sessionStorage.getItem("user")
 const auth = sessionStorage.getItem("auth")
 
+const campApi = "http://localhost:3000/api/v1/campaings"
 const charApi = "http://localhost:3000/api/v1/chars/all";
 
+const displayDmCamps = async (userEmail) => {
+    const listedChars = document.querySelectorAll("li");
+    for (const el of listedChars){
+        el.remove();
+    };
+    console.log(loginEmail)
+    const reqOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth}`
+        }
+    };
+
+    const response = await fetch(campApi + `/${userEmail}`, reqOptions);
+    console.log(response)
+    
+    const camps = await response.json();
+    console.log(chars)
+
+    if (chars.length === 0) {
+        campText.textContent = "You don't appear to have any campaigns, please create a campaign to continue."
+        return;
+    };
+    campText.textContent = "Campaigns:"
+
+    for (let i = 0; i < chars.length; i++) {
+        const listedChar = document.createElement("li")
+        listedChar.innerHTML = `${camps[i].campName}<button id="${camps[i].campName}Button">Select</button>`
+        campList.appendChild(listedChar)
+
+        const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
+        selectCharButton.addEventListener("click", () => {
+            // Need to add to here once have campaign screen
+        })
+    }
+
+    sessionStorage.setItem("displayed", true)
+};
+
+const createCampaign = async () => {
+    removeErrorMessages();
+    const reqOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth}`
+        },
+        body: JSON.stringify({
+            campName: campNameInput.value,
+            email: loginEmail
+        })
+    };
+
+    const createResponse = await fetch(campApi, reqOptions)
+    const camp = await createResponse.json();
+
+    if (camp.error) {
+        const strippedError = char.error.split("Body:").splice(1);
+        createError.textContent = strippedError.shift(1);
+        return
+    };
+
+    displayDmCamps(loginEmail);
+};
+
 const displayAllChars = async () => {
+    const listedChars = document.querySelectorAll("li");
+    for (const el of listedChars){
+        el.remove();
+    };
     const reqOptions = {
         method: "GET",
         headers: {
@@ -39,15 +119,32 @@ const displayAllChars = async () => {
             window.location.href = "../characterScreen/characterScreen.html"
         })
     }
+
+    sessionStorage.setItem("displayed", true)
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    displayAllChars();
+    if (!sessionStorage.getItem("displayed")) {
+        displayDmCamps(loginEmail);
+    };
     signOutBtn.addEventListener("click", () => {
         sessionStorage.clear();
         window.location.href = "../signInScreen/index.html";
-    })
+    });
     backBtn.addEventListener("click", () => {
         window.location.href = "../mainScreen/mainScreen.html";
-    })
-})
+    });
+    createBtn.addEventListener("click", () => {
+        createChar();
+    });
+    seeAllBtn.addEventListener("click", () => {
+        displayAllChars();
+        campListSection.style.display = "none"
+        charListSection.style.display = "flex"
+    });
+    seeCampBtn.addEventListener("click", () => {
+        displayDmCamps(loginEmail);
+        campListSection.style.display = "flex"
+        charListSection.style.display = "none"
+    });
+});
