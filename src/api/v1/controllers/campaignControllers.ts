@@ -151,7 +151,7 @@ export const addPlayerToCampaign = async (
  * @param {NextFunction} next - The next middleware function.
  * @returns {Promise<void>}
  */
-export const deleteChar = async (
+export const deleteCampaign = async (
     req: Request,
     res: Response,
     next: NextFunction
