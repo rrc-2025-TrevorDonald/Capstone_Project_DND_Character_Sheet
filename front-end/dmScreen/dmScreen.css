@@ -56,6 +56,28 @@ header button {
     align-items: center;
 }
 
+#campListSection ul {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+#campListSection li {
+    margin-top: .25rem;
+    list-style: none;
+}
+
+#campListSection li button {
+    margin-left: 1rem;
+}
+
+#createBtn {
+    margin-top: .5rem;
+}
+
+#seeAllBtn {
+    margin-top: 1.5rem;
+}
+
 /* Char List section */
 #charListSection {
     text-align: center;
@@ -74,16 +96,16 @@ header button {
     align-items: center;
 }
 
-#listSection ul {
+#charListSection ul {
     padding-left: 0;
     list-style-position: inside;
 }
 
-#listSection li {
+#charListSection li {
     margin-top: .25rem;
     list-style: none;
 }
 
-#listSection li button {
+#charListSection li button {
     margin-left: 1rem;
 }
