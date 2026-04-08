@@ -73,6 +73,32 @@ export class UserNotFoundError extends AppError {
 };
 
 /**
+ * Class representing an campaign not found error.
+ */
+export class CampNotFoundError extends AppError {
+    constructor(
+        message: string,
+        code: string = "CHARACTER_NOT_FOUND",
+        statusCode: number = HTTP_STATUS.NOT_FOUND
+    ) {
+        super(message, code, statusCode);
+    }
+};
+
+/**
+ * Class representing an campaign data not found error.
+ */
+export class CampDataNotFoundError extends AppError {
+    constructor(
+        message: string,
+        code: string = "CHARACTER_NOT_FOUND",
+        statusCode: number = HTTP_STATUS.NOT_FOUND
+    ) {
+        super(message, code, statusCode);
+    }
+};
+
+/**
  * Class representing an character not found error.
  */
 export class CharNotFoundError extends AppError {

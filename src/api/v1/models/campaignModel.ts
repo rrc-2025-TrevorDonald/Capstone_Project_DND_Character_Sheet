@@ -1,5 +1,5 @@
 export interface Campaign {
-    id: string;
+    campName: string;
     notes: string;
     players: object;
     dm: string;
