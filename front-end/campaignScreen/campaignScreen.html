@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="campaignScreen.css">
+    <title>D&D Character Sheet</title>
+</head>
+<body>
+    <header>
+        <h1>Dungeons & Dragons Character Sheet Manager</h1>
+        <div id="headerDiv">
+            <button id="backBtn">Go Back</button>
+            <button id="signOutBtn">Sign Out</button>
+        </div>
+    </header>
+    <main>
+        <section id="currentListSection">
+            <h2>Dungeons Master Dashboard</h2>
+            <h3>Current Players in your Campaign.</h3>
+            <h3 id="currentText">You don't have any characters in your campaign</h3>
+            <ul id="currentList">
+                
+            </ul>
+            <h3 id="currentError" class="errorMessage"></h3>
+            <button id="seePlayersBtn">Add Players to your Campaign</button>
+        </section>
+        <section id="charListSection">
+            <h2>Dungeons Master Dashboard</h2>
+            <h3>Heres the list of Characters you can add to your Campaign</h3>
+            <h3 id="charText"></h3>
+            <ul id="charList">
+                
+            </ul>
+            <h3 id="charError" class="errorMessage"></h3>
+            <button id="seeCampBtn">Back to Campaigns</button>
+        </section>
+    </main>
+    <script src="campaignScreen.js"></script>
+</body>
+</html>

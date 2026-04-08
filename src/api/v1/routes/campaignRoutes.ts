@@ -75,7 +75,7 @@ router.post(
 router.get(
     "/all",
     authenticate,
-    isAuthorized({ hasRole: ["dm", "admin"]}),
+    isAuthorized({ hasRole: ["admin"]}),
     campaignController.getCampaigns
 );
 
@@ -109,7 +109,6 @@ router.get(
     "/:email",
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
-    validateRequest(campSchemas.emailParams),
     campaignController.getDmCampaigns
 );
 

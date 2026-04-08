@@ -10,6 +10,7 @@ import {
     consoleLogger,
 } from "./api/v1/middleware/logger";
 import setupSwagger from "./config/swagger";
+import cors from 'cors';
 
 const app: Express = express();
 
@@ -24,6 +25,13 @@ app.use(accessLogger);
 app.use(errorLogger);
 app.use(consoleLogger);
 
+const corsOptions: cors.CorsOptions = {
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 

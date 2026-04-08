@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/rrc-2025-TrevorDonald/Capstone_Project_DND_Character_Sheet#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "firebase-admin": "^13.6.1",
     "firestore": "^1.1.6",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@redocly/cli": "^2.25.4",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/joi": "^17.2.2",

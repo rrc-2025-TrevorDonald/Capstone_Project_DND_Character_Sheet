@@ -85,7 +85,7 @@ export const getDmCampaigns = async (
     try {
         const { email } = req.params;
 
-        const chars: Pick<Campaign, "campName">[] = await campaignServices.getDmCampaigns(String(email));
+        const chars: Campaign[] = await campaignServices.getDmCampaigns(String(email));
         res.status(HTTP_STATUS.OK).json(chars);
     } catch (error) {
         next(error);

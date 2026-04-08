@@ -166,8 +166,8 @@ export const getDmCampaigns = async (email: string): Promise<Campaign[]> => {
     const camps: Campaign[] = snapshot.docs.map((doc) => {
         const data = doc.data();
         return {
-            campName: data.charName,
-            dm: data.email
+            campName: data.campName,
+            dm: data.dm
         } as Campaign;
     });
     

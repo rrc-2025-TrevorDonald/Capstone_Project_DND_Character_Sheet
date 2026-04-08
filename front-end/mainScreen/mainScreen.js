@@ -46,7 +46,7 @@ const displayUserChars = async (userEmail) => {
     console.log(chars)
 
     if (chars.length === 0) {
-        charText.textContent = "You don't appear to have any characters made, please create a character to continue."
+        sessionStorage.setItem("displayed", true)
         return;
     };
     charText.textContent = "Characters:"
@@ -108,6 +108,7 @@ const authorizedDM = async () => {
         const hasAuth = await response.json();
         console.log(hasAuth)
         
+        sessionStorage.removeItem("displayed")
         window.location.href = "../dmScreen/dmScreen.html";
     } catch(error) {
         createError.textContent = "Unauthorized you're not a DM"

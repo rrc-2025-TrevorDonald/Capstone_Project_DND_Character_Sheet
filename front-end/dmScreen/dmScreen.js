@@ -13,50 +13,62 @@ const charText = document.getElementById("charText");
 const charList = document.getElementById("charList");
 const seeCampBtn = document.getElementById("seeCampBtn")
 
-const loginEmail = sessionStorage.getItem("user")
-const auth = sessionStorage.getItem("auth")
+const loginEmail = sessionStorage.getItem("user");
+const auth = sessionStorage.getItem("auth");
 
-const campApi = "http://localhost:3000/api/v1/campaings"
+const campApi = "http://localhost:3000/api/v1/campaigns"
 const charApi = "http://localhost:3000/api/v1/chars/all";
 
+const removeErrorMessages = () => {
+    const errorMessages = document.querySelectorAll(".errorMessage");
+    for (const el of errorMessages){
+        el.textContent = "";
+    };
+};
+
 const displayDmCamps = async (userEmail) => {
-    const listedChars = document.querySelectorAll("li");
-    for (const el of listedChars){
-        el.remove();
-    };
-    console.log(loginEmail)
-    const reqOptions = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${auth}`
+    try {
+        const listedChars = document.querySelectorAll("li");
+        for (const el of listedChars){
+            el.remove();
+        };
+        console.log(loginEmail)
+        const reqOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth}`
+            }
+        };
+
+        const response = await fetch(campApi + `/${userEmail}`, reqOptions);
+        console.log(response)
+        
+        const camps = await response.json();
+        console.log(camps)
+
+        if (camps.length === 0) {
+            campText.textContent = "You don't appear to have any campaigns, please create a campaign to continue."
+            return;
+        };
+        campText.textContent = "Campaigns:"
+
+        for (let i = 0; i < camps.length; i++) {
+            const listedChar = document.createElement("li")
+            listedChar.innerHTML = `${camps[i].campName}<button id="${camps[i].campName}Button">Select</button>`
+            campList.appendChild(listedChar)
+
+            const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
+            selectCharButton.addEventListener("click", () => {
+                // Need to add to here once have campaign screen
+            })
         }
-    };
 
-    const response = await fetch(campApi + `/${userEmail}`, reqOptions);
-    console.log(response)
-    
-    const camps = await response.json();
-    console.log(chars)
-
-    if (chars.length === 0) {
-        campText.textContent = "You don't appear to have any campaigns, please create a campaign to continue."
-        return;
-    };
-    campText.textContent = "Campaigns:"
-
-    for (let i = 0; i < chars.length; i++) {
-        const listedChar = document.createElement("li")
-        listedChar.innerHTML = `${camps[i].campName}<button id="${camps[i].campName}Button">Select</button>`
-        campList.appendChild(listedChar)
-
-        const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
-        selectCharButton.addEventListener("click", () => {
-            // Need to add to here once have campaign screen
-        })
+        sessionStorage.setItem("displayed", true)
+    } catch {
+        console.log(Error)
+        sessionStorage.setItem("displayed", true)
     }
-
-    sessionStorage.setItem("displayed", true)
 };
 
 const createCampaign = async () => {
@@ -102,7 +114,7 @@ const displayAllChars = async () => {
     const chars = await response.json();
 
     if (chars.length === 0) {
-        charText.textContent = "There doesn't appear to be any Characters in your campaign"
+        sessionStorage.setItem("displayed", true)
         return;
     };
 
@@ -115,6 +127,7 @@ const displayAllChars = async () => {
 
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
         selectCharButton.addEventListener("click", () => {
+            sessionStorage.removeItem("displayed")
             sessionStorage.setItem("char", chars[i].charName)
             window.location.href = "../characterScreen/characterScreen.html"
         })
@@ -132,10 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../signInScreen/index.html";
     });
     backBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("displayed")
         window.location.href = "../mainScreen/mainScreen.html";
     });
     createBtn.addEventListener("click", () => {
-        createChar();
+        createCampaign();
     });
     seeAllBtn.addEventListener("click", () => {
         displayAllChars();

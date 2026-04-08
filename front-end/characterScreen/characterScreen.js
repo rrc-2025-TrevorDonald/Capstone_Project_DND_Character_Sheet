@@ -1285,7 +1285,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backBtn.addEventListener("click", () => {
         sessionStorage.removeItem("displayed")
-        window.location.href = "../mainScreen/mainScreen.html";
+        window.history.go(-1)
     });
 
     deleteBtn.addEventListener("click", () => {
