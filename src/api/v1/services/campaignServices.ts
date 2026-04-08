@@ -6,10 +6,10 @@ import {
     getDocumentById,
     updateDocument,
     deleteDocument,
-    addPlayer
+    addPlayer,
+    removePlayer
 } from "../repositories/firestoreRepository";
 import { CampDataNotFoundError, CampNotFoundError } from "../errors/errors";
-import { string } from "joi";
 
 const COLLECTION: string = "campaigns";
 
@@ -49,20 +49,20 @@ export const getCampaigns = async (): Promise<Campaign[]> => {
 };
 
 /**
- * Retrieves a single campaign by ID from the database
- * @param id - This ID of the campaign to retrieve
+ * Retrieves a single campaign by campName from the database
+ * @param campName - This name of the campaign to retrieve
  * @returns The campaign if found
  */
-export const getCampaignById = async (id: string): Promise<Campaign> => {
-    const doc = await getDocumentById(COLLECTION, id);
+export const getCampaignById = async (campName: string): Promise<Campaign> => {
+    const doc = await getDocumentById(COLLECTION, campName);
     if (!doc) {
-        throw new CampNotFoundError(`${id} does not exist`);
+        throw new CampNotFoundError(`${campName} does not exist`);
     };
 
     const data = doc.data();
 
     if (!data) {
-        throw new CampDataNotFoundError(`Data associated with ${id} not found`);
+        throw new CampDataNotFoundError(`Data associated with ${campName} not found`);
     };
 
     const campaign: Campaign = {
@@ -72,12 +72,13 @@ export const getCampaignById = async (id: string): Promise<Campaign> => {
 
     return campaign;
 };
+
 /**
  * Updates existing campaign players
- * @param id - The ID of the campaign to update
+ * @param campName - The name of the campaign to update
  * @param playerToAdd - the player being added to the campaign
  * @returns The updated campaign
- * @throws Error if campaign with given ID is not found or missing data within
+ * @throws Error if campaign with given name is not found or missing data within
  * retrieved campaign
  */
 export const addPlayerToCampaign = async (
@@ -107,7 +108,6 @@ export const updateCampaign = async (
     campName: string,
     campData: Pick<Campaign, "notes">
 ): Promise<Campaign> => {
-    // check if the camp exists before updating
     const camp: Campaign = await getCampaignById(campName);
     if (!camp) {
         throw new Error(`Campaign with ID ${campName} not found`);
@@ -121,4 +121,42 @@ export const updateCampaign = async (
     await updateDocument<Campaign>(COLLECTION, campName, updateCampaign);
 
     return structuredClone(updateCampaign);
+};
+
+/**
+ * Deletes an campaign from storage
+ * @param campName - The name of the campaign to delete
+ * @throws Error if campaign with given name is not found
+ */
+export const deleteCampaign = async (campName: string): Promise<void> => {
+    const camp: Campaign = await getCampaignById(campName);
+    if (!camp) {
+        throw new Error(`Campaign with ID ${campName} not found`);
+    }
+
+    await deleteDocument(COLLECTION, campName);
+};
+
+/**
+ * Updates existing campaign players
+ * @param campName - The name of the campaign to update
+ * @param playerToRemove - the player being removed from the campaign
+ * @returns The updated campaign
+ * @throws Error if campaign with given name is not found or missing data within
+ * retrieved campaign
+ */
+export const removePlayerFromCampaign = async (
+    campName: string,
+    playerToRemove: {
+        charName: string,
+        email: string
+    }
+): Promise<Campaign> => {
+    const campaign: Campaign = await getCampaignById(campName);
+    if (!campaign) {
+        throw new CampNotFoundError(`Campaign with ID ${campName} not found`);
+    };
+    await removePlayer(COLLECTION, campName, playerToRemove);
+
+    return structuredClone(campaign);
 };

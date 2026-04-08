@@ -149,3 +149,23 @@ export const addPlayer = async (
         );
     }
 }
+
+export const removePlayer = async (
+    collectionName: string,
+    id: string,
+    data: object
+): Promise<void> => {
+    try {
+        const database: FirebaseFirestore.DocumentReference = db.collection(collectionName).doc(id);
+
+        await database.update({
+            players: admin.firestore.FieldValue.arrayRemove(data)
+        })
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Unknown error";
+        throw new Error(
+            `Failed to update document ${id} in ${collectionName}: ${errorMessage}`
+        );
+    }
+}
