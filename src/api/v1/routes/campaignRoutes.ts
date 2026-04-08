@@ -69,3 +69,5 @@ router.delete(
     validateRequest(campSchemas.delUpdateGet),
     campaignController.deleteCampaign
 );
+
+export default router;

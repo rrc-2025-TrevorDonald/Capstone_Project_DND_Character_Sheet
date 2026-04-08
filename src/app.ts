@@ -1,7 +1,8 @@
 import express, { Express } from "express";
 import userRoutes from "./api/v1/routes/userRoutes";
-import adminRoutes from "./api/v1/routes/adminRoutes"
-import charRoutes from "./api/v1/routes/charRoutes"
+import adminRoutes from "./api/v1/routes/adminRoutes";
+import charRoutes from "./api/v1/routes/charRoutes";
+import campaignRoutes from "./api/v1/routes/campaignRoutes";
 import errorHandler from "./api/v1/middleware/errorHandler";
 import {
     accessLogger,
@@ -44,6 +45,7 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/chars", charRoutes);
+app. use("/api/v1/campaigns", campaignRoutes);
 
 setupSwagger(app);
 
