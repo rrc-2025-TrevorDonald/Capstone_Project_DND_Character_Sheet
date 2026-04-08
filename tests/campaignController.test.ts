@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
-import * as campaignController from "../src/api/v1/controllers/campaignControllers";
+import * as campaignController from "../src/api/v1/controllers/campaignController";
 import * as campaignServices from "../src/api/v1/services/campaignServices";
 import { Campaign } from "../src/api/v1/models/campaignModel";
 
