@@ -1572,7 +1572,7 @@ describe("Character Service", () => {
         });
     });
 
-    describe("updateChar", () => {
+    describe("deleteChar", () => {
         it("should update the char with the supplied id (charName)", async () => {
             // Arrange
             const mockId = "test"
