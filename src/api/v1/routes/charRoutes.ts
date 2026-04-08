@@ -55,7 +55,7 @@ router.post(
 
 /**
  * @openapi
- * /users/all:
+ * /chars/all:
  *   get:
  *     summary: Retrieves a list of all characters
  *     tags: [Chars]
@@ -116,7 +116,7 @@ router.get(
  * @openapi
  * /users/user/:id:
  *   get:
- *     summary: Retrieves the characters with matching charName as given
+ *     summary: Retrieve the character with matching charName as given
  *     tags: [Chars]
  *     parameters:
  *       - name: charName
@@ -1037,7 +1037,7 @@ router.get(
  *         content:
  *           application/json:
  *             example: 
- *               message: Char updated successfully
+ *               message: Character updated successfully
  *               data: { charName: Grognak, email: example@gmail.com }
  *       '404':
  *         description: User not found
@@ -1070,10 +1070,10 @@ router.put(
  *           type: string
  *     responses:
  *       '200':
- *         description: Successfully deleted user
+ *         description: Successfully deleted char
  *         content:
  *           application/json:
- *             example: { message: Successfully deleted user }
+ *             example: { message: Char successfully deleted }
  *       '404':
  *         description: User not found
  *       '403':

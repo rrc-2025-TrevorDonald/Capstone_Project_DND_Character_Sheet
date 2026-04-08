@@ -85,6 +85,467 @@
         }
       }
     },
+    "/campaigns": {
+      "post": {
+        "summary": "Creates a new campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "campName",
+                  "email"
+                ],
+                "properties": {
+                  "campName": {
+                    "type": "string",
+                    "example": "My First Campaign"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Campaign created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Campaign created successfully",
+                  "data": {
+                    "Camp object": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error creating campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          }
+        }
+      }
+    },
+    "/campaigns/all": {
+      "get": {
+        "summary": "Retrieves a list of all campaigns",
+        "tags": [
+          "Campaigns"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved campaigns",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "campName": "My First Campaign"
+                  },
+                  {
+                    "campName": "My Second Campaign"
+                  },
+                  "..."
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaigns"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          }
+        }
+      }
+    },
+    "/campaigns/:email": {
+      "get": {
+        "summary": "Retrieves a list of all campaigns with that contain the given email",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "example@gmail.com"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved users",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "campName": "My First Campaign",
+                    "notes": "notes for the DM",
+                    "players": [
+                      "Player1",
+                      "Player2"
+                    ],
+                    "dm": "example@gmail.com"
+                  },
+                  "..."
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaigns"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          }
+        }
+      }
+    },
+    "/campaigns/campaign/:campName": {
+      "get": {
+        "summary": "Retrieve the character with matching campName as given",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "charName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved campaign",
+            "content": {
+              "application/json": {
+                "example": {
+                  "campName": "My First Campaign",
+                  "notes": "notes for the DM",
+                  "players": [
+                    "Player1",
+                    "Player2"
+                  ],
+                  "dm": "example@gmail.com"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a char with selected charName",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "campName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "notes"
+                ],
+                "properties": {
+                  "campName": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "players": {
+                    "type": "array"
+                  },
+                  "dm": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated campaign",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Campaign updated successfully",
+                  "data": {
+                    "campName": "My First Campaign",
+                    "notes": "notes for the DM",
+                    "players": [
+                      "Player1",
+                      "Player2"
+                    ],
+                    "dm": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes the campaign with matching campName as given",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "charName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted campaign",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Campaign deleted successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error deleting char"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/campaigns/campaign/player/add/:campName": {
+      "put": {
+        "summary": "Adds a char to a campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "campName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "charName",
+                  "email"
+                ],
+                "properties": {
+                  "charName": {
+                    "type": "string",
+                    "example": "Grognak"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Player added successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Player added successfully",
+                  "data": {
+                    "campName": "My First Campaign",
+                    "notes": "notes for the DM",
+                    "players": [
+                      "Player1",
+                      "Player2"
+                    ],
+                    "dm": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      }
+    },
+    "/campaigns/campaign/player/remove/:campName": {
+      "put": {
+        "summary": "Removes a char from a campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "campName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "charName",
+                  "email"
+                ],
+                "properties": {
+                  "charName": {
+                    "type": "string",
+                    "example": "Grognak"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Player removed successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Player removed successfully",
+                  "data": {
+                    "campName": "My First Campaign",
+                    "notes": "notes for the DM",
+                    "players": [
+                      "Player1"
+                    ],
+                    "dm": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      }
+    },
     "/chars": {
       "post": {
         "summary": "Creates a new character",
@@ -142,7 +603,7 @@
         }
       }
     },
-    "/users/all": {
+    "/chars/all": {
       "get": {
         "summary": "Retrieves a list of all characters",
         "tags": [
@@ -224,7 +685,7 @@
     },
     "/users/user/:id": {
       "get": {
-        "summary": "Retrieves the characters with matching charName as given",
+        "summary": "Retrieve the character with matching charName as given",
         "tags": [
           "Chars"
         ],
@@ -1523,7 +1984,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Char updated successfully",
+                  "message": "Character updated successfully",
                   "data": {
                     "charName": "Grognak",
                     "email": "example@gmail.com"
@@ -1563,11 +2024,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully deleted user",
+            "description": "Successfully deleted char",
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Successfully deleted user"
+                  "message": "Char successfully deleted"
                 }
               }
             }
