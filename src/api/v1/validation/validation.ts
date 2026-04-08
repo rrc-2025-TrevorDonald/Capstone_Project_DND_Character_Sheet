@@ -80,7 +80,16 @@ export const campSchemas: Record<string, RequestSchemas> = {
             campName: Joi.string().required().messages({
                 "string.required": '"campName" is required',
                 "string.empty": '"campName" is required',
-            }),
+            })
+        })
+    },
+    emailParams: {
+        params: Joi.object({
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            })
         })
     },
     addRemove: {

@@ -375,6 +375,57 @@ describe("Validation Middleware", () => {
             });
         });
 
+        describe("delUpdateGet Schema", () => {
+            it("should pass validation for valid delUpdateGet camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    email: "test@test.com"
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).toHaveBeenCalled();
+                expect(mockRes.status).not.toHaveBeenCalled();
+            });
+            it("should fail validation for invalid call with missing email", () => {
+                // Arrange
+                mockReq.params = {
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"email\" is required"
+                })
+            });
+
+            it("should fail validation for invalid call with invalid email", () => {
+                // Arrange
+                mockReq.params = {
+                    email: "invalid"
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"email\" must be a valid email format"
+                })
+            });
+        });
+
         describe("addRemove Schema", () => {
             it("should pass validation for valid addRemove camp event", () => {
                 // Arrange

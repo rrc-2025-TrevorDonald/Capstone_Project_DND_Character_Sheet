@@ -22,11 +22,11 @@ router.get(
     campaignController.getCampaigns
 );
 
-router.post(
+router.get(
     "/:email",
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
-    validateRequest(campSchemas.delUpdateGet),
+    validateRequest(campSchemas.emailParams),
     campaignController.getDmCampaigns
 );
 
@@ -35,10 +35,10 @@ router.get(
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
     validateRequest(campSchemas.delUpdateGet),
-    campaignController.createCampaign
+    campaignController.getCampaignById
 );
 
-router.post(
+router.put(
     "/campaign/:campName",
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
@@ -46,7 +46,7 @@ router.post(
     campaignController.updateCampaign
 );
 
-router.post(
+router.put(
     "/campaign/player/add/:campName",
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
@@ -54,7 +54,7 @@ router.post(
     campaignController.addPlayerToCampaign
 );
 
-router.post(
+router.put(
     "/campaign/player/remove/:campName",
     authenticate,
     isAuthorized({ hasRole: ["dm", "admin"]}),
