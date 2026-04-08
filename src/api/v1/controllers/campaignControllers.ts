@@ -28,3 +28,44 @@ export const createCampaign = async (
         next(error);
     };
 };
+
+/**
+ * Handles getCampaigns request and calls the getCampaigns service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
+export const getCampaigns = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const campaigns: Pick<Campaign, "campName">[] = await campaignServices.getCampaigns();
+        res.status(HTTP_STATUS.OK).json(campaigns);
+    } catch (error) {
+        next(error);
+    };
+};
+
+/**
+ * Handles getCampaignById request and calls the getCampaignById service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
+export const getCampaignById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { campName } = req.params;
+        const campaign: Campaign = await campaignServices.getCampaignById(String(campName));
+        res.status(HTTP_STATUS.OK).json(campaign);
+    } catch (error) {
+        next(error);
+    };
+};
