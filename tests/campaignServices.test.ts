@@ -174,14 +174,14 @@ describe("Campaign Services", () => {
             // Arrange
             const mockId = "test"
             const mockData: Campaign = {
-            campName: "test",
-            notes: "This is a test",
-            players: [{
-                charName: "test",
-                email: "test@test.com"
-            }],
-            dm: "test"
-        };
+                campName: "test",
+                notes: "This is a test",
+                players: [{
+                    charName: "test",
+                    email: "test@test.com"
+                }],
+                dm: "test"
+            };
 
             jest.spyOn(campaignService, "getCampaignById").mockResolvedValue(mockData);
             jest.spyOn(campaignService, "deleteCampaign").mockResolvedValue(undefined);
