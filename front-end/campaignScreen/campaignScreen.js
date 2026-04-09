@@ -13,6 +13,8 @@ const charList = document.getElementById("charList");
 const charError = document.getElementById("charError");
 const seeCampBtn = document.getElementById("seeCampBtn");
 
+const noteBtn = document.getElementById("noteBtn");
+
 const loginEmail = sessionStorage.getItem("user");
 const auth = sessionStorage.getItem("auth");
 
@@ -46,13 +48,36 @@ const getCampaignPlayers = async (selectedCamp) => {
 
     for (let i = 0; i < camps.length; i++) {
         const listedChar = document.createElement("li")
-        listedChar.innerHTML = `${camps[i].charName}, ${camps[i].email}<button id="${camps[i].charName}Button">Select</button>`;
+        listedChar.innerHTML = `${camps[i].charName}, ${camps[i].email}<button id="${camps[i].charName}Button">Select</button><button id="remove${camps[i].charName}">Remove from Campaign</button>`;
         currentList.appendChild(listedChar);
 
-        const selectCharButton = document.getElementById(`${players[i][players].charName}Button`);
+        const selectCharButton = document.getElementById(`${camps[i].charName}Button`);
         selectCharButton.addEventListener("click", () => {
-            // Need to add
+            sessionStorage.setItem("char", camps[i].charName);
+            window.location.href = "../characterScreen/characterScreen.html"
         });
+
+        const removeCharButton = document.getElementById(`remove${camps[i].charName}`);
+        removeCharButton.addEventListener("click", async () => {
+            const reqOptions2 = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${auth}`
+                },
+                body: JSON.stringify({
+                    charName: camps[i].charName,
+                    email: camps[i].email
+                })
+            };
+
+            const response2 = await fetch(campApi+`/campaign/player/remove/${currentCampaign}`, reqOptions2);
+            if (!response2) {
+                charError.textContent = `Failed to remove ${camps[i].charName} from ${currentCampaign}`
+            };
+
+            getCampaignPlayers(currentCampaign)
+        })
     };
 };
 
@@ -99,14 +124,14 @@ const displayAllChars = async (camp) => {
             };
 
             const response2 = await fetch(campApi+`/campaign/player/add/${currentCampaign}`, reqOptions2);
+            getCampaignPlayers(currentCampaign)
+            displayAllChars()
             if (!response2) {
                 charError.textContent = `Failed to add ${chars[i].charName} to ${currentCampaign}`
             };
-            getCampaignPlayers(currentCampaign)
         });
     };
 
-    sessionStorage.setItem("displayed", true)
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -118,8 +143,22 @@ document.addEventListener("DOMContentLoaded", () => {
         window.history.go(-1)
     });
     backBtn.addEventListener("click", () => {
-        sessionStorage.removeItem("displayed")
-        sessionStorage.removeItem("displayed")
         window.history.go(-1)
+    });
+    seePlayersBtn.addEventListener("click", () => {
+        displayAllChars()
+        currentListSection.style.display = "none";
+        charListSection.style.display = "flex";
+    });
+    seeCampBtn.addEventListener("click", () => {
+        currentListSection.style.display = "flex";
+        charListSection.style.display = "none";
+    });
+    noteBtn.addEventListener("click", () => {
+        window.location.href = "../notes/notes.html"
+    })
+    signOutBtn.addEventListener("click", () => {
+        sessionStorage.clear();
+        window.location.href = "../signInScreen/index.html";
     });
 });

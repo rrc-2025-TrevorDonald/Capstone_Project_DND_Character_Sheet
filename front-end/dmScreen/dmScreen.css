@@ -38,6 +38,15 @@ header button {
     width: 120px;
 }
 
+button {
+    font-size: medium;
+}
+
+button:hover {
+    background-color: rgba(209, 66, 66, 0.902);
+    box-shadow: 2px 2px 9px black;
+}
+
 /* Camp List section */
 #campListSection {
     text-align: center;

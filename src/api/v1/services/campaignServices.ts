@@ -68,7 +68,9 @@ export const getCampaignById = async (campName: string): Promise<Campaign> => {
 
     const campaign: Campaign = {
         campName: doc.id,
-        ...data
+        notes: data.notes,
+        players: data.players,
+        dm: data.dm
     } as Campaign;
 
     return campaign;

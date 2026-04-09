@@ -1274,10 +1274,7 @@ const deleteChar = async (characterName) => {
     };    
 };
 document.addEventListener("DOMContentLoaded", () => {
-     if (!sessionStorage.getItem("displayed")) {
-        getChar(selectedChar);
-    };
-
+    getChar(selectedChar);
     saveBtn.addEventListener("click", () => {
         saveChar(selectedChar);
         console.log("save");
@@ -1298,7 +1295,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     confirmBtn.addEventListener("click", () => {
         if (confirmDelete.value === "confirm") {
-            sessionStorage.removeItem("displayed")
             deleteChar(selectedChar);
             return
         } else {

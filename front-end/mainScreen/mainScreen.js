@@ -46,7 +46,6 @@ const displayUserChars = async (userEmail) => {
     console.log(chars)
 
     if (chars.length === 0) {
-        sessionStorage.setItem("displayed", true)
         return;
     };
     charText.textContent = "Characters:"
@@ -59,7 +58,6 @@ const displayUserChars = async (userEmail) => {
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
         selectCharButton.addEventListener("click", () => {
             sessionStorage.setItem("char", chars[i].charName);
-            sessionStorage.removeItem("displayed");
             window.location.href = "../characterScreen/characterScreen.html"
         })
     }
@@ -115,9 +113,7 @@ const authorizedDM = async () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!sessionStorage.getItem("displayed")) {
-        displayUserChars(loginEmail);
-    };
+    displayUserChars(loginEmail);
     createBtn.addEventListener("click", () => {
         createChar()
     });

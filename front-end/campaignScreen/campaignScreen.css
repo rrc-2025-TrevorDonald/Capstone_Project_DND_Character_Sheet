@@ -38,6 +38,15 @@ header button {
     width: 120px;
 }
 
+button {
+    font-size: medium;
+}
+
+button:hover {
+    background-color: rgba(209, 66, 66, 0.902);
+    box-shadow: 2px 2px 9px black;
+}
+
 /* Camp List section */
 #currentListSection {
     text-align: center;
@@ -66,7 +75,15 @@ header button {
     list-style: none;
 }
 
+#currentListSection ul button {
+    margin-left: .5rem;
+}
+
 #seePlayersBtn {
+    margin-top: 1.5rem;
+}
+
+#noteBtn {
     margin-top: 1.5rem;
 }
 
@@ -82,7 +99,7 @@ header button {
     box-shadow: 2px 2px 9px black;
     width: 45%;
     min-height: 450px;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;

@@ -138,9 +138,7 @@ const displayAllChars = async () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!sessionStorage.getItem("displayed")) {
-        displayDmCamps(loginEmail);
-    };
+    displayDmCamps(loginEmail);
     signOutBtn.addEventListener("click", () => {
         sessionStorage.clear();
         window.location.href = "../signInScreen/index.html";

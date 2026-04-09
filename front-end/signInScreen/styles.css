@@ -20,6 +20,15 @@ header {
     width: 50%;
 }
 
+button {
+    font-size: medium;
+}
+
+button:hover {
+    background-color: rgba(209, 66, 66, 0.902);
+    box-shadow: 2px 2px 9px black;
+}
+
 /* Login box */
 #login {
     text-align: center;
@@ -50,11 +59,6 @@ header {
 #login button {
     margin-top: 1rem;
     width: 153px;
-}
-
-#login button:hover {
-    background-color: rgba(209, 66, 66, 0.902);
-    box-shadow: 2px 2px 9px black;
 }
 
 #createAccountBtn {
@@ -91,11 +95,6 @@ header {
 #create button {
     margin-top: 1rem;
     width: 153px;
-}
-
-#create button:hover {
-    background-color: rgba(209, 66, 66, 0.902);
-    box-shadow: 2px 2px 9px black;
 }
 
 #completeMessage {
