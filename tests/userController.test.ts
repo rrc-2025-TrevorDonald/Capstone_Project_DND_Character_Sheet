@@ -79,7 +79,7 @@ describe("User Controller", () => {
     describe("hasAuth", () => {
         it("should handle successful operation with valid data", async () => {
             // Arrange & Act
-            const resolvedData: string = "Has Auth";            
+            const resolvedData = {"data": "Has Auth", "message": "Has Auth"};            
             userController.hasDMAuth(
                 mockReq as Request,
                 mockRes as Response,

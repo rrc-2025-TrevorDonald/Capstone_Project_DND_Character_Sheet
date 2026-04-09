@@ -16,7 +16,7 @@ const COLLECTION: string = "chars";
 
 /**
  * Creates a new char
- * @param charData - The data for the new char (name and description)
+ * @param charData - The data for the new char
  * @returns The created char with the charName as the ID
  */
 export const createChar = async (charData: {
@@ -418,7 +418,7 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
         return{
             charName: data.charName,
             email: data.email
-        }  as Char;;
+        } as Char;
     });
     
     return chars.filter(i => i.email === email);

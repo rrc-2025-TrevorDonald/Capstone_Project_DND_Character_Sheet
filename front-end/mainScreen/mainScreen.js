@@ -46,7 +46,6 @@ const displayUserChars = async (userEmail) => {
     console.log(chars)
 
     if (chars.length === 0) {
-        charText.textContent = "You don't appear to have any characters made, please create a character to continue."
         return;
     };
     charText.textContent = "Characters:"
@@ -59,7 +58,6 @@ const displayUserChars = async (userEmail) => {
         const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
         selectCharButton.addEventListener("click", () => {
             sessionStorage.setItem("char", chars[i].charName);
-            sessionStorage.removeItem("displayed");
             window.location.href = "../characterScreen/characterScreen.html"
         })
     }
@@ -95,29 +93,27 @@ const createChar = async () => {
 
 const authorizedDM = async () => {
     removeErrorMessages();
-    try {
-        const reqOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${auth}`
-            }
-        };
+    const reqOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth}`
+        }
+    };
 
-        const response = await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
-        const hasAuth = await response.json();
-        console.log(hasAuth)
-        
+    const response =  await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
+    const hasAuth = response.json()
+    if (hasAuth) {
+        sessionStorage.removeItem("displayed")
         window.location.href = "../dmScreen/dmScreen.html";
-    } catch(error) {
-        createError.textContent = "Unauthorized you're not a DM"
+    } else {
+        sessionStorage.removeItem("displayed");
+        displayUserChars(loginEmail);
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!sessionStorage.getItem("displayed")) {
-        displayUserChars(loginEmail);
-    };
+    displayUserChars(loginEmail);
     createBtn.addEventListener("click", () => {
         createChar()
     });
@@ -126,6 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../signInScreen/index.html";
     });
     dmButton.addEventListener("click", () => {
-        authorizedDM();
+        authorizedDM()
     });
 });

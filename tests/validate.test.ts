@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { validateRequest } from "../src/api/v1/middleware/validate";
-import { signinSchemas, charSchemas } from "../src/api/v1/validation/validation";
+import { signinSchemas, charSchemas, campSchemas } from "../src/api/v1/validation/validation";
 
 describe("Validation Middleware", () => {
     let mockReq: Partial<Request>;
@@ -188,7 +188,7 @@ describe("Validation Middleware", () => {
         describe("getUserChars Schema", () => {
             it("should pass validation for valid getUserChars char event", () => {
                 // Arrange
-                mockReq.body = {
+                mockReq.params = {
                     email: "Test@test.com"
                 };
                 const middleware = validateRequest(charSchemas.getUserChars);
@@ -202,7 +202,7 @@ describe("Validation Middleware", () => {
             });
             it("should fail validation for invalid getUserChars with missing email", () => {
                 // Arrange
-                mockReq.body = {
+                mockReq.params = {
                 };
                 const middleware = validateRequest(charSchemas.getUserChars);
 
@@ -213,12 +213,12 @@ describe("Validation Middleware", () => {
                 expect(mockNext).not.toHaveBeenCalled();
                 expect(mockRes.status).toHaveBeenCalledWith(400);
                 expect(mockRes.json).toHaveBeenCalledWith({
-                    "error": "Validation error: Body: \"email\" is required"
+                    "error": "Validation error: Params: \"email\" is required"
                 })
             });
             it("should fail validation for invalid getUserChars with invalid email", () => {
                 // Arrange
-                mockReq.body = {
+                mockReq.params = {
                     email: "invalid"
                 };
                 const middleware = validateRequest(charSchemas.getUserChars);
@@ -230,7 +230,7 @@ describe("Validation Middleware", () => {
                 expect(mockNext).not.toHaveBeenCalled();
                 expect(mockRes.status).toHaveBeenCalledWith(400);
                 expect(mockRes.json).toHaveBeenCalledWith({
-                    "error": "Validation error: Body: \"email\" must be a valid email format"
+                    "error": "Validation error: Params: \"email\" must be a valid email format"
                 })
             });
         });
@@ -266,6 +266,270 @@ describe("Validation Middleware", () => {
                     "error": "Validation error: Params: \"id\" is required"
                 })
             });
-        })
+        });
+    });
+
+    describe("Campaign validation", () => {
+        describe("create Schema", () => {
+            it("should pass validation for valid create camp event", () => {
+                // Arrange
+                mockReq.body = {
+                    campName: "Test",
+                    email: "Test@test.com"
+                };
+                const middleware = validateRequest(campSchemas.create);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).toHaveBeenCalled();
+                expect(mockRes.status).not.toHaveBeenCalled();
+            });
+
+            it("should fail validation for invalid create char with missing email", () => {
+                // Arrange
+                mockReq.body = {
+                    campName: "test"
+                };
+                const middleware = validateRequest(campSchemas.create);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"email\" is required"
+                })
+            });
+            
+            it("should fail validation for invalid create char with invalid email", () => {
+                // Arrange
+                mockReq.body = {
+                    campName: "test",
+                    email: "invalid"
+                };
+                const middleware = validateRequest(campSchemas.create);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"email\" must be a valid email format"
+                })
+            });
+            it("should fail validation for invalid create char with missing charName", () => {
+                // Arrange
+                mockReq.body = {
+                    email: "test@test.com"
+                };
+                const middleware = validateRequest(campSchemas.create);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"campName\" is required"
+                })
+            });
+        });
+
+        describe("delUpdateGet Schema", () => {
+            it("should pass validation for valid delUpdateGet camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    campName: "Test"
+                };
+                const middleware = validateRequest(campSchemas.delUpdateGet);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).toHaveBeenCalled();
+                expect(mockRes.status).not.toHaveBeenCalled();
+            });
+            it("should fail validation for invalid call with missing email", () => {
+                // Arrange
+                mockReq.body = {
+                };
+                const middleware = validateRequest(campSchemas.delUpdateGet);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"campName\" is required"
+                })
+            });
+        });
+
+        describe("delUpdateGet Schema", () => {
+            it("should pass validation for valid delUpdateGet camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    email: "test@test.com"
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).toHaveBeenCalled();
+                expect(mockRes.status).not.toHaveBeenCalled();
+            });
+            it("should fail validation for invalid call with missing email", () => {
+                // Arrange
+                mockReq.params = {
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"email\" is required"
+                })
+            });
+
+            it("should fail validation for invalid call with invalid email", () => {
+                // Arrange
+                mockReq.params = {
+                    email: "invalid"
+                };
+                const middleware = validateRequest(campSchemas.emailParams);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"email\" must be a valid email format"
+                })
+            });
+        });
+
+        describe("addRemove Schema", () => {
+            it("should pass validation for valid addRemove camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    campName: "Test"
+                };
+                mockReq.body = {
+                    charName: "test",
+                    email: "test@test.com"
+                }
+                const middleware = validateRequest(campSchemas.addRemove);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).toHaveBeenCalled();
+                expect(mockRes.status).not.toHaveBeenCalled();
+            });
+
+            it("should fail validation for invalid addRemove camp event", () => {
+                // Arrange
+                mockReq.params = {
+                };
+                mockReq.body = {
+                    charName: "test",
+                    email: "test@test.com"
+                }
+                const middleware = validateRequest(campSchemas.addRemove);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Params: \"campName\" is required"
+                });
+            });
+
+            it("should fail validation for invalid addRemove camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    campName: "Test"
+                };
+                mockReq.body = {
+                    email: "test@test.com"
+                }
+                const middleware = validateRequest(campSchemas.addRemove);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"charName\" is required"
+                });
+            });
+
+            it("should fail validation for invalid addRemove camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    campName: "Test"
+                };
+                mockReq.body = {
+                    charName: "test"
+                }
+                const middleware = validateRequest(campSchemas.addRemove);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"email\" is required"
+                });
+            });
+
+            it("should fail validation for invalid addRemove camp event", () => {
+                // Arrange
+                mockReq.params = {
+                    campName: "Test"
+                };
+                mockReq.body = {
+                    charName: "test",
+                    email: "invalid"
+                }
+                const middleware = validateRequest(campSchemas.addRemove);
+
+                // Act
+                middleware(mockReq as Request, mockRes as Response, mockNext);
+
+                // Assert
+                expect(mockNext).not.toHaveBeenCalled();
+                expect(mockRes.status).toHaveBeenCalledWith(400);
+                expect(mockRes.json).toHaveBeenCalledWith({
+                    "error": "Validation error: Body: \"email\" must be a valid email format"
+                });
+            });
+        });
     });
 });

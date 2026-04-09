@@ -1,14 +1,16 @@
 import express, { Express } from "express";
 import userRoutes from "./api/v1/routes/userRoutes";
-import adminRoutes from "./api/v1/routes/adminRoutes"
-import charRoutes from "./api/v1/routes/charRoutes"
+import adminRoutes from "./api/v1/routes/adminRoutes";
+import charRoutes from "./api/v1/routes/charRoutes";
+import campaignRoutes from "./api/v1/routes/campaignRoutes";
 import errorHandler from "./api/v1/middleware/errorHandler";
 import {
-    accessLogger,
-    errorLogger,
+    // accessLogger,
+    // errorLogger,
     consoleLogger,
 } from "./api/v1/middleware/logger";
 import setupSwagger from "./config/swagger";
+import cors from 'cors';
 
 const app: Express = express();
 
@@ -19,10 +21,15 @@ interface HealthCheckResponse {
     version: string;
 };
 
-app.use(accessLogger);
-app.use(errorLogger);
+// app.use(accessLogger);
+// app.use(errorLogger);
 app.use(consoleLogger);
 
+const corsOptions: cors.CorsOptions = {
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true
+};
 
 app.use(express.json());
 
@@ -40,10 +47,11 @@ app.get("/api/v1/health", (req, res) => {
 
     res.json(healthData);
 });
-
+app.use(cors(corsOptions));
 app.use("/api/v1/auth/admin", adminRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/chars", charRoutes);
+app. use("/api/v1/campaigns", campaignRoutes);
 
 setupSwagger(app);
 

@@ -29,6 +29,7 @@ const completeCreate = async () => {
     labelPassword.style.display = "none";
     createPassword.style.display = "none";
     createBtn.style.display = "none"
+    backBtn.style.display = "none"
     completeMessage.style.display = "block";
     setTimeout(() => {
         completeMessage.style.display = "none";

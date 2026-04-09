@@ -38,8 +38,17 @@ header button {
     width: 120px;
 }
 
-/* List section */
-#listSection {
+button {
+    font-size: medium;
+}
+
+button:hover {
+    background-color: rgba(209, 66, 66, 0.902);
+    box-shadow: 2px 2px 9px black;
+}
+
+/* Camp List section */
+#campListSection {
     text-align: center;
     background-color: rgba(223, 223, 223, 0.925);
     padding: 1rem;
@@ -56,16 +65,60 @@ header button {
     align-items: center;
 }
 
-#listSection ul {
+#campListSection ul {
     padding-left: 0;
     list-style-position: inside;
 }
 
-#listSection li {
+#campListSection li {
     margin-top: .25rem;
     list-style: none;
 }
 
-#listSection li button {
+#campListSection li button {
+    margin-left: 1rem;
+}
+
+#campListSection label {
+margin-top: 1.5rem;
+}
+
+#createBtn {
+    margin-top: .5rem;
+}
+
+#seeAllBtn {
+    margin-top: 1.5rem;
+}
+
+/* Char List section */
+#charListSection {
+    text-align: center;
+    background-color: rgba(223, 223, 223, 0.925);
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 2px 2px 9px black;
+    width: 45%;
+    min-height: 450px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#charListSection ul {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+#charListSection li {
+    margin-top: .25rem;
+    list-style: none;
+}
+
+#charListSection li button {
     margin-left: 1rem;
 }
