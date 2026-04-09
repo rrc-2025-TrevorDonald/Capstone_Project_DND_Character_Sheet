@@ -4,9 +4,11 @@ import {
     getDocumentById,
     createDocument,
     updateDocument,
-    deleteDocument
+    deleteDocument,
+    addPlayer,
+    removePlayer
 } from "../src/api/v1/repositories/firestoreRepository";
-
+const admin = require("firebase-admin")
 jest.mock("../src/config/firebaseConfig");
 
 const mockDoc = {
@@ -17,6 +19,8 @@ const mockDoc = {
         get: jest.fn(),
         update: jest.fn(),
         delete: jest.fn(),
+        addPlayer: jest.fn(),
+        removePlayer: jest.fn()
 };
 
 const mockCollection = {
@@ -91,6 +95,42 @@ describe("Firestore Repository Functions", () => {
             // Assert
             expect(mockCollection.doc).toHaveBeenCalledWith("mockId");
             expect(mockDoc.delete).toHaveBeenCalled();
+        });
+    });
+
+    describe("addPlayer", () => {
+        it("updates Firestore with arrayUnion", async () => {
+            const mocData = {
+                charName: "test",
+                email: "test@test.com"
+            };
+            mockDoc.addPlayer.mockResolvedValueOnce(undefined);
+
+            await addPlayer("tests", "test", mocData);
+
+            expect(mockCollection.doc).toHaveBeenCalledWith("test");
+            db.collection("tests").doc("test").update({
+                players: admin.firestore.FieldValue.arrayUnion(mocData)
+            })
+
+        });
+    });
+
+    describe("removePlayer", () => {
+        it("updates Firestore with arrayRemove", async () => {
+            const mocData = {
+                charName: "test",
+                email: "test@test.com"
+            };
+            mockDoc.addPlayer.mockResolvedValueOnce(undefined);
+
+            await removePlayer("tests", "test", mocData);
+
+            expect(mockCollection.doc).toHaveBeenCalledWith("test");
+            db.collection("tests").doc("test").update({
+                players: admin.firestore.FieldValue.arrayRemove(mocData)
+            })
+
         });
     });
 });
