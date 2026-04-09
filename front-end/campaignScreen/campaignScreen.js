@@ -16,8 +16,10 @@ const seeCampBtn = document.getElementById("seeCampBtn");
 const loginEmail = sessionStorage.getItem("user");
 const auth = sessionStorage.getItem("auth");
 
-const campApi = "http://localhost:3000/api/v1/campaings";
+const campApi = "http://localhost:3000/api/v1/campaigns";
 const charApi = "http://localhost:3000/api/v1/chars/all";
+
+const currentCampaign = sessionStorage.getItem("campaign")
 
 const getCampaignPlayers = async (selectedCamp) => {
     const listedChars = document.querySelectorAll("li");
@@ -32,24 +34,22 @@ const getCampaignPlayers = async (selectedCamp) => {
         }
     };
 
-    const response = await fetch(campApi + `/campaign/${selectedCamp}`, reqOptions1);
+    const response = await fetch(campApi + `/campaign/players/${selectedCamp}`, reqOptions1);
     console.log(response)
     
     const camps = await response.json();
     console.log(camps)
 
-    const players = camps.players;
-
-    if (!players) {
-        console.log("No players")
+    if (!camps) {
+        console.log("No camps")
     }
 
-    for (let i = 0; i < players.length; i++) {
+    for (let i = 0; i < camps.length; i++) {
         const listedChar = document.createElement("li")
-        listedChar.innerHTML = `${players[i].charName}, ${players[i].email}<button id="${players[i].charName}Button">Select</button>`;
+        listedChar.innerHTML = `${camps[i].charName}, ${camps[i].email}<button id="${camps[i].charName}Button">Select</button>`;
         currentList.appendChild(listedChar);
 
-        const selectCharButton = document.getElementById(`${players[i].charName}Button`);
+        const selectCharButton = document.getElementById(`${players[i][players].charName}Button`);
         selectCharButton.addEventListener("click", () => {
             // Need to add
         });
@@ -98,12 +98,28 @@ const displayAllChars = async (camp) => {
                 })
             };
 
-            const response2 = await fetch(campApi+`/campaign/player/add/${camp}`, reqOptions2);
+            const response2 = await fetch(campApi+`/campaign/player/add/${currentCampaign}`, reqOptions2);
             if (!response2) {
-                charError.textContent = `Failed to add ${chars[i].charName} to ${camp}`
+                charError.textContent = `Failed to add ${chars[i].charName} to ${currentCampaign}`
             };
+            getCampaignPlayers(currentCampaign)
         });
     };
 
     sessionStorage.setItem("displayed", true)
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    getCampaignPlayers(currentCampaign)
+    displayAllChars()
+    backBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("displayed")
+        sessionStorage.removeItem("campaign")
+        window.history.go(-1)
+    });
+    backBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("displayed")
+        sessionStorage.removeItem("displayed")
+        window.history.go(-1)
+    });
+});

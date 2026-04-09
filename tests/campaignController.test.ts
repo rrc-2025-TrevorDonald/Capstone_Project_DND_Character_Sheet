@@ -3,6 +3,7 @@ import { HTTP_STATUS } from "../src/constants/httpConstants";
 import * as campaignController from "../src/api/v1/controllers/campaignController";
 import * as campaignServices from "../src/api/v1/services/campaignServices";
 import { Campaign } from "../src/api/v1/models/campaignModel";
+import { Player } from "../src/api/v1/models/playerModel";
 
 jest.mock("../src/api/v1/services/campaignServices");
 
@@ -238,6 +239,29 @@ describe("Campaign Controller", () => {
                 message: "Player removed successfully",
                 data: mockResultData,
             });
+        });
+    });
+
+    describe("getCampaignPlayers", () => {
+        it("should handle successful operation with valid data", async () => {
+            // Arrange & Act
+            mockReq.params = {campName: "test"};
+            const mockResultData: Player[] = [
+                {charName: "test1", email: "test@test.com"},
+                {charName: "test3", email: "test@test.com"}
+            ];
+
+            (campaignServices.getCampaignPlayers as jest.Mock).mockReturnValue(mockResultData);
+
+            await campaignController.getCampaignPlayers(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+            
+            // Assert
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith(mockResultData);
         });
     });
 });

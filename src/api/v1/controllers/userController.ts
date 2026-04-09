@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { apiKey } from "../../../../apiKey";
 import { userLogin, userCreate } from "../services/userService";
 import { UserLogin, UserCreate } from "../models/userModels";
+import { successResponse } from "../models/responseModel";
 
 const APIKEY: string = apiKey;
 const OK: number = 200;
@@ -63,7 +64,9 @@ export const hasDMAuth = (
     next: NextFunction
 ): void => {
     try{
-        res.status(OK).json("Has Auth");
+        res.status(OK).json(
+            successResponse("Has Auth", "Has Auth")
+        )
     } catch (error) {
         next(error);
     };

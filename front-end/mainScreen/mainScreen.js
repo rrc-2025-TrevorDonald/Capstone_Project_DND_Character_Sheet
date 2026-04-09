@@ -95,23 +95,22 @@ const createChar = async () => {
 
 const authorizedDM = async () => {
     removeErrorMessages();
-    try {
-        const reqOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${auth}`
-            }
-        };
+    const reqOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth}`
+        }
+    };
 
-        const response = await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
-        const hasAuth = await response.json();
-        console.log(hasAuth)
-        
+    const response =  await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
+    const hasAuth = response.json()
+    if (hasAuth) {
         sessionStorage.removeItem("displayed")
         window.location.href = "../dmScreen/dmScreen.html";
-    } catch(error) {
-        createError.textContent = "Unauthorized you're not a DM"
+    } else {
+        sessionStorage.removeItem("displayed");
+        displayUserChars(loginEmail);
     }
 };
 
@@ -127,6 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../signInScreen/index.html";
     });
     dmButton.addEventListener("click", () => {
-        authorizedDM();
+        authorizedDM()
     });
 });

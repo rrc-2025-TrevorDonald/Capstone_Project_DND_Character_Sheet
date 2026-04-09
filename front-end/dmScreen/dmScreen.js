@@ -58,9 +58,10 @@ const displayDmCamps = async (userEmail) => {
             listedChar.innerHTML = `${camps[i].campName}<button id="${camps[i].campName}Button">Select</button>`
             campList.appendChild(listedChar)
 
-            const selectCharButton = document.getElementById(`${chars[i].charName}Button`)
+            const selectCharButton = document.getElementById(`${camps[i].campName}Button`)
             selectCharButton.addEventListener("click", () => {
-                // Need to add to here once have campaign screen
+                sessionStorage.setItem("campaign", camps[i].campName)
+                window.location.href = "../campaignScreen/campaignScreen.html"
             })
         }
 

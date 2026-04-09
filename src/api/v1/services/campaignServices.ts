@@ -1,4 +1,5 @@
 import { Campaign } from "../models/campaignModel";
+import { Player } from "../models/playerModel";
 import { QuerySnapshot } from "firebase-admin/firestore";
 import {
     createDocument,
@@ -173,3 +174,26 @@ export const getDmCampaigns = async (email: string): Promise<Campaign[]> => {
     
     return camps.filter(i => i.dm === email);
 };
+
+export const getCampaignPlayers = async (campName: string): Promise<Player[]> => {
+    const doc = await getDocumentById(COLLECTION, campName);
+    if (!doc) {
+        throw new CampNotFoundError(`${campName} does not exist`);
+    };
+
+    const data = doc.data();
+
+    if (!data) {
+        throw new CampDataNotFoundError(`Data associated with ${campName} not found`);
+    };
+
+    const campPlayer: Player[] = data.players;
+
+    const players: Player[] = [];
+
+    campPlayer.forEach((player) => {
+        players.push(player);
+    });
+
+    return players;
+}

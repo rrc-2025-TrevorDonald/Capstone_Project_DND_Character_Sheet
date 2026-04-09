@@ -193,7 +193,7 @@ router.get(
  *       '401':
  *         description: Invalid token
  *       '400':
- *         description: Error getting campaign
+ *         description: Error updating campaign
  */
 router.put(
     "/campaign/:campName",
@@ -248,7 +248,7 @@ router.put(
  *       '401':
  *         description: Invalid token
  *       '400':
- *         description: Error getting campaign
+ *         description: Error updating campaign
  */
 router.put(
     "/campaign/player/add/:campName",
@@ -303,7 +303,7 @@ router.put(
  *       '401':
  *         description: Invalid token
  *       '400':
- *         description: Error getting campaign
+ *         description: Error updating campaign
  */
 router.put(
     "/campaign/player/remove/:campName",
@@ -347,6 +347,44 @@ router.delete(
     isAuthorized({ hasRole: ["dm", "admin"]}),
     validateRequest(campSchemas.delUpdateGet),
     campaignController.deleteCampaign
+);
+
+/**
+ * @openapi
+ * /campaigns/campaign/players/:campName:
+ *   get:
+ *     summary: Retrieves all players from a campaign
+ *     tags: [Campaigns]
+ *     parameters:
+ *       - name: campName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: My First Campaign
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved players
+ *         content:
+ *           application/json:
+ *             example: 
+ *               message: Campaign updated successfully
+ *               data: { {charName: player1, email: test1@test.com}, {charName: player2, email: test2@test.com} }
+ *       '404':
+ *         description: Campaign not found
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error getting campaign
+ */
+router.get(
+    "/campaign/players/:campName",
+    authenticate,
+    isAuthorized({ hasRole: ["dm", "admin"]}),
+    validateRequest(campSchemas.delUpdateGet),
+    campaignController.getCampaignPlayers
 );
 
 export default router;

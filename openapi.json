@@ -338,7 +338,7 @@
             }
           },
           "400": {
-            "description": "Error getting campaign"
+            "description": "Error updating campaign"
           },
           "401": {
             "description": "Invalid token"
@@ -456,7 +456,7 @@
             }
           },
           "400": {
-            "description": "Error getting campaign"
+            "description": "Error updating campaign"
           },
           "401": {
             "description": "Invalid token"
@@ -526,6 +526,53 @@
                       "Player1"
                     ],
                     "dm": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error updating campaign"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      }
+    },
+    "/campaigns/campaign/players/:campName": {
+      "get": {
+        "summary": "Retrieves all players from a campaign",
+        "tags": [
+          "Campaigns"
+        ],
+        "parameters": [
+          {
+            "name": "campName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "My First Campaign"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved players",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Campaign updated successfully",
+                  "data": {
+                    "{ charName: player1, email: test1@test.com }": null,
+                    "{ charName: player2, email: test2@test.com }": null
                   }
                 }
               }

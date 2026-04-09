@@ -70,6 +70,10 @@ header button {
     margin-left: 1rem;
 }
 
+#campListSection label {
+margin-top: 1.5rem;
+}
+
 #createBtn {
     margin-top: .5rem;
 }

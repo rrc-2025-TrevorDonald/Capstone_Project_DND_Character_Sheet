@@ -28,6 +28,9 @@ jest.mock("../src/api/v1/controllers/campaignController", () => ({
     ),
     removePlayerFromCampaign: jest.fn((_req: Request, res: Response) =>
         res.status(HTTP_STATUS.OK).send()
+    ),
+    getCampaignPlayers: jest.fn((_req: Request, res: Response) =>
+        res.status(HTTP_STATUS.OK).send()
     )
 }));
 
@@ -168,6 +171,18 @@ describe("Campaign Routes", () => {
 
             // Assert
             expect(campaignController.deleteCampaign).toHaveBeenCalled();
+        });
+    });
+
+    describe("GET /api/v1/campaigns/campaign/players/:campName", () => {
+        it("should call getCampaignById with valid data", async () => {
+            // Arrange & Act
+            await request(app)
+                .get("/api/v1/campaigns/campaign/players/test")
+                .set("Authorization", "Bearer mockedToken");
+
+            // Assert
+            expect(campaignController.getCampaignPlayers).toHaveBeenCalled();
         });
     });
 });

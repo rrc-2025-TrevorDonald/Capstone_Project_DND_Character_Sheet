@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import { Campaign } from "../models/campaignModel";
+import { Player } from "../models/playerModel";
 import * as campaignServices from "../services/campaignServices"
 import { successResponse } from "../models/responseModel";
 
@@ -85,8 +86,8 @@ export const getDmCampaigns = async (
     try {
         const { email } = req.params;
 
-        const chars: Campaign[] = await campaignServices.getDmCampaigns(String(email));
-        res.status(HTTP_STATUS.OK).json(chars);
+        const camps: Campaign[] = await campaignServices.getDmCampaigns(String(email));
+        res.status(HTTP_STATUS.OK).json(camps);
     } catch (error) {
         next(error);
     };
@@ -191,5 +192,26 @@ export const removePlayerFromCampaign = async (
         );         
     } catch (error) {
         next(error)
+    };
+};
+
+/**
+ * Handles getCampaignPlayers request and calls the getCampaignPlayers service function.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>}
+ */
+export const getCampaignPlayers = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { campName } = req.params;
+        const players: Player[] = await campaignServices.getCampaignPlayers(String(campName));
+        res.status(HTTP_STATUS.OK).json(players);
+    } catch (error) {
+        next(error);
     };
 };
