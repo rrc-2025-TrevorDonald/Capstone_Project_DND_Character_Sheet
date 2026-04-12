@@ -11,3 +11,5 @@ src/logs/
 capstonednd-firebase-adminsdk-fbsvc-f3d0b58bee.json
 
 *.mp3
+
+.env
