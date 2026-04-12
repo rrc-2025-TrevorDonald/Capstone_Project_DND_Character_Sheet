@@ -26,9 +26,11 @@
   "homepage": "https://github.com/rrc-2025-TrevorDonald/Capstone_Project_DND_Character_Sheet#readme",
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
     "express": "^5.2.1",
     "firebase-admin": "^13.6.1",
     "firestore": "^1.1.6",
+    "helmet": "^8.1.0",
     "joi": "^18.0.2",
     "morgan": "^1.10.1",
     "swagger-jsdoc": "^6.2.8",
