@@ -95,6 +95,7 @@ const createCampaign = async () => {
         return
     };
 
+    campNameInput.value = "";
     displayDmCamps(loginEmail);
 };
 

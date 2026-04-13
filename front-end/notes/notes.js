@@ -24,7 +24,10 @@ const saveNotes = async (camp) => {
     };
 
     await fetch(campApi + `/${camp}`, reqOptions);
-    console.log("saved")
+    saveBtn.textContent = "Saved!"
+    setTimeout(() => {
+        saveBtn.textContent = "Save Notes"
+    }, 3000);
 };
 
 const displayNotes = async (camp) => {

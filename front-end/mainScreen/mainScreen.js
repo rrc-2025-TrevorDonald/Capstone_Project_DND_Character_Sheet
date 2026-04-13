@@ -82,6 +82,8 @@ const createChar = async () => {
     const createResponse = await fetch(charApi, reqOptions)
     const char = await createResponse.json();
 
+    charNameInput.value = "";
+
     if (char.error) {
         const strippedError = char.error.split("Body:").splice(1);
         createError.textContent = strippedError.shift(1);
@@ -102,13 +104,12 @@ const authorizedDM = async () => {
     };
 
     const response =  await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
-    const hasAuth = response.json()
-    if (hasAuth) {
-        sessionStorage.removeItem("displayed")
-        window.location.href = "../dmScreen/dmScreen.html";
-    } else {
-        sessionStorage.removeItem("displayed");
+    const hasAuth = await response.json()
+    if (hasAuth.error) {
         displayUserChars(loginEmail);
+        createError.textContent = "Unauthorized, You're not a dm"
+    } else {
+        window.location.href = "../dmScreen/dmScreen.html";
     }
 };
 
