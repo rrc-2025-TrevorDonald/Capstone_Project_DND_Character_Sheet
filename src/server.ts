@@ -1,11 +1,7 @@
 import app from "./app";
 
-import { Server } from "http";
-
 const PORT: string | 10000 = process.env.PORT || 10000;
 
-const server: Server = app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-export default server;
