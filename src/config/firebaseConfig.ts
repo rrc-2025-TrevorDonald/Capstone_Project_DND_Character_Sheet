@@ -15,11 +15,6 @@ import {
 } from "firebase-admin/app";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth";
-import serviceAccount from "../../capstonednd-firebase-adminsdk-fbsvc-f3d0b58bee.json";
-
-initializeApp({
-    credential: cert(serviceAccount as ServiceAccount),
-});
 
 /**
  * Retrieves Firebase configuration from environment variables
@@ -87,4 +82,4 @@ const db: Firestore = getFirestore(app);
 
 const auth: Auth = getAuth(app);
 
-export { db, auth, ServiceAccount };
+export { db, auth };
