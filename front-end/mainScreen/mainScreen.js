@@ -1,5 +1,3 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
 const dmButton = document.getElementById("DMBtn");
 const signOutBtn = document.getElementById("signOutBtn");
 
@@ -14,12 +12,6 @@ const charNameInput = document.getElementById("charNameInput");
 const playerInput = document.getElementById("playerInput");
 const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
-
-const auth = getAuth();
-const provider = new GoogleAuthProvider();
-
-const result = await signInWithPopup(auth, provider);
-const accessToken = GoogleAuthProvider.credentialFromResult(result)?.accessToken;
 
 const loginEmail = sessionStorage.getItem("user");
 const userAuth = sessionStorage.getItem("auth");
