@@ -16,9 +16,9 @@ import {
 import { getFirestore, Firestore } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth";
 const admin = require("firebase-admin")
-import serviceAccount from "../../capstonednd-firebase-adminsdk-fbsvc-f3d0b58bee.json";
+const serviceAccount = process.env.SERVICE_ACCOUNT
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount as ServiceAccount)
 });
 
 /**
