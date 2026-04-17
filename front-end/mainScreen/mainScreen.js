@@ -35,7 +35,7 @@ const displayUserChars = async (userEmail) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${auth}`
+            "Authorization": `Bearer ${auth}`
         }
     };
 
