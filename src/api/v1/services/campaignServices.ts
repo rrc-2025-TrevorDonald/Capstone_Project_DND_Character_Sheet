@@ -1,6 +1,10 @@
 import { Campaign } from "../models/campaignModel";
 import { Player } from "../models/playerModel";
-import { QuerySnapshot } from "firebase-admin/firestore";
+import { 
+    QuerySnapshot,
+    DocumentData,
+    DocumentSnapshot,
+ } from "firebase-admin/firestore";
 import {
     createDocument,
     getDocuments,
@@ -41,7 +45,7 @@ export const createCamp = async (campData: {
 export const getCampaigns = async (): Promise<Campaign[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const campaigns: Campaign[] = snapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data: DocumentData = doc.data();
         return {
             campName: data.campName
         } as Campaign;
@@ -55,12 +59,12 @@ export const getCampaigns = async (): Promise<Campaign[]> => {
  * @returns The campaign if found
  */
 export const getCampaignById = async (campName: string): Promise<Campaign> => {
-    const doc = await getDocumentById(COLLECTION, campName);
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, campName);
     if (!doc) {
         throw new CampNotFoundError(`${campName} does not exist`);
     };
 
-    const data = doc.data();
+    const data: DocumentData | undefined = doc.data();
 
     if (!data) {
         throw new CampDataNotFoundError(`Data associated with ${campName} not found`);
@@ -167,7 +171,7 @@ export const removePlayerFromCampaign = async (
 export const getDmCampaigns = async (email: string): Promise<Campaign[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const camps: Campaign[] = snapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data: DocumentData | undefined = doc.data();
         return {
             campName: data.campName,
             dm: data.dm
@@ -178,12 +182,12 @@ export const getDmCampaigns = async (email: string): Promise<Campaign[]> => {
 };
 
 export const getCampaignPlayers = async (campName: string): Promise<Player[]> => {
-    const doc = await getDocumentById(COLLECTION, campName);
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, campName);
     if (!doc) {
         throw new CampNotFoundError(`${campName} does not exist`);
     };
 
-    const data = doc.data();
+    const data: DocumentData | undefined = doc.data();
 
     if (!data) {
         throw new CampDataNotFoundError(`Data associated with ${campName} not found`);

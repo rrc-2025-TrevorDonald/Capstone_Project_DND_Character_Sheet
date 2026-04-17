@@ -1,5 +1,9 @@
 import { Char } from "../models/charModel";
-import { QuerySnapshot } from "firebase-admin/firestore";
+import { 
+    QuerySnapshot,
+    DocumentData,
+    DocumentSnapshot,
+ } from "firebase-admin/firestore";
 import {
     createDocument,
     getDocuments,
@@ -397,7 +401,7 @@ export const createChar = async (charData: {
 export const getChars = async (): Promise<Char[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const chars: Char[] = snapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data: DocumentData | undefined = doc.data();
         return {
             charName: data.charName,
             email: data.email
@@ -414,7 +418,7 @@ export const getChars = async (): Promise<Char[]> => {
 export const getUserChars = async (email: string): Promise<Char[]> => {
     const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
     const chars: Char[] = snapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data: DocumentData | undefined = doc.data();
         return{
             charName: data.charName,
             email: data.email
@@ -430,12 +434,12 @@ export const getUserChars = async (email: string): Promise<Char[]> => {
  * @returns The char if found
  */
 export const getCharById = async (id: string): Promise<Char> => {
-    const doc = await getDocumentById(COLLECTION, id);
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
     if (!doc) {
         throw new CharNotFoundError(`${id} does not exist`);
     };
 
-    const data = doc.data();
+    const data: DocumentData | undefined = doc.data();
 
     if (!data) {
         throw new CharDataNotFoundError(`Data associated with ${id} not found`);
