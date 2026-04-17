@@ -9,7 +9,7 @@ const notesText = document.getElementById("notesText");
 const auth = sessionStorage.getItem("auth");
 const currentCampaign = sessionStorage.getItem("campaign")
 
-const campApi = "http://localhost:3000/api/v1/campaigns/campaign";
+const campApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/campaigns/campaign";
 
 const saveNotes = async (camp) => {
     const reqOptions = {

@@ -432,7 +432,7 @@ const auth = sessionStorage.getItem("auth");
 
 const selectedChar = sessionStorage.getItem("char");
 
-const charsApi = "http://localhost:3000/api/v1/chars/char/";
+const charsApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/chars/char/";
 
 const checkedYesNoPopulate = (output, input) => {
     if (input ==="1") {

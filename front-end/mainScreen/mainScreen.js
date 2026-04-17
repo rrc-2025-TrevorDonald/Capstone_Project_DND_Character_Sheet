@@ -16,7 +16,7 @@ const createBtn = document.getElementById("createBtn");
 const loginEmail = sessionStorage.getItem("user");
 const auth = sessionStorage.getItem("auth");
 
-const charApi = "http://localhost:3000/api/v1/chars";
+const charApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/chars";
 
 const removeErrorMessages = () => {
     const errorMessages = document.querySelectorAll(".errorMessage");
@@ -103,7 +103,7 @@ const authorizedDM = async () => {
         }
     };
 
-    const response =  await fetch("http://localhost:3000/api/v1/users/dm", reqOptions);
+    const response =  await fetch("https://capstone-project-dnd-character-sheet.onrender.com/api/v1/users/dm", reqOptions);
     const hasAuth = await response.json()
     if (hasAuth.error) {
         displayUserChars(loginEmail);

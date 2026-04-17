@@ -18,8 +18,8 @@ const noteBtn = document.getElementById("noteBtn");
 const loginEmail = sessionStorage.getItem("user");
 const auth = sessionStorage.getItem("auth");
 
-const campApi = "http://localhost:3000/api/v1/campaigns";
-const charApi = "http://localhost:3000/api/v1/chars/all";
+const campApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/campaigns";
+const charApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/chars/all";
 
 const currentCampaign = sessionStorage.getItem("campaign")
 

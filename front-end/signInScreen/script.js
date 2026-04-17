@@ -20,7 +20,7 @@ const createBtn = document.getElementById("createBtn");
 const createError = document.getElementById("createError");
 const completeMessage = document.getElementById("completeMessage");
 
-const userApi = "http://localhost:3000/api/v1/users"
+const userApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/users"
 
 const completeCreate = async () => {
     createH2.style.display = "none";
