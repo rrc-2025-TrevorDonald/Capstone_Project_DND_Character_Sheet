@@ -14,9 +14,9 @@ const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
 
 const loginEmail = sessionStorage.getItem("user");
-const userAuth = sessionStorage.getItem("auth");
+const auth = sessionStorage.getItem("auth");
 
-const charApi = "http://localhost:3000/api/v1/chars";
+const charApi = "https://capstone-project-dnd-character-sheet.onrender.com/api/v1/chars";
 
 const removeErrorMessages = () => {
     const errorMessages = document.querySelectorAll(".errorMessage");
@@ -35,7 +35,7 @@ const displayUserChars = async (userEmail) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${userAuth}`
+            "Authorization": `Bearer ${auth}`
         }
     };
 
@@ -71,7 +71,7 @@ const createChar = async () => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${userAuth}`
+            "Authorization": `Bearer ${auth}`
         },
         body: JSON.stringify({
             charName: charNameInput.value,
