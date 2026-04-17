@@ -103,7 +103,7 @@ const authorizedDM = async () => {
         }
     };
 
-    const response =  await fetch(charApi + "/dm", reqOptions);
+    const response =  await fetch("https://capstone-project-dnd-character-sheet.onrender.com/api/v1/users/dm", reqOptions);
     const hasAuth = await response.json()
     if (hasAuth.error) {
         displayUserChars(loginEmail);
