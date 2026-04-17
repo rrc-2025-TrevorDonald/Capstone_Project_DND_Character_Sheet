@@ -15,6 +15,11 @@ import {
 } from "firebase-admin/app";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth";
+const admin = require("firebase-admin")
+const serviceAccount = process.env.SERVICE_ACCOUNT
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 /**
  * Retrieves Firebase configuration from environment variables
