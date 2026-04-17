@@ -1,0 +1,58 @@
+{
+  "name": "capstone_project_dnd_character_sheet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "ts-node --transpile-only src/server.ts",
+    "build": "tsc",
+    "test": "jest",
+    "generate-docs": "ts-node scripts/generate-openapi.ts && npx @redocly/cli build-docs openapi.json --output docs/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrc-2025-TrevorDonald/Capstone_Project_DND_Character_Sheet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rrc-2025-TrevorDonald/Capstone_Project_DND_Character_Sheet/issues"
+  },
+  "homepage": "https://github.com/rrc-2025-TrevorDonald/Capstone_Project_DND_Character_Sheet#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.6.1",
+    "firestore": "^1.1.6",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "morgan": "^1.10.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^2.25.4",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/joi": "^17.2.2",
+    "@types/mocha": "^10.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.2.1",
+    "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "firestore-jest-mock": "^0.26.0",
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

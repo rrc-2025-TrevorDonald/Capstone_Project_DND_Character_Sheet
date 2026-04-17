@@ -1,0 +1,114 @@
+import Joi from "joi";
+import { RequestSchemas } from "../middleware/validate";
+
+
+/**
+ * Sign in (login) schema organized by request type
+ */
+export const signinSchemas: Record<string, RequestSchemas> = {
+    loginOrCreate: {
+        body: Joi.object({
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            }),
+            password: Joi.string().required().min(5).messages({
+                "string.required": '"password" is required',
+                "string.empty": '"password" is required',
+                "string.min": '"password" must be at least 5 characters long'
+            })
+        })
+    }
+};
+
+/**
+ * Char schema organized by request type
+ */
+export const charSchemas: Record<string, RequestSchemas> = {
+    create: {
+        body: Joi.object({
+            charName: Joi.string().required().messages({
+                "string.required": '"charName" is required',
+                "string.empty": '"charName" is required',
+            }),
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            }),
+        })
+    },
+    getUserChars: {
+        params: Joi.object({
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            })
+        })
+    },
+    delUpdateGet: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "string.required": '"id" is required',
+                "string.empty": '"id" is required',
+            }),
+        })
+    }
+};
+
+/**
+ * Campaign schema organized by request type
+ */
+export const campSchemas: Record<string, RequestSchemas> = {
+    create: {
+        body: Joi.object({
+            campName: Joi.string().required().messages({
+                "string.required": '"charName" is required',
+                "string.empty": '"charName" is required',
+            }),
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            }),
+        })
+    },
+    delUpdateGet: {
+        params: Joi.object({
+            campName: Joi.string().required().messages({
+                "string.required": '"campName" is required',
+                "string.empty": '"campName" is required',
+            })
+        })
+    },
+    emailParams: {
+        params: Joi.object({
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            })
+        })
+    },
+    addRemove: {
+        params: Joi.object({
+            campName: Joi.string().required().messages({
+                "string.required": '"campName" is required',
+                "string.empty": '"campName" is required',
+            }),
+        }),
+        body: Joi.object({
+            charName: Joi.string().required().messages({
+                "string.required": '"charName" is required',
+                "string.empty": '"charName" is required',
+            }),
+            email: Joi.string().required().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).messages({
+                "string.required": '"email" is required',
+                "string.empty": '"email" is required',
+                "string.pattern.base": '"email" must be a valid email format'
+            }),
+        })
+    }
+};

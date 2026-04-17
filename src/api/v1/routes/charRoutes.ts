@@ -1,0 +1,1094 @@
+import express, { Router } from "express";
+import * as charController from "../controllers/charController"
+import authenticate from "../middleware/authenticate";
+import isAuthorized from "../middleware/authorize";
+import { validateRequest } from "../middleware/validate";
+import { charSchemas } from "../validation/validation";
+
+const router: Router = express.Router();
+
+/**
+ * @openapi
+ * /chars:
+ *   post:
+ *     summary: Creates a new character
+ *     tags: [Chars]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - charName
+ *               - email
+ *             properties:
+ *               charName:
+ *                 type: string
+ *                 example: "Grognak"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: example@gmail.com
+ *     responses:
+ *       '201':
+ *         description: Char created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Char created successfully
+ *               data: { Char object: object }
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error creating char
+ */
+router.post(
+    "/",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.create),
+    charController.createChar
+);
+
+/**
+ * @openapi
+ * /chars/all:
+ *   get:
+ *     summary: Retrieves a list of all characters
+ *     tags: [Chars]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved users
+ *         content:
+ *           application/json:
+ *             example: [ { charName: Grognak, email: example@gmail.com}, { charName: Aldric, email: example2@gmail.com}, ... ]
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error getting chars
+ */
+router.get(
+    "/all",
+    authenticate,
+    isAuthorized({ hasRole: ["dm", "admin"]}),
+    charController.getChars
+);
+
+/**
+ * @openapi
+ * /users/:email:
+ *   get:
+ *     summary: Retrieves a list of all characters with that contain the given email
+ *     tags: [Chars]
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved users
+ *         content:
+ *           application/json:
+ *             example: [ { charName: Grognak, email: example@gmail.com}, ... ]
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error getting chars
+ */
+router.get(
+    "/:email",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.getUserChars),
+    charController.getUserChars
+);
+
+/**
+ * @openapi
+ * /users/user/:id:
+ *   get:
+ *     summary: Retrieve the character with matching charName as given
+ *     tags: [Chars]
+ *     parameters:
+ *       - name: charName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved users
+ *         content:
+ *           application/json:
+ *             example: { charName: Grognak, email: example@gmail.com }
+ *       '404':
+ *         description: User not found
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error getting char
+ */
+router.get(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.getChar
+);
+
+/**
+ * @openapi
+ * /users/user/:id:
+ *   put:
+ *     summary: Updates a char with selected charName
+ *     tags: [Chars]
+ *     parameters:
+ *       - name: charName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - charName
+ *               - email
+ *             properties:
+ *               charName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               level:
+ *                 type: string
+ *               xp:
+ *                 type: string
+ *               playerName:
+ *                 type: string
+ *               class:
+ *                 type: string
+ *               race:
+ *                 type: string
+ *               background:
+ *                 type: string
+ *               alignment:
+ *                 type: string
+ *               str:
+ *                 type: number
+ *               dex:
+ *                 type: number
+ *               con:
+ *                 type: number
+ *               int:
+ *                 type: number
+ *               wis:
+ *                 type: number
+ *               cha:
+ *                 type: number
+ *               inspiration:
+ *                 type: string
+ *               profBonus:
+ *                 type: string
+ *               checkboxStr:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveStr:
+ *                 type: string
+ *               checkboxDex:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveDex:
+ *                 type: string
+ *               checkboxCon:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveCon:
+ *                 type: string
+ *               checkboxInt:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveInt:
+ *                 type: string
+ *               checkboxWis:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveWis:
+ *                 type: string
+ *               checkboxCha:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               saveCha:
+ *                 type: string
+ *               checkboxAcro:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               acrobatics:
+ *                 type: string
+ *               checkboxAnimal:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               animal:
+ *                 type: string
+ *               checkboxArcana:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               arcana:
+ *                 type: string
+ *               checkboxAthl:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               athletics:
+ *                 type: string
+ *               checkboxDec:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               deception:
+ *                 type: string
+ *               checkboxHis:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               history:
+ *                 type: string
+ *               checkboxInsight:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               insight:
+ *                 type: string
+ *               checkboxInti:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               intimidation:
+ *                 type: string
+ *               checkboxInvest:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               investigation:
+ *                 type: string
+ *               checkboxMed:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               medicine:
+ *                 type: string
+ *               checkboxNat:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               nature:
+ *                 type: string
+ *               checkboxPercep:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               perception:
+ *                 type: string
+ *               checkboxPerf:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               performance:
+ *                 type: string
+ *               checkboxPers:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               persuasion:
+ *                 type: string
+ *               checkboxRel:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               religion:
+ *                 type: string
+ *               checkboxSleight:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               sleight:
+ *                 type: string
+ *               checkboxStealth:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               stealth:
+ *                 type: string
+ *               checkboxSurvival:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               survival:
+ *                 type: string
+ *               ac:
+ *                 type: string
+ *               initiative:
+ *                 type: string
+ *               speed:
+ *                 type: string
+ *               maxHP:
+ *                 type: string
+ *               currentHP:
+ *                 type: string
+ *               hitDice:
+ *                 type: string
+ *               totalHitDice:
+ *                 type: string
+ *               slot1Name:
+ *                 type: string
+ *               slot1ATKBonus:
+ *                 type: string
+ *               slot1DMG:
+ *                 type: string
+ *               slot2Name:
+ *                 type: string
+ *               slot2ATKBonus:
+ *                 type: string
+ *               slot2DMG:
+ *                 type: string
+ *               slot3Name:
+ *                 type: string
+ *               slot3ATKBonus:
+ *                 type: string
+ *               slot3DMG:
+ *                 type: string
+ *               atkSpellcast:
+ *                 type: string
+ *               pp: 
+ *                 type: string
+ *               gp: 
+ *                 type: string
+ *               ep: 
+ *                 type: string
+ *               sp: 
+ *                 type: string
+ *               cp: 
+ *                 type: string
+ *               equipment:
+ *                 type: string
+ *               personTraits:
+ *                 type: string
+ *               ideals:
+ *                 type: string
+ *               bonds:
+ *                 type: string
+ *               flaws:
+ *                 type: string
+ *               age:
+ *                 type: string
+ *               height:
+ *                 type: string
+ *               weight:
+ *                 type: string
+ *               eyes:
+ *                 type: string
+ *               skin:
+ *                 type: string
+ *               hair:
+ *                 type: string
+ *               backstory:
+ *                 type: string
+ *               alliesOrgs:
+ *                 type: string
+ *               featsTraits:
+ *                 type: string
+ *               addFeatsTraits:
+ *                 type: string
+ *               backpack:
+ *                 type: string
+ *               spellAbil:
+ *                 type: string
+ *               spellSaveDC:
+ *                 type: string
+ *               spellATKBonus:
+ *                 type: string
+ *               cantrips:
+ *                 type: string
+ *               total1Slots:
+ *                 type: string
+ *               slots1Expend:
+ *                 type: string
+ *               checkboxlvl101:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl101:
+ *                 type: string
+ *               checkboxlvl102:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl102:
+ *                 type: string
+ *               checkboxlvl103:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl103:
+ *                 type: string
+ *               checkboxlvl104:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl104:
+ *                 type: string
+ *               checkboxlvl105:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl105:
+ *                 type: string
+ *               checkboxlvl106:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl106:
+ *                 type: string
+ *               checkboxlvl107:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl107:
+ *                 type: string
+ *               checkboxlvl108:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl108:
+ *                 type: string
+ *               checkboxlvl109:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl109:
+ *                 type: string
+ *               checkboxlvl1010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl1010:
+ *                 type: string
+ *               checkboxlvl1011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl1011:
+ *                 type: string
+ *               checkboxlvl1012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl1012:
+ *                 type: string
+ *               checkboxlvl1013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl1013:
+ *                 type: string
+ *               total2Slots:
+ *                 type: string
+ *               slots2Expend:
+ *                 type: string
+ *               checkboxlvl201:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl201:
+ *                 type: string
+ *               checkboxlvl202:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl202:
+ *                 type: string
+ *               checkboxlvl203:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl203:
+ *                 type: string
+ *               checkboxlvl204:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl204:
+ *                 type: string
+ *               checkboxlvl205:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl205:
+ *                 type: string
+ *               checkboxlvl206:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl206:
+ *                 type: string
+ *               checkboxlvl207:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl207:
+ *                 type: string
+ *               checkboxlvl208:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl208:
+ *                 type: string
+ *               checkboxlvl209:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl209:
+ *                 type: string
+ *               checkboxlvl2010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl2010:
+ *                 type: string
+ *               checkboxlvl2011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl2011:
+ *                 type: string
+ *               checkboxlvl2012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl2012:
+ *                 type: string
+ *               checkboxlvl2013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl2013:
+ *                 type: string
+ *               total3Slots:
+ *                 type: string
+ *               slots3Expend:
+ *                 type: string
+ *               checkboxlvl301:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl301:
+ *                 type: string
+ *               checkboxlvl302:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl302:
+ *                 type: string
+ *               checkboxlvl303:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl303:
+ *                 type: string
+ *               checkboxlvl304:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl304:
+ *                 type: string
+ *               checkboxlvl305:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl305:
+ *                 type: string
+ *               checkboxlvl306:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl306:
+ *                 type: string
+ *               checkboxlvl307:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl307:
+ *                 type: string
+ *               checkboxlvl308:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl308:
+ *                 type: string
+ *               checkboxlvl309:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl309:
+ *                 type: string
+ *               checkboxlvl3010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl3010:
+ *                 type: string
+ *               checkboxlvl3011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl3011:
+ *                 type: string
+ *               checkboxlvl3012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl3012:
+ *                 type: string
+ *               checkboxlvl3013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl3013:
+ *                 type: string
+ *               total4Slots:
+ *                 type: string
+ *               slots4Expend:
+ *                 type: string
+ *               checkboxlvl401:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl401:
+ *                 type: string
+ *               checkboxlvl402:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl402:
+ *                 type: string
+ *               checkboxlvl403:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl403:
+ *                 type: string
+ *               checkboxlvl404:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl404:
+ *                 type: string
+ *               checkboxlvl405:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl405:
+ *                 type: string
+ *               checkboxlvl406:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl406:
+ *                 type: string
+ *               checkboxlvl407:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl407:
+ *                 type: string
+ *               checkboxlvl408:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl408:
+ *                 type: string
+ *               checkboxlvl409:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl409:
+ *                 type: string
+ *               checkboxlvl4010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl4010:
+ *                 type: string
+ *               checkboxlvl4011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl4011:
+ *                 type: string
+ *               checkboxlvl4012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl4012:
+ *                 type: string
+ *               checkboxlvl4013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl4013:
+ *                 type: string
+ *               total5Slots:
+ *                 type: string
+ *               slots5Expend:
+ *                 type: string
+ *               checkboxlvl501:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl501:
+ *                 type: string
+ *               checkboxlvl502:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl502:
+ *                 type: string
+ *               checkboxlvl503:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl503:
+ *                 type: string
+ *               checkboxlvl504:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl504:
+ *                 type: string
+ *               checkboxlvl505:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl505:
+ *                 type: string
+ *               checkboxlvl506:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl506:
+ *                 type: string
+ *               checkboxlvl507:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl507:
+ *                 type: string
+ *               checkboxlvl508:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl508:
+ *                 type: string
+ *               checkboxlvl509:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl509:
+ *                 type: string
+ *               checkboxlvl5010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl5010:
+ *                 type: string
+ *               checkboxlvl5011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl5011:
+ *                 type: string
+ *               checkboxlvl5012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl5012:
+ *                 type: string
+ *               checkboxlvl5013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl5013:
+ *                 type: string
+ *               total6Slots:
+ *                 type: string
+ *               slots6Expend:
+ *                 type: string
+ *               checkboxlvl601:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl601:
+ *                 type: string
+ *               checkboxlvl602:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl602:
+ *                 type: string
+ *               checkboxlvl603:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl603:
+ *                 type: string
+ *               checkboxlvl604:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl604:
+ *                 type: string
+ *               checkboxlvl605:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl605:
+ *                 type: string
+ *               checkboxlvl606:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl606:
+ *                 type: string
+ *               checkboxlvl607:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl607:
+ *                 type: string
+ *               checkboxlvl608:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl608:
+ *                 type: string
+ *               checkboxlvl609:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl609:
+ *                 type: string
+ *               checkboxlvl6010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl6010:
+ *                 type: string
+ *               checkboxlvl6011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl6011:
+ *                 type: string
+ *               checkboxlvl6012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl6012:
+ *                 type: string
+ *               checkboxlvl6013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl6013:
+ *                 type: string
+ *               total7Slots:
+ *                 type: string
+ *               slots7Expend:
+ *                 type: string
+ *               checkboxlvl701:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl701:
+ *                 type: string
+ *               checkboxlvl702:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl702:
+ *                 type: string
+ *               checkboxlvl703:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl703:
+ *                 type: string
+ *               checkboxlvl704:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl704:
+ *                 type: string
+ *               checkboxlvl705:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl705:
+ *                 type: string
+ *               checkboxlvl706:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl706:
+ *                 type: string
+ *               checkboxlvl707:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl707:
+ *                 type: string
+ *               checkboxlvl708:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl708:
+ *                 type: string
+ *               checkboxlvl709:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl709:
+ *                 type: string
+ *               checkboxlvl7010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl7010:
+ *                 type: string
+ *               checkboxlvl7011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl7011:
+ *                 type: string
+ *               checkboxlvl7012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl7012:
+ *                 type: string
+ *               checkboxlvl7013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl7013:
+ *                 type: string
+ *               total8Slots:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               slots8Expend:
+ *                 type: string
+ *               checkboxlvl801:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl801:
+ *                 type: string
+ *               checkboxlvl802:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl802:
+ *                 type: string
+ *               checkboxlvl803:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl803:
+ *                 type: string
+ *               checkboxlvl804:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl804:
+ *                 type: string
+ *               checkboxlvl805:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl805:
+ *                 type: string
+ *               checkboxlvl806:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl806:
+ *                 type: string
+ *               checkboxlvl807:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl807:
+ *                 type: string
+ *               checkboxlvl808:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl808:
+ *                 type: string
+ *               checkboxlvl809:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl809:
+ *                 type: string
+ *               checkboxlvl8010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl8010:
+ *                 type: string
+ *               checkboxlvl8011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl8011:
+ *                 type: string
+ *               checkboxlvl8012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl8012:
+ *                 type: string
+ *               checkboxlvl8013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl8013:
+ *                 type: string
+ *               total9Slots:
+ *                 type: string
+ *               slots9Expend:
+ *                 type: string
+ *               checkboxlvl901: 
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl901:
+ *                 type: string
+ *               checkboxlvl902:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl902:
+ *                 type: string
+ *               checkboxlvl903:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl903:
+ *                 type: string
+ *               checkboxlvl904:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl904:
+ *                 type: string
+ *               checkboxlvl905:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl905:
+ *                 type: string
+ *               checkboxlvl906:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl906:
+ *                 type: string
+ *               checkboxlvl907:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl907:
+ *                 type: string
+ *               checkboxlvl908:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl908:
+ *                 type: string
+ *               checkboxlvl909:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl909:
+ *                 type: string
+ *               checkboxlvl9010:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl9010:
+ *                 type: string
+ *               checkboxlvl9011:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl9011:
+ *                 type: string
+ *               checkboxlvl9012:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl9012:
+ *                 type: string
+ *               checkboxlvl9013:
+ *                 type: string
+ *                 example: "1 or 0, boolean using 1 or 0"
+ *               lvl9013:
+ *                 type: string
+ *               passWis:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully updated char
+ *         content:
+ *           application/json:
+ *             example: 
+ *               message: Character updated successfully
+ *               data: { charName: Grognak, email: example@gmail.com }
+ *       '404':
+ *         description: User not found
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error getting char
+ */
+router.put(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.updateChar
+);
+
+/**
+ * @openapi
+ * /users/user/:id:
+ *   delete:
+ *     summary: Deletes the characters with matching charName as given
+ *     tags: [Chars]
+ *     parameters:
+ *       - name: charName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully deleted char
+ *         content:
+ *           application/json:
+ *             example: { message: Char successfully deleted }
+ *       '404':
+ *         description: User not found
+ *       '403':
+ *         description: Insufficient role
+ *       '401':
+ *         description: Invalid token
+ *       '400':
+ *         description: Error deleting char
+ */
+router.delete(
+    "/char/:id",
+    authenticate,
+    isAuthorized({ hasRole: ["player", "dm", "admin"]}),
+    validateRequest(charSchemas.delUpdateGet),
+    charController.deleteChar
+);
+
+export default router;
