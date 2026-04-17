@@ -1,3 +1,5 @@
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 const dmButton = document.getElementById("DMBtn");
 const signOutBtn = document.getElementById("signOutBtn");
 
@@ -13,8 +15,14 @@ const playerInput = document.getElementById("playerInput");
 const backBtn = document.getElementById("backBtn");
 const createBtn = document.getElementById("createBtn");
 
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+const result = await signInWithPopup(auth, provider);
+const accessToken = GoogleAuthProvider.credentialFromResult(result)?.accessToken;
+
 const loginEmail = sessionStorage.getItem("user");
-const auth = sessionStorage.getItem("auth");
+const userAuth = sessionStorage.getItem("auth");
 
 const charApi = "http://localhost:3000/api/v1/chars";
 
@@ -35,7 +43,7 @@ const displayUserChars = async (userEmail) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${auth}`
+            "Authorization": `Bearer ${userAuth}`
         }
     };
 
@@ -71,7 +79,7 @@ const createChar = async () => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${auth}`
+            "Authorization": `Bearer ${userAuth}`
         },
         body: JSON.stringify({
             charName: charNameInput.value,
