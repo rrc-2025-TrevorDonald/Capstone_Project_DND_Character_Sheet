@@ -145,8 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../signInScreen/index.html";
     });
     backBtn.addEventListener("click", () => {
-        sessionStorage.removeItem("displayed")
-        window.location.href = "../mainScreen/mainScreen.html";
+        window.history.go(-1)
     });
     createBtn.addEventListener("click", () => {
         createCampaign();
